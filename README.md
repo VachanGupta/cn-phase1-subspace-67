@@ -10,9 +10,9 @@ nginx edge, and is served by one of two backends through a round-robin load bala
 
 | Enrolment no. | Name | Machine | Project role |
 |---|---|---|---|
-| TODO | Vachan Gupta | mac_vachan | DNS server (dnsmasq), Backend B, test client |
-| TODO | Aanya | mac_aanya | Edge reverse proxy, load balancer, TLS termination, local CA |
-| TODO | Abhay Malik | mac_abhay | Backend A, main test client (packet captures) |
+| 2401010485 | Vachan Gupta | mac_vachan | DNS server (dnsmasq), Backend B, test client |
+| 2401010006 | Aanya Mehrotra | mac_aanya | Edge reverse proxy, load balancer, TLS termination, local CA |
+| 2401020002 | Abhay Mallik | mac_abhay | Backend A, main test client (packet captures) |
 
 ## Topology
 

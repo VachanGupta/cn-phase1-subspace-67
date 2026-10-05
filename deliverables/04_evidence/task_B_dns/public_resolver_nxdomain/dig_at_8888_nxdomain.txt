@@ -1,0 +1,30 @@
+### 2026-10-05 19:58:48 IST
+### Proof that app.subspace-67.test exists only on our private DNS and is not a
+### real public domain: asking Google Public DNS directly returns NXDOMAIN.
+$ dig @8.8.8.8 app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> @8.8.8.8 app.subspace-67.test
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 6877
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; AUTHORITY SECTION:
+.			86238	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2026100500 1800 900 604800 86400
+
+;; Query time: 13 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Mon Oct 05 19:58:48 IST 2026
+;; MSG SIZE  rcvd: 124
+
+### Reading: status NXDOMAIN, ANSWER: 0. The AUTHORITY section is the root zone
+### SOA (a.root-servers.net), i.e. the resolver walked up to the root and found no
+### delegation for .test - the name does not exist in the public DNS hierarchy.
+### Contrast with task_B_dns/mac_abhay_client/04_dig_app.txt, where the same name
+### asked of our own server (10.7.23.136) returns NOERROR with A 10.7.19.193.
