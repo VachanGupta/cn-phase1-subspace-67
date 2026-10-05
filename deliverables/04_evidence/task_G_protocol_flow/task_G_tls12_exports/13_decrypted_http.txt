@@ -1,0 +1,338 @@
+### 2026-09-30 13:59:41 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng' -n -o tls.keylog_file:/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12_sslkeylog.txt -Y 'tcp.stream == 0 && (http || http2)' -O http,http2 -V
+Packet comments
+Frame 17: Packet, 135 bytes on wire (1080 bits), 135 bytes captured (1080 bits) on interface en0, id 0
+Ethernet II, Src: d6:d2:39:70:e5:9a, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.19.193, Dst: 10.7.1.136
+Transmission Control Protocol, Src Port: 443, Dst Port: 54389, Seq: 2820, Ack: 326, Len: 69
+Transport Layer Security
+HyperText Transfer Protocol 2
+    Stream: SETTINGS, Stream ID: 0, Length 18
+        Length: 18
+        Type: SETTINGS (4)
+        Flags: 0x00
+            0000 000. = Unused: 0x00
+            .... ...0 = ACK: False
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Stream Identifier: 0
+        Settings - Max concurrent streams : 128
+            Settings Identifier: Max concurrent streams (3)
+            Max concurrent streams: 128
+        Settings - Initial Windows size : 65536
+            Settings Identifier: Initial Windows size (4)
+            Initial Window Size: 65536
+        Settings - Max frame size : 16777215
+            Settings Identifier: Max frame size (5)
+            Max frame size: 16777215
+HyperText Transfer Protocol 2
+    Stream: WINDOW_UPDATE, Stream ID: 0, Length 4
+        Length: 4
+        Type: WINDOW_UPDATE (8)
+        Flags: 0x00
+            0000 0000 = Unused: 0x00
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Stream Identifier: 0
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .111 1111 1111 1111 0000 0000 0000 0000 = Window Size Increment: 2147418112
+        [Connection window size (before): 65535]
+        [Connection window size (after): 2147483647]
+
+Packet comments
+Frame 19: Packet, 211 bytes on wire (1688 bits), 211 bytes captured (1688 bits) on interface en0, id 0
+Ethernet II, Src: 8e:f6:fb:7b:0a:59, Dst: d6:d2:39:70:e5:9a
+Internet Protocol Version 4, Src: 10.7.1.136, Dst: 10.7.19.193
+Transmission Control Protocol, Src Port: 54389, Dst Port: 443, Seq: 326, Ack: 2889, Len: 145
+Transport Layer Security
+HyperText Transfer Protocol 2
+    Stream: Magic
+        Magic: PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n
+HyperText Transfer Protocol 2
+    Stream: SETTINGS, Stream ID: 0, Length 18
+        Length: 18
+        Type: SETTINGS (4)
+        Flags: 0x00
+            0000 000. = Unused: 0x00
+            .... ...0 = ACK: False
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Stream Identifier: 0
+        Settings - Max concurrent streams : 100
+            Settings Identifier: Max concurrent streams (3)
+            Max concurrent streams: 100
+        Settings - Initial Windows size : 65536
+            Settings Identifier: Initial Windows size (4)
+            Initial Window Size: 65536
+        Settings - Enable PUSH : 0
+            Settings Identifier: Enable PUSH (2)
+            Enable PUSH: 0
+HyperText Transfer Protocol 2
+    Stream: WINDOW_UPDATE, Stream ID: 0, Length 4
+        Length: 4
+        Type: WINDOW_UPDATE (8)
+        Flags: 0x00
+            0000 0000 = Unused: 0x00
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Stream Identifier: 0
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .011 1110 0111 1111 0000 0000 0000 0001 = Window Size Increment: 1048510465
+        [Connection window size (before): 65535]
+        [Connection window size (after): 1048576000]
+HyperText Transfer Protocol 2
+    Stream: HEADERS, Stream ID: 1, Length 43, GET /api/status
+        Length: 43
+        Type: HEADERS (1)
+        Flags: 0x05, End Headers, End Stream
+            00.0 ..0. = Unused: 0x00
+            ..0. .... = Priority: False
+            .... 0... = Padded: False
+            .... .1.. = End Headers: True
+            .... ...1 = End Stream: True
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0001 = Stream Identifier: 1
+        [Pad Length: 0]
+        Header Block Fragment: 8287418e1d75ae8b634563215671d5d254270488607599842469b51f7a8825b650c3cb85b5c153032a2f2a
+        [Header Length: 146]
+        [Header Count: 6]
+        Header: :method: GET
+            Name Length: 7
+            Name: :method
+            Value Length: 3
+            Value: GET
+            :method: GET
+            [Unescaped: GET]
+            Representation: Indexed Header Field
+            Index: 2
+        Header: :scheme: https
+            Name Length: 7
+            Name: :scheme
+            Value Length: 5
+            Value: https
+            :scheme: https
+            [Unescaped: https]
+            Representation: Indexed Header Field
+            Index: 7
+        Header: :authority: app.subspace-67.test
+            Name Length: 10
+            Name: :authority
+            Value Length: 20
+            Value: app.subspace-67.test
+            :authority: app.subspace-67.test
+            [Unescaped: app.subspace-67.test]
+            Representation: Literal Header Field with Incremental Indexing - Indexed Name
+            Index: 1
+        Header: :path: /api/status
+            Name Length: 5
+            Name: :path
+            Value Length: 11
+            Value: /api/status
+            :path: /api/status
+            [Unescaped: /api/status]
+            Representation: Literal Header Field without Indexing - Indexed Name
+            Index: 4
+        Header: user-agent: curl/8.15.0
+            Name Length: 10
+            Name: user-agent
+            Value Length: 11
+            Value: curl/8.15.0
+            user-agent: curl/8.15.0
+            [Unescaped: curl/8.15.0]
+            Representation: Literal Header Field with Incremental Indexing - Indexed Name
+            Index: 58
+        Header: accept: */*
+            Name Length: 6
+            Name: accept
+            Value Length: 3
+            Value: */*
+            accept: */*
+            [Unescaped: */*]
+            Representation: Literal Header Field with Incremental Indexing - Indexed Name
+            Index: 19
+        [Full request URI: https://app.subspace-67.test/api/status]
+
+Packet comments
+Frame 20: Packet, 104 bytes on wire (832 bits), 104 bytes captured (832 bits) on interface en0, id 0
+Ethernet II, Src: 8e:f6:fb:7b:0a:59, Dst: d6:d2:39:70:e5:9a
+Internet Protocol Version 4, Src: 10.7.1.136, Dst: 10.7.19.193
+Transmission Control Protocol, Src Port: 54389, Dst Port: 443, Seq: 471, Ack: 2889, Len: 38
+Transport Layer Security
+HyperText Transfer Protocol 2
+    Stream: SETTINGS, Stream ID: 0, Length 0
+        Length: 0
+        Type: SETTINGS (4)
+        Flags: 0x01, ACK
+            0000 000. = Unused: 0x00
+            .... ...1 = ACK: True
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Stream Identifier: 0
+
+Packet comments
+Frame 23: Packet, 104 bytes on wire (832 bits), 104 bytes captured (832 bits) on interface en0, id 0
+Ethernet II, Src: d6:d2:39:70:e5:9a, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.19.193, Dst: 10.7.1.136
+Transmission Control Protocol, Src Port: 443, Dst Port: 54389, Seq: 2889, Ack: 509, Len: 38
+Transport Layer Security
+HyperText Transfer Protocol 2
+    Stream: SETTINGS, Stream ID: 0, Length 0
+        Length: 0
+        Type: SETTINGS (4)
+        Flags: 0x01, ACK
+            0000 000. = Unused: 0x00
+            .... ...1 = ACK: True
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Stream Identifier: 0
+
+Packet comments
+Frame 26: Packet, 327 bytes on wire (2616 bits), 327 bytes captured (2616 bits) on interface en0, id 0
+Ethernet II, Src: d6:d2:39:70:e5:9a, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.19.193, Dst: 10.7.1.136
+Transmission Control Protocol, Src Port: 443, Dst Port: 54389, Seq: 2927, Ack: 509, Len: 261
+Transport Layer Security
+HyperText Transfer Protocol 2
+    Stream: HEADERS, Stream ID: 1, Length 89, 200 OK
+        Length: 89
+        Type: HEADERS (1)
+        Flags: 0x04, End Headers
+            00.0 ..0. = Unused: 0x00
+            ..0. .... = Priority: False
+            .... 0... = Padded: False
+            .... .1.. = End Headers: True
+            .... ...0 = End Stream: False
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0001 = Stream Identifier: 1
+        [Pad Length: 0]
+        Header Block Fragment: 887684aa6355e76196e4593e94640a6e2d6a080271403d704f5c034a62d1bf5f961d75d0620d263d4c7441eafb50938ec415305a99567b5c033132350087f2b4632752d5270142008920c9395621ea4d87a386a8eb2127b0bf
+        [Header Length: 201]
+        [Header Count: 7]
+        Header: :status: 200 OK
+            Name Length: 7
+            Name: :status
+            Value Length: 3
+            Value: 200
+            :status: 200
+            [Unescaped: 200]
+            Representation: Indexed Header Field
+            Index: 8
+        Header: server: nginx
+            Name Length: 6
+            Name: server
+            Value Length: 5
+            Value: nginx
+            server: nginx
+            [Unescaped: nginx]
+            Representation: Literal Header Field with Incremental Indexing - Indexed Name
+            Index: 54
+        Header: date: Wed, 30 Sep 2026 08:28:04 GMT
+            Name Length: 4
+            Name: date
+            Value Length: 29
+            Value: Wed, 30 Sep 2026 08:28:04 GMT
+            date: Wed, 30 Sep 2026 08:28:04 GMT
+            [Unescaped: Wed, 30 Sep 2026 08:28:04 GMT]
+            Representation: Literal Header Field with Incremental Indexing - Indexed Name
+            Index: 33
+        Header: content-type: application/json; charset=utf-8
+            Name Length: 12
+            Name: content-type
+            Value Length: 31
+            Value: application/json; charset=utf-8
+            content-type: application/json; charset=utf-8
+            [Unescaped: application/json; charset=utf-8]
+            Representation: Literal Header Field with Incremental Indexing - Indexed Name
+            Index: 31
+        Header: content-length: 125
+            Name Length: 14
+            Name: content-length
+            Value Length: 3
+            Value: 125
+            content-length: 125
+            [Unescaped: 125]
+            Representation: Literal Header Field with Incremental Indexing - Indexed Name
+            Index: 28
+        Header: x-backend: B
+            Name Length: 9
+            Name: x-backend
+            Value Length: 1
+            Value: B
+            [Unescaped: B]
+            Representation: Literal Header Field without Indexing - New Name
+        Header: cache-control: no-store
+            Name Length: 13
+            Name: cache-control
+            Value Length: 8
+            Value: no-store
+            cache-control: no-store
+            [Unescaped: no-store]
+            Representation: Literal Header Field without Indexing - New Name
+        [Time since request: 291.932000 milliseconds]
+        [Request in frame: 19]
+        [Full request URI: https://app.subspace-67.test/api/status]
+HyperText Transfer Protocol 2
+    Stream: DATA, Stream ID: 1, Length 125
+        Length: 125
+        Type: DATA (0)
+        Flags: 0x01, End Stream
+            0000 .00. = Unused: 0x00
+            .... 0... = Padded: False
+            .... ...1 = End Stream: True
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0001 = Stream Identifier: 1
+        [Pad Length: 0]
+        Data […]: 7b226261636b656e64223a202242222c2022737461747573223a20226f6b222c2022706f7274223a20333030322c2022686f7374223a202256616368616e732d4d6163426f6f6b2d50726f2e6c6f63616c222c202274696d65223a2022323032362d30392d33305431333a35383a30342e3
+        [Connection window size (before): 1048576000]
+        [Connection window size (after): 1048575875]
+        [Stream window size (before): 65536]
+        [Stream window size (after): 65411]
+        [Full request URI: https://app.subspace-67.test/api/status]
+    JavaScript Object Notation: application/json
+        Object
+            Member: backend
+                [Path with value: /backend:B]
+                [Member with value: backend:B]
+                String value: B
+                Key: backend
+                [Path: /backend]
+            Member: status
+                [Path with value: /status:ok]
+                [Member with value: status:ok]
+                String value: ok
+                Key: status
+                [Path: /status]
+            Member: port
+                [Path with value: /port:3002]
+                [Member with value: port:3002]
+                Number value: 3002
+                Key: port
+                [Path: /port]
+            Member: host
+                [Path with value: /host:Vachans-MacBook-Pro.local]
+                [Member with value: host:Vachans-MacBook-Pro.local]
+                String value: Vachans-MacBook-Pro.local
+                Key: host
+                [Path: /host]
+            Member: time
+                [Path with value: /time:2026-09-30T13:58:04.711+05:30]
+                [Member with value: time:2026-09-30T13:58:04.711+05:30]
+                String value: 2026-09-30T13:58:04.711+05:30
+                Key: time
+                [Path: /time]
+
+Packet comments
+Frame 28: Packet, 121 bytes on wire (968 bits), 121 bytes captured (968 bits) on interface en0, id 0
+Ethernet II, Src: 8e:f6:fb:7b:0a:59, Dst: d6:d2:39:70:e5:9a
+Internet Protocol Version 4, Src: 10.7.1.136, Dst: 10.7.19.193
+Transmission Control Protocol, Src Port: 54389, Dst Port: 443, Seq: 509, Ack: 3188, Len: 55
+Transport Layer Security
+HyperText Transfer Protocol 2
+    Stream: GOAWAY, Stream ID: 0, Length 17
+        Length: 17
+        Type: GOAWAY (7)
+        Flags: 0x00
+            0000 0000 = Unused: 0x00
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Stream Identifier: 0
+        0... .... .... .... .... .... .... .... = Reserved: 0x0
+        .000 0000 0000 0000 0000 0000 0000 0000 = Last-Stream-ID: 0
+        Error: NO_ERROR (0)
+        Additional Debug Data: 73687574646f776e00
+
+[exit code: 0]
+

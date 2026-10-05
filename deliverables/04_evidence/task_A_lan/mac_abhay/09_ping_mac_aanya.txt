@@ -1,0 +1,16 @@
+### 2026-09-30 13:24:53 IST on mac_abhay (10.7.1.136)
+$ ping -c 5 10.7.19.193; echo; arp -n 10.7.19.193
+PING 10.7.19.193 (10.7.19.193): 56 data bytes
+64 bytes from 10.7.19.193: icmp_seq=0 ttl=64 time=78.855 ms
+64 bytes from 10.7.19.193: icmp_seq=1 ttl=64 time=96.907 ms
+64 bytes from 10.7.19.193: icmp_seq=2 ttl=64 time=106.576 ms
+64 bytes from 10.7.19.193: icmp_seq=3 ttl=64 time=163.570 ms
+64 bytes from 10.7.19.193: icmp_seq=4 ttl=64 time=33.578 ms
+
+--- 10.7.19.193 ping statistics ---
+5 packets transmitted, 5 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 33.578/95.897/163.570/42.116 ms
+
+? (10.7.19.193) at d6:d2:39:70:e5:9a on en0 ifscope [ethernet]
+[exit code: 0]
+

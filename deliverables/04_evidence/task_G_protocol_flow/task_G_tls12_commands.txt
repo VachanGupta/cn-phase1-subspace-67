@@ -1,0 +1,106 @@
+### 2026-09-30 13:57:59 IST mac_abhay - Task G capture: dig + curl --tls-max 1.2 (TLS 1.2, Certificate visible) with SSLKEYLOGFILE
+# interface en0; mac_vachan (DNS) = 10.7.23.136; mac_aanya (edge) = 10.7.19.193:443
+
+$ sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+$ sudo tcpdump -i en0 -P -n -s 0 -U -w task_G_tls12.pcapng 'port 53 or host 10.7.19.193' &
+$ sudo tcpdump -i pktap,en0 -P -n -s 0 -U -w task_G_tls12_pktap_process.pcapng 'port 53 or host 10.7.19.193' &   (bonus: per-packet process name/PID)
+tcpdump: listening on en0, link-type EN10MB (Ethernet), snapshot length 524288 bytes
+
+$ dig app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 34675
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.19.193
+
+;; Query time: 255 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 13:58:03 IST 2026
+;; MSG SIZE  rcvd: 65
+
+
+$ env SSLKEYLOGFILE=/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12_sslkeylog.txt /opt/homebrew/opt/curl/bin/curl -v --tls-max 1.2 --cacert /Users/abhaymalik/Desktop/CN_subspace_67/certs/ca.crt https://app.subspace-67.test/api/status
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host app.subspace-67.test:443 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.19.193
+*   Trying 10.7.19.193:443...
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.2 (OUT), TLS handshake, Client hello (1):
+} [227 bytes data]
+*  CAfile: /Users/abhaymalik/Desktop/CN_subspace_67/certs/ca.crt
+*  CApath: none
+{ [5 bytes data]
+* TLSv1.2 (IN), TLS handshake, Server hello (2):
+{ [104 bytes data]
+* TLSv1.2 (IN), TLS handshake, Certificate (11):
+{ [2340 bytes data]
+* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+{ [300 bytes data]
+* TLSv1.2 (IN), TLS handshake, Server finished (14):
+{ [4 bytes data]
+* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+} [37 bytes data]
+* TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.2 (OUT), TLS handshake, Finished (20):
+} [16 bytes data]
+* TLSv1.2 (IN), TLS handshake, Finished (20):
+{ [16 bytes data]
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384 / x25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: O=subspace_67; CN=app.subspace-67.test
+*  start date: Sep 30 07:53:55 2026 GMT
+*  expire date: Nov  1 07:53:55 2027 GMT
+*  subjectAltName: host "app.subspace-67.test" matched cert's "app.subspace-67.test"
+*  issuer: O=subspace_67; OU=Computer Networks course project; CN=subspace_67 Local Root CA
+*  SSL certificate verify ok.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (3072/128 Bits/secBits), signed using sha256WithRSAEncryption
+* Connected to app.subspace-67.test (10.7.19.193) port 443
+* using HTTP/2
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* [HTTP/2] [1] OPENED stream for https://app.subspace-67.test/api/status
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: app.subspace-67.test]
+* [HTTP/2] [1] [:path: /api/status]
+* [HTTP/2] [1] [user-agent: curl/8.15.0]
+* [HTTP/2] [1] [accept: */*]
+} [5 bytes data]
+> GET /api/status HTTP/2
+> Host: app.subspace-67.test
+> User-Agent: curl/8.15.0
+> Accept: */*
+> 
+{ [5 bytes data]
+* Request completely sent off
+{ [5 bytes data]
+< HTTP/2 200 
+< server: nginx
+< date: Wed, 30 Sep 2026 08:28:04 GMT
+< content-type: application/json; charset=utf-8
+< content-length: 125
+< x-backend: B
+< cache-control: no-store
+< 
+{ [125 bytes data]
+100   125  100   125    0     0    259      0 --:--:-- --:--:-- --:--:--   259
+* Connection #0 to host app.subspace-67.test left intact
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:58:04.711+05:30"}
+[exit code: 0]
+36 packets captured
+1023 packets received by filter
+0 packets dropped by kernel
+$ (tcpdump stopped)

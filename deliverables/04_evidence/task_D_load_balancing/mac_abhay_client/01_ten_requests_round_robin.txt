@@ -1,0 +1,14 @@
+### 2026-09-30 13:51:49 IST on mac_abhay (10.7.1.136)
+$ for i in $(seq 1 10); do printf 'request %2d -> ' $i; /usr/bin/curl -sS  -o /dev/null -D - https://app.subspace-67.test/api/status | tr -d '\r' | awk 'tolower($1)=="x-backend:"{print "X-Backend: " $2}'; done
+request  1 -> X-Backend: B
+request  2 -> X-Backend: A
+request  3 -> X-Backend: B
+request  4 -> X-Backend: A
+request  5 -> X-Backend: B
+request  6 -> X-Backend: A
+request  7 -> X-Backend: B
+request  8 -> X-Backend: A
+request  9 -> X-Backend: B
+request 10 -> X-Backend: A
+[exit code: 0]
+

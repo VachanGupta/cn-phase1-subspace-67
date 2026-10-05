@@ -1,0 +1,4 @@
+$ /opt/homebrew/opt/dnsmasq/sbin/dnsmasq --keep-in-foreground -C /opt/homebrew/etc/dnsmasq.conf --log-facility=-   # as vachanP, non-root
+
+dnsmasq: failed to create listening socket for 10.7.23.136: Permission denied
+exit: dnsmasq could not bind port 53 on specific addresses as a normal user

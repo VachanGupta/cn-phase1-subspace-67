@@ -1,0 +1,7 @@
+### 2026-09-30 13:52:03 IST on mac_abhay (10.7.1.136)
+$ rm -f /Users/abhaymalik/Desktop/CN_subspace_67/logs/etag_demo.txt; /usr/bin/curl -sS  --etag-save /Users/abhaymalik/Desktop/CN_subspace_67/logs/etag_demo.txt -o /dev/null -w 'first request : %{http_code} (%{size_download} body bytes)\n' https://app.subspace-67.test/api/cache-demo; echo "saved ETag: $(cat /Users/abhaymalik/Desktop/CN_subspace_67/logs/etag_demo.txt)"; /usr/bin/curl -sS  --etag-compare /Users/abhaymalik/Desktop/CN_subspace_67/logs/etag_demo.txt -o /dev/null -w 'second request: %{http_code} (%{size_download} body bytes)\n' https://app.subspace-67.test/api/cache-demo
+first request : 200 (225 body bytes)
+saved ETag: "6adb0ec0cb57508d"
+second request: 304 (0 body bytes)
+[exit code: 0]
+

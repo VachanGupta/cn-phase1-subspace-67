@@ -1,0 +1,7 @@
+### 2026-09-30 13:51:45 IST on mac_abhay (10.7.1.136)
+$ dscacheutil -q host -a name app.subspace-67.test
+name: app.subspace-67.test
+ip_address: 10.7.19.193
+
+[exit code: 0]
+

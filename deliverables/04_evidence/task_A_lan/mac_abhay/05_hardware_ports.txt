@@ -1,0 +1,31 @@
+### 2026-09-30 13:21:17 IST on mac_abhay (10.7.1.136)
+$ networksetup -listallhardwareports
+
+Hardware Port: Ethernet Adapter (en3)
+Device: en3
+Ethernet Address: ba:1e:1e:16:cd:a8
+
+Hardware Port: Ethernet Adapter (en4)
+Device: en4
+Ethernet Address: ba:1e:1e:16:cd:a9
+
+Hardware Port: Thunderbolt Bridge
+Device: bridge0
+Ethernet Address: 36:9e:4d:80:2c:80
+
+Hardware Port: Wi-Fi
+Device: en0
+Ethernet Address: 10:9f:41:b9:7b:b6
+
+Hardware Port: Thunderbolt 1
+Device: en1
+Ethernet Address: 36:9e:4d:80:2c:80
+
+Hardware Port: Thunderbolt 2
+Device: en2
+Ethernet Address: 36:9e:4d:80:2c:84
+
+VLAN Configurations
+===================
+[exit code: 0]
+

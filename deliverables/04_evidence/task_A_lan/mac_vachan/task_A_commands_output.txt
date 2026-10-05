@@ -1,0 +1,70 @@
+# Task A - LAN identity of mac_vachan (captured 2026-09-30 13:20:38 IST)
+
+$ ifconfig en0
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether 6a:e1:56:86:a2:23
+	inet6 fe80::1028:8d1e:7b3c:83d4%en0 prefixlen 64 secured scopeid 0xb 
+	inet 10.7.23.136 netmask 0xffffe000 broadcast 10.7.31.255
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+
+$ route -n get default
+   route to: default
+destination: default
+       mask: default
+    gateway: 10.7.0.1
+  interface: en0
+      flags: <UP,GATEWAY,DONE,STATIC,PRCLONING,GLOBAL>
+ recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire
+       0         0         0         0         0         0      1500         0 
+
+$ networksetup -getinfo Wi-Fi
+DHCP Configuration
+IP address: 10.7.23.136
+Subnet mask: 255.255.224.0
+Router: 10.7.0.1
+Client ID: 
+IPv6: Automatic
+IPv6 IP address: none
+IPv6 Router: none
+Wi-Fi ID: 10:9f:41:ba:e3:83
+
+$ networksetup -listnetworkserviceorder | grep -B1 'Device: en0'
+(3) Wi-Fi
+(Hardware Port: Wi-Fi, Device: en0)
+
+$ ipconfig getifaddr en0
+10.7.23.136
+
+$ ipconfig getoption en0 subnet_mask
+255.255.224.0
+
+$ ipconfig getoption en0 router
+10.7.0.1
+
+$ networksetup -getmacaddress Wi-Fi
+Ethernet Address: 10:9f:41:ba:e3:83 (Hardware Port: Wi-Fi)
+
+$ netstat -rn -f inet | head -12
+Routing tables
+
+Internet:
+Destination        Gateway            Flags               Netif Expire
+default            10.7.0.1           UGScg                 en0       
+10.7/19            link#11            UCS                   en0      !
+10.7.0.1/32        link#11            UCS                   en0      !
+10.7.0.1           c0:c5:20:6f:38:ee  UHLWIir               en0   1199
+10.7.0.200         5a:57:53:b7:68:63  UHLWI                 en0      !
+10.7.0.202         3e:40:24:f3:93:89  UHLWI                 en0   1143
+10.7.0.208         80:d1:ce:11:c1:7d  UHLWI                 en0    950
+10.7.0.209         92:43:7b:91:21:29  UHLWI                 en0      !
+
+$ arp -an -i en0 | head -5
+? (10.7.0.1) at c0:c5:20:6f:38:ee on en0 ifscope [ethernet]
+? (10.7.0.200) at 5a:57:53:b7:68:63 on en0 ifscope [ethernet]
+? (10.7.0.202) at 3e:40:24:f3:93:89 on en0 ifscope [ethernet]
+? (10.7.0.208) at 80:d1:ce:11:c1:7d on en0 ifscope [ethernet]
+? (10.7.0.209) at 92:43:7b:91:21:29 on en0 ifscope [ethernet]
+

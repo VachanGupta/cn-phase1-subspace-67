@@ -1,0 +1,18 @@
+### 2026-09-30 13:59:42 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls13.pcapng' -n -Y 'tcp.stream == 0 && tls' -T fields -E header=y -E separator='|' -e frame.number -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tls.record.version -e tls.record.content_type -e tls.handshake.type -e _ws.col.info | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py
+frame.number  ip.src       tcp.srcport  ip.dst       tcp.dstport  tls.record.version    tls.record.content_type  tls.handshake.type  _ws.col.info
+8             10.7.1.136   54103        10.7.19.193  443          -                     -                        -                   -
+9             10.7.1.136   54103        10.7.19.193  443          0x0301                22                       1                   Client Hello (SNI=app.subspace-67.test)
+12            10.7.19.193  443          10.7.1.136   54103        0x0303,0x0303,0x0303  22,20                    2                   Server Hello, Change Cipher Spec, Application Data
+14            10.7.19.193  443          10.7.1.136   54103        0x0303,0x0303,0x0303  -                        -                   Application Data, Application Data, Application Data
+19            10.7.1.136   54103        10.7.19.193  443          0x0303,0x0303         20                       -                   Change Cipher Spec, Application Data
+20            10.7.1.136   54103        10.7.19.193  443          0x0303                -                        -                   Application Data
+22            10.7.19.193  443          10.7.1.136   54103        0x0303                -                        -                   Application Data
+23            10.7.19.193  443          10.7.1.136   54103        0x0303                -                        -                   Application Data
+24            10.7.19.193  443          10.7.1.136   54103        0x0303                -                        -                   Application Data
+28            10.7.1.136   54103        10.7.19.193  443          0x0303                -                        -                   Application Data
+44            10.7.19.193  443          10.7.1.136   54103        0x0303                -                        -                   Application Data
+46            10.7.1.136   54103        10.7.19.193  443          0x0303                -                        -                   Application Data
+47            10.7.1.136   54103        10.7.19.193  443          0x0303                -                        -                   Application Data
+[exit code: 0]
+

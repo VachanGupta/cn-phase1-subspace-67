@@ -1,0 +1,9 @@
+### 2026-09-30 13:51:49 IST on mac_abhay (10.7.1.136)
+$ netstat -an -p tcp | grep -E 'Proto|\.3001 '
+Proto Recv-Q Send-Q  Local Address                                 Foreign Address                               (state)    
+tcp4       0      0  10.7.1.136.3001        10.7.19.193.52172      ESTABLISHED
+tcp4       0      0  10.7.1.136.3001        10.7.19.193.52169      ESTABLISHED
+tcp4       0      0  10.7.1.136.3001        10.7.19.193.52055      ESTABLISHED
+tcp4       0      0  *.3001                 *.*                    LISTEN     
+[exit code: 0]
+

@@ -1,0 +1,26 @@
+### 2026-09-30 13:59:41 IST on mac_abhay (10.7.1.136)
+$ echo 'Conversations (who talked to whom, on which ports):'; '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng' -n -q -z conv,udp -z conv,tcp; echo; echo 'First packet of each flow: client ephemeral port -> server port'; '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng' -n -Y '(udp && dns.flags.response == 0) || (tcp.flags.syn == 1 && tcp.flags.ack == 0)' -T fields -E header=y -E separator='|' -e frame.number -e _ws.col.protocol -e ip.src -e udp.srcport -e tcp.srcport -e ip.dst -e udp.dstport -e tcp.dstport -e dns.qry.name | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py
+Conversations (who talked to whom, on which ports):
+================================================================================
+TCP Conversations
+Filter:<No Filter>
+                                                           |       <-      | |       ->      | |     Total     |    Relative    |   Duration   |
+                                                           | Frames  Bytes | | Frames  Bytes | | Frames  Bytes |      Start     |              |
+10.7.1.136:54389           <-> 10.7.19.193:443                 16 4267 bytes      16 1845 bytes      32 6112 bytes     1.466219000         0.4272
+================================================================================
+================================================================================
+UDP Conversations
+Filter:<No Filter>
+                                                           |       <-      | |       ->      | |     Total     |    Relative    |   Duration   |
+                                                           | Frames  Bytes | | Frames  Bytes | | Frames  Bytes |      Start     |              |
+10.7.1.136:54633           <-> 10.7.23.136:53                   1 107 bytes       1 91 bytes        2 198 bytes     0.000000000         0.2555
+10.7.1.136:52172           <-> 10.7.23.136:53                   1 96 bytes        1 80 bytes        2 176 bytes     1.399805000         0.0653
+================================================================================
+
+First packet of each flow: client ephemeral port -> server port
+frame.number  _ws.col.protocol  ip.src      udp.srcport  tcp.srcport  ip.dst       udp.dstport  tcp.dstport  dns.qry.name
+1             DNS               10.7.1.136  54633        -            10.7.23.136  53           -            app.subspace-67.test
+3             DNS               10.7.1.136  52172        -            10.7.23.136  53           -            app.subspace-67.test
+5             TCP               10.7.1.136  -            54389        10.7.19.193  -            443          -
+[exit code: 0]
+

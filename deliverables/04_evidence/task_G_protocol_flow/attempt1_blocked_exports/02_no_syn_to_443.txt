@@ -1,0 +1,18 @@
+### 2026-09-30 14:03:48 IST on mac_abhay (10.7.1.136)
+$ echo 'SYNs from this Mac to the edge port 443 (expected: none, because the connect() was blocked locally):'; '/Applications/Wireshark.app/Contents/MacOS/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/attempt1_blocked_task_G_tls12.pcapng' -n -Y 'tcp.dstport == 443 && tcp.flags.syn == 1' | wc -l; echo; echo 'DNS for app.subspace-67.test (worked):'; '/Applications/Wireshark.app/Contents/MacOS/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/attempt1_blocked_task_G_tls12.pcapng' -n -Y 'dns.qry.name == "app.subspace-67.test"'; echo; echo 'curl output from that attempt:'; grep -E 'Trying|Immediate connect fail|Failed to connect' '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/attempt1_blocked_task_G_tls12_commands.txt'
+SYNs from this Mac to the edge port 443 (expected: none, because the connect() was blocked locally):
+       0
+
+DNS for app.subspace-67.test (worked):
+   29   1.473862   10.7.1.136 → 10.7.23.136  DNS 91 Standard query 0x9ec3 A app.subspace-67.test OPT
+   30   1.518036  10.7.23.136 → 10.7.1.136   DNS 107 Standard query response 0x9ec3 A app.subspace-67.test A 10.7.19.193 OPT
+   31   2.565031   10.7.1.136 → 10.7.23.136  DNS 80 Standard query 0xdb85 A app.subspace-67.test
+   32   2.579388  10.7.23.136 → 10.7.1.136   DNS 96 Standard query response 0xdb85 A app.subspace-67.test A 10.7.19.193
+
+curl output from that attempt:
+*   Trying 10.7.19.193:443...
+* Immediate connect fail for 10.7.19.193: No route to host
+* Failed to connect to app.subspace-67.test port 443 after 17 ms: Couldn't connect to server
+curl: (7) Failed to connect to app.subspace-67.test port 443 after 17 ms: Couldn't connect to server
+[exit code: 0]
+

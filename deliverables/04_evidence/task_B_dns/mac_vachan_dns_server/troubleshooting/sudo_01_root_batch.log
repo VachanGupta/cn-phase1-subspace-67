@@ -1,0 +1,24 @@
+=== 2026-09-30 13:41:02 IST  sudo_01 on mac_vachan  IP=10.7.23.136  IF=en0
+--- 1. dnsmasq as a root Homebrew service
+Warning: Taking root:admin ownership of some dnsmasq paths:
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin/dnsmasq
+  /opt/homebrew/opt/dnsmasq
+  /opt/homebrew/opt/dnsmasq/sbin
+  /opt/homebrew/var/homebrew/linked/dnsmasq
+This will require manual removal of these paths using `sudo rm` on
+brew upgrade/reinstall/uninstall.
+==> Successfully started `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+dig @10.7.23.136 app.subspace-67.test -> 
+; <<>> DiG 9.10.6 <<>> @10.7.23.136 app.subspace-67.test +short +time=1 +tries=1
+; (1 server found)
+;; global options: +cmd
+;; connection timed out; no servers could be reached
+dig @10.7.23.136 google.com -> 
+--- 2. this Mac uses its own DNS server (10.7.23.136)
+DNS servers for Wi-Fi: 10.7.23.136 
+--- 3. trust the team CA in the System keychain
+CA trusted (SSL policy): subject=O=subspace_67, OU=Computer Networks course project, CN=subspace_67 Local Root CA
+--- verify
+CA present in System keychain
+=== sudo_01 done - you can close this and tell the operator

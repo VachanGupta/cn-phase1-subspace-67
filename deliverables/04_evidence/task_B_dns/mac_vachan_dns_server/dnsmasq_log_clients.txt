@@ -1,0 +1,74 @@
+# Task B - dnsmasq query log: which clients asked (lines from 10.7.19.193 = mac_aanya, 10.7.1.136 = mac_abhay) - captured on mac_vachan (10.7.23.136) 2026-09-30 14:13:58 IST
+# mac_aanya (edge) = 10.7.19.193, mac_abhay = 10.7.1.136, mac_vachan (DNS server + Backend B) = 10.7.23.136
+
+$ grep -E 'from (10.7.19.193|10.7.1.136)' logs/dnsmasq.log | grep -E 'subspace-67' | head -40
+Sep 30 13:47:50 dnsmasq[57900]: 457 10.7.1.136/57447 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:47:50 dnsmasq[57900]: 458 10.7.19.193/61585 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:47:50 dnsmasq[57900]: 459 10.7.1.136/63100 query[A] api.subspace-67.test from 10.7.1.136
+Sep 30 13:47:50 dnsmasq[57900]: 460 10.7.19.193/50853 query[A] api.subspace-67.test from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 510 10.7.19.193/60758 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:49:55 dnsmasq[57900]: 562 10.7.19.193/54301 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:49:55 dnsmasq[57900]: 563 10.7.19.193/55133 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:50:14 dnsmasq[57900]: 576 10.7.19.193/52014 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:50:15 dnsmasq[57900]: 577 10.7.19.193/59052 query[A] api.subspace-67.test from 10.7.19.193
+Sep 30 13:50:39 dnsmasq[57900]: 589 10.7.1.136/59184 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:50:39 dnsmasq[57900]: 590 10.7.1.136/62930 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:50:48 dnsmasq[57900]: 591 10.7.19.193/50454 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:51:44 dnsmasq[57900]: 661 10.7.1.136/64908 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:51:45 dnsmasq[57900]: 662 10.7.1.136/56873 query[A] api.subspace-67.test from 10.7.1.136
+Sep 30 13:51:45 dnsmasq[57900]: 663 10.7.1.136/62159 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:51:45 dnsmasq[58679]: 664 10.7.1.136/53831 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:51:45 dnsmasq[57900]: 764 10.7.1.136/51594 query[AAAA] app.subspace-67.test from 10.7.1.136
+Sep 30 13:51:53 dnsmasq[57900]: 770 10.7.1.136/64902 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:51:57 dnsmasq[57900]: 775 10.7.1.136/51985 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:51:57 dnsmasq[57900]: 776 10.7.1.136/51411 query[A] api.subspace-67.test from 10.7.1.136
+Sep 30 13:52:33 dnsmasq[57900]: 798 10.7.19.193/52681 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:54:20 dnsmasq[57900]: 926 10.7.1.136/64502 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:54:23 dnsmasq[57900]: 944 10.7.1.136/55141 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:54:24 dnsmasq[57900]: 947 10.7.1.136/55204 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:54:30 dnsmasq[57900]: 959 10.7.1.136/61173 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:54:31 dnsmasq[57900]: 962 10.7.1.136/53824 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:58:03 dnsmasq[57900]: 1087 10.7.1.136/54633 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:58:04 dnsmasq[57900]: 1090 10.7.1.136/52172 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 13:59:50 dnsmasq[57900]: 1162 10.7.19.193/51395 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:59:50 dnsmasq[57900]: 1163 10.7.19.193/62224 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 13:59:50 dnsmasq[57900]: 1164 10.7.19.193/51170 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 14:01:26 dnsmasq[57900]: 1243 10.7.19.193/59162 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 14:01:26 dnsmasq[57900]: 1244 10.7.19.193/62193 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 14:01:26 dnsmasq[57900]: 1245 10.7.19.193/61888 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 14:02:13 dnsmasq[57900]: 1283 10.7.19.193/56208 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 14:02:13 dnsmasq[57900]: 1284 10.7.19.193/53212 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 14:02:13 dnsmasq[57900]: 1285 10.7.19.193/55213 query[A] app.subspace-67.test from 10.7.19.193
+Sep 30 14:06:52 dnsmasq[57900]: 1518 10.7.1.136/55283 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 14:06:53 dnsmasq[57900]: 1519 10.7.1.136/56644 query[A] app.subspace-67.test from 10.7.1.136
+Sep 30 14:12:08 dnsmasq[61110]: 422 10.7.1.136/60401 query[A] app.subspace-67.test from 10.7.1.136
+
+$ grep -E 'from (10.7.19.193|10.7.1.136)' logs/dnsmasq.log | grep -vE 'subspace-67' | head -15   # forwarded internet names
+Sep 30 13:47:50 dnsmasq[57900]: 461 10.7.1.136/62812 query[A] api.anthropic.com from 10.7.1.136
+Sep 30 13:47:50 dnsmasq[57900]: 462 10.7.19.193/49815 query[A] api.anthropic.com from 10.7.19.193
+Sep 30 13:47:50 dnsmasq[57900]: 463 10.7.1.136/56071 query[A] claude.ai from 10.7.1.136
+Sep 30 13:47:51 dnsmasq[57900]: 464 10.7.19.193/63333 query[A] google.com from 10.7.19.193
+Sep 30 13:47:51 dnsmasq[57900]: 465 10.7.1.136/57473 query[A] google.com from 10.7.1.136
+Sep 30 13:49:23 dnsmasq[57900]: 511 10.7.19.193/52751 query[A] api.anthropic.com from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 514 10.7.19.193/58054 query[PTR] lb._dns-sd._udp.0.0.7.10.in-addr.arpa from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 515 10.7.19.193/65036 query[SVCB] _dns.resolver.arpa from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 516 10.7.19.193/60780 query[PTR] 193.19.7.10.in-addr.arpa from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 517 10.7.19.193/56651 query[A] www.apple.com from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 518 10.7.19.193/58518 query[SVCB] _dns.resolver.arpa from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 519 10.7.19.193/59030 query[HTTPS] dns.google from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 520 10.7.19.193/50597 query[A] sentry.io from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 521 10.7.19.193/59253 query[A] 1-courier.push.apple.com from 10.7.19.193
+Sep 30 13:49:23 dnsmasq[57900]: 522 10.7.19.193/50142 query[A] 1-courier.sandbox.push.apple.com from 10.7.19.193
+
+$ grep -cE 'from 10.7.19.193' logs/dnsmasq.log; grep -cE 'from 10.7.1.136' logs/dnsmasq.log; grep -cE 'from (10.7.23.136|127.0.0.1)' logs/dnsmasq.log
+queries from mac_aanya: 248
+queries from mac_abhay: 396
+queries from mac_vachan itself: 1009
+
+$ grep -E 'config app.subspace-67.test|query\[A\] app.subspace-67.test' logs/dnsmasq.log | tail -6
+Sep 30 14:13:57 dnsmasq[61110]: 511 10.7.23.136/60581 config app.subspace-67.test is NODATA-IPv6
+Sep 30 14:13:58 dnsmasq[61110]: 516 10.7.23.136/65008 query[A] app.subspace-67.test from 10.7.23.136
+Sep 30 14:13:58 dnsmasq[61110]: 516 10.7.23.136/65008 config app.subspace-67.test is 10.7.19.193
+Sep 30 14:13:58 dnsmasq[61110]: 518 10.7.23.136/52316 config app.subspace-67.test is NODATA-IPv6
+Sep 30 14:13:58 dnsmasq[61110]: 519 10.7.23.136/53364 query[A] app.subspace-67.test from 10.7.23.136
+Sep 30 14:13:58 dnsmasq[61110]: 519 10.7.23.136/53364 config app.subspace-67.test is 10.7.19.193

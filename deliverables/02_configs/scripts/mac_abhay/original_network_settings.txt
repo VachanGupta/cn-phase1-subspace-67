@@ -1,0 +1,18 @@
+# Saved 2026-09-30T07:49:05Z before any change by the subspace_67 project
+service=Wi-Fi
+dns_servers=There aren't any DNS Servers set on Wi-Fi. 
+search_domains=There aren't any Search Domains set on Wi-Fi. 
+--- scutil --dns resolver #1 ---
+resolver #1
+  nameserver[0] : 8.8.8.8
+  nameserver[1] : 10.5.7.1
+  if_index : 11 (en0)
+  flags    : Request A records
+  reach    : 0x00000002 (Reachable)
+
+resolver #1
+  nameserver[0] : 8.8.8.8
+  nameserver[1] : 10.5.7.1
+  if_index : 11 (en0)
+  flags    : Scoped, Request A records
+  reach    : 0x00000002 (Reachable)

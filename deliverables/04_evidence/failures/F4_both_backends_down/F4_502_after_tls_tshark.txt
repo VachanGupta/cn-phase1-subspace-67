@@ -1,0 +1,102 @@
+### All packets
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F4_both_backends_down/F4_502_after_tls.pcapng -n
+    1   0.000000  10.7.23.136 → 10.7.19.193  TCP 78 49697 → 443 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=2205493027 TSecr=0 SACK_PERM
+    2   0.014285  10.7.19.193 → 10.7.23.136  TCP 78 443 → 49697 [SYN, ACK, ECE] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460 WS=64 TSval=3049901339 TSecr=2205493027 SACK_PERM
+    3   0.014522  10.7.23.136 → 10.7.19.193  TCP 66 49697 → 443 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=2205493041 TSecr=3049901339
+    4   0.014737  10.7.23.136 → 10.7.19.193  TLSv1 396 Client Hello (SNI=app.subspace-67.test)
+    5   0.022959  10.7.19.193 → 10.7.23.136  TCP 66 [TCP Window Update] 443 → 49697 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=3049901347 TSecr=2205493041
+    6   0.022961  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49697 [ACK] Seq=1 Ack=331 Win=131456 Len=0 TSval=3049901348 TSecr=2205493042
+    7   0.026682  10.7.19.193 → 10.7.23.136  TLSv1.3 1514 Server Hello, Change Cipher Spec, Application Data
+    8   0.026685  10.7.19.193 → 10.7.23.136  TLSv1.3 1514 Application Data, Application Data
+    9   0.026687  10.7.19.193 → 10.7.23.136  TLSv1.3 83 Application Data
+   10   0.026797  10.7.23.136 → 10.7.19.193  TCP 66 49697 → 443 [ACK] Seq=331 Ack=2914 Win=128896 Len=0 TSval=2205493054 TSecr=3049901352
+   11   0.030137  10.7.23.136 → 10.7.19.193  TLSv1.3 72 Change Cipher Spec
+   12   0.030163  10.7.23.136 → 10.7.19.193  TLSv1.3 124 Application Data
+   13   0.030237  10.7.23.136 → 10.7.19.193  TLSv1.3 152 Application Data
+   14   0.030282  10.7.23.136 → 10.7.19.193  TLSv1.3 140 Application Data
+   15   0.039658  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49697 [ACK] Seq=2914 Ack=555 Win=131264 Len=0 TSval=3049901365 TSecr=2205493057
+   16   0.039661  10.7.19.193 → 10.7.23.136  TLSv1.3 353 Application Data
+   17   0.039663  10.7.19.193 → 10.7.23.136  TLSv1.3 353 Application Data
+   18   0.039808  10.7.23.136 → 10.7.19.193  TCP 66 49697 → 443 [ACK] Seq=555 Ack=3488 Win=130560 Len=0 TSval=2205493067 TSecr=3049901366
+   19   0.043370  10.7.19.193 → 10.7.23.136  TLSv1.3 137 Application Data
+   20   0.043507  10.7.23.136 → 10.7.19.193  TCP 66 49697 → 443 [ACK] Seq=555 Ack=3559 Win=131008 Len=0 TSval=2205493070 TSecr=3049901367
+   21   0.043617  10.7.23.136 → 10.7.19.193  TLSv1.3 97 Application Data
+   22   0.053515  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49697 [ACK] Seq=3559 Ack=586 Win=131264 Len=0 TSval=3049901377 TSecr=2205493071
+   23   0.590907  10.7.23.136 → 10.7.19.193  TCP 54 [TCP Keep-Alive] 49697 → 443 [ACK] Seq=585 Ack=3559 Win=131072 Len=0
+   24   0.603686  10.7.19.193 → 10.7.23.136  TCP 66 [TCP Keep-Alive ACK] 443 → 49697 [ACK] Seq=3559 Ack=586 Win=131264 Len=0 TSval=3049901926 TSecr=2205493071
+   25   2.072376  10.7.19.193 → 10.7.23.136  TLSv1.3 305 Application Data
+   26   2.072559  10.7.23.136 → 10.7.19.193  TCP 66 49697 → 443 [ACK] Seq=586 Ack=3798 Win=130880 Len=0 TSval=2205495099 TSecr=3049903395
+   27   2.073400  10.7.23.136 → 10.7.19.193  TLSv1.3 90 Application Data
+   28   2.074920  10.7.23.136 → 10.7.19.193  TCP 66 49697 → 443 [FIN, ACK] Seq=610 Ack=3798 Win=131072 Len=0 TSval=2205495102 TSecr=3049903395
+   29   2.082186  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49697 [ACK] Seq=3798 Ack=610 Win=131264 Len=0 TSval=3049903405 TSecr=2205495100
+   30   2.082189  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49697 [FIN, ACK] Seq=3798 Ack=610 Win=131264 Len=0 TSval=3049903405 TSecr=2205495100
+   31   2.082190  10.7.19.193 → 10.7.23.136  TCP 66 [TCP Retransmission] 443 → 49697 [FIN, ACK] Seq=3798 Ack=611 Win=131264 Len=0 TSval=3049903408 TSecr=2205495102
+   32   2.082406  10.7.23.136 → 10.7.19.193  TCP 66 [TCP Retransmission] 49697 → 443 [FIN, ACK] Seq=610 Ack=3799 Win=131072 Len=0 TSval=2205495109 TSecr=3049903405
+   33   2.082507  10.7.23.136 → 10.7.19.193  TCP 66 [TCP Dup ACK 32#1] 49697 → 443 [ACK] Seq=611 Ack=3799 Win=131072 Len=0 TSval=2205495109 TSecr=3049903405
+   34   2.089490  10.7.19.193 → 10.7.23.136  TCP 66 [TCP Dup ACK 31#1] 443 → 49697 [ACK] Seq=3799 Ack=611 Win=131264 Len=0 TSval=3049903414 TSecr=2205495102
+   35   2.269477  10.7.23.136 → 10.7.19.193  TCP 78 49704 → 443 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3727105256 TSecr=0 SACK_PERM
+   36   2.402266  10.7.19.193 → 10.7.23.136  TCP 78 443 → 49704 [SYN, ACK, ECE] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460 WS=64 TSval=1453618750 TSecr=3727105256 SACK_PERM
+   37   2.402472  10.7.23.136 → 10.7.19.193  TCP 66 49704 → 443 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=3727105389 TSecr=1453618750
+   38   2.411985  10.7.19.193 → 10.7.23.136  TCP 66 [TCP Window Update] 443 → 49704 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=1453618760 TSecr=3727105389
+   39   2.413026  10.7.23.136 → 10.7.19.193  SSL 1514 
+   40   2.413068  10.7.23.136 → 10.7.19.193  TLSv1.2 187 Client Hello (SNI=app.subspace-67.test)
+   41   2.420024  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49704 [ACK] Seq=1 Ack=1570 Win=130240 Len=0 TSval=1453618768 TSecr=3727105400
+   42   2.428519  10.7.19.193 → 10.7.23.136  TLSv1.3 1514 Server Hello, Change Cipher Spec, Application Data
+   43   2.428524  10.7.19.193 → 10.7.23.136  TCP 1514 443 → 49704 [ACK] Seq=1449 Ack=1570 Win=131072 Len=1448 TSval=1453618777 TSecr=3727105400
+   44   2.428526  10.7.19.193 → 10.7.23.136  TLSv1.3 1159 Application Data, Application Data, Application Data
+   45   2.428741  10.7.23.136 → 10.7.19.193  TCP 66 49704 → 443 [ACK] Seq=1570 Ack=3990 Win=127808 Len=0 TSval=3727105416 TSecr=1453618777
+   46   2.436133  10.7.23.136 → 10.7.19.193  TCP 66 [TCP Window Update] 49704 → 443 [ACK] Seq=1570 Ack=3990 Win=131072 Len=0 TSval=3727105423 TSecr=1453618777
+   47   2.436372  10.7.23.136 → 10.7.19.193  TLSv1.3 146 Change Cipher Spec, Application Data
+   48   2.438017  10.7.23.136 → 10.7.19.193  TLSv1.3 204 Application Data
+   49   2.438057  10.7.23.136 → 10.7.19.193  TLSv1.3 114 Application Data
+   50   2.449304  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49704 [ACK] Seq=3990 Ack=1836 Win=130816 Len=0 TSval=1453618796 TSecr=3727105425
+   51   2.449307  10.7.19.193 → 10.7.23.136  TLSv1.3 369 Application Data
+   52   2.449310  10.7.19.193 → 10.7.23.136  TLSv1.3 369 Application Data
+   53   2.449549  10.7.23.136 → 10.7.19.193  TCP 66 49704 → 443 [ACK] Seq=1836 Ack=4596 Win=130496 Len=0 TSval=3727105436 TSecr=1453618798
+   54   2.450817  10.7.19.193 → 10.7.23.136  TLSv1.3 195 Application Data
+   55   2.450820  10.7.19.193 → 10.7.23.136  TLSv1.3 247 Application Data
+   56   2.451010  10.7.23.136 → 10.7.19.193  TCP 66 49704 → 443 [ACK] Seq=1836 Ack=4906 Win=130816 Len=0 TSval=3727105438 TSecr=1453618799
+   57   2.453294  10.7.23.136 → 10.7.19.193  TLSv1.3 97 Application Data
+   58   2.454355  10.7.23.136 → 10.7.19.193  TLSv1.3 114 Application Data
+   59   2.454458  10.7.23.136 → 10.7.19.193  TLSv1.3 90 Application Data
+   60   2.454781  10.7.23.136 → 10.7.19.193  TCP 66 49704 → 443 [FIN, ACK] Seq=1939 Ack=4906 Win=131072 Len=0 TSval=3727105442 TSecr=1453618799
+   61   2.461783  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49704 [ACK] Seq=4906 Ack=1867 Win=131072 Len=0 TSval=1453618809 TSecr=3727105439
+   62   2.466759  10.7.19.193 → 10.7.23.136  TCP 78 [TCP Dup ACK 61#1] 443 → 49704 [ACK] Seq=4906 Ack=1867 Win=131072 Len=0 TSval=1453618814 TSecr=3727105439 SLE=1939 SRE=1940
+   63   2.466762  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49704 [ACK] Seq=4906 Ack=1940 Win=131008 Len=0 TSval=1453618814 TSecr=3727105441
+   64   2.466764  10.7.19.193 → 10.7.23.136  TCP 54 443 → 49704 [RST, ACK] Seq=4906 Ack=1940 Win=131008 Len=0
+
+### TCP handshake, TLS handshake, then encrypted application data (per connection = tcp.stream)
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F4_both_backends_down/F4_502_after_tls.pcapng -n -Y 'tcp.flags.syn == 1 or tls.handshake or tls.record.content_type == 23 or tcp.flags.fin == 1 or tcp.flags.reset == 1' -T fields -E header=y -E separator=/t -e frame.number -e tcp.stream -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.flags.str -e tls.handshake.type -e tls.record.content_type -e tls.handshake.extensions_server_name
+frame.number	tcp.stream	ip.src	tcp.srcport	ip.dst	tcp.dstport	tcp.flags.str	tls.handshake.type	tls.record.content_type	tls.handshake.extensions_server_name
+1	0	10.7.23.136	49697	10.7.19.193	443	····CE····S·			
+2	0	10.7.19.193	443	10.7.23.136	49697	·····E·A··S·			
+4	0	10.7.23.136	49697	10.7.19.193	443	·······AP···	1	22	app.subspace-67.test
+7	0	10.7.19.193	443	10.7.23.136	49697	·······A····	2	22,20	
+28	0	10.7.23.136	49697	10.7.19.193	443	·······A···F			
+30	0	10.7.19.193	443	10.7.23.136	49697	·······A···F			
+31	0	10.7.19.193	443	10.7.23.136	49697	·······A···F			
+32	0	10.7.23.136	49697	10.7.19.193	443	·······A···F			
+35	1	10.7.23.136	49704	10.7.19.193	443	····CE····S·			
+36	1	10.7.19.193	443	10.7.23.136	49704	·····E·A··S·			
+40	1	10.7.23.136	49704	10.7.19.193	443	·······AP···	1	22	app.subspace-67.test
+42	1	10.7.19.193	443	10.7.23.136	49704	·······A····	2	22,20	
+60	1	10.7.23.136	49704	10.7.19.193	443	·······A···F			
+64	1	10.7.19.193	443	10.7.23.136	49704	·······A·R··			
+
+### Decrypted with the logged session keys: the edge's HTTP/2 response is 502 (sent by nginx itself)
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F4_both_backends_down/F4_502_after_tls.pcapng -n -o tls.keylog_file:evidence_work/failures/F4_tls_session_keys.log -Y 'http2.headers.status or http2.headers.path' -T fields -E header=y -E separator=/t -e frame.number -e tcp.stream -e ip.src -e ip.dst -e http2.headers.method -e http2.headers.authority -e http2.headers.path -e http2.headers.status -e http2.header.value
+frame.number	tcp.stream	ip.src	ip.dst	http2.headers.method	http2.headers.authority	http2.headers.path	http2.headers.status	http2.header.value
+48	1	10.7.23.136	10.7.19.193	GET	app.subspace-67.test	/api/status		GET,https,app.subspace-67.test,/api/status,curl/8.22.0,*/*
+54	1	10.7.19.193	10.7.23.136				502	502,nginx,Wed, 30 Sep 2026 08:39:29 GMT,text/html,150
+
+### Decrypted HTTP/2 response headers in full
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F4_both_backends_down/F4_502_after_tls.pcapng -n -o tls.keylog_file:evidence_work/failures/F4_tls_session_keys.log -Y 'http2.headers.status' -O http2 -V | grep -E 'Frame [0-9]+|Header: |:status' | head -30
+Frame 54: Packet, 195 bytes on wire (1560 bits), 195 bytes captured (1560 bits) on interface en0, id 0
+        Header: :status: 502 Bad Gateway
+            Name: :status
+            :status: 502
+        Header: server: nginx
+        Header: date: Wed, 30 Sep 2026 08:39:29 GMT
+        Header: content-type: text/html
+        Header: content-length: 150
+

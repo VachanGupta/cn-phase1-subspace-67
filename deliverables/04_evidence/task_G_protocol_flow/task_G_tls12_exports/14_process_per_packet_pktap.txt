@@ -1,0 +1,40 @@
+### 2026-09-30 13:59:43 IST on mac_abhay (10.7.1.136)
+$ tcpdump -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12_pktap_process.pcapng' -n -k NP 2>/dev/null | head -80
+13:58:02.974550 () IP 10.7.1.136.54633 > 10.7.23.136.53: 34675+ [1au] A? app.subspace-67.test. (49)
+13:58:03.230132 (proc dig:21848) IP 10.7.23.136.53 > 10.7.1.136.54633: 34675* 1/0/1 A 10.7.19.193 (65)
+13:58:04.374355 () IP 10.7.1.136.52172 > 10.7.23.136.53: 3342+ A? app.subspace-67.test. (38)
+13:58:04.439737 (proc mDNSResponder:417, eproc curl:21858) IP 10.7.23.136.53 > 10.7.1.136.52172: 3342* 1/0/0 A 10.7.19.193 (54)
+13:58:04.440793 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [SEW], seq 2650729791, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 1203778881 ecr 0,sackOK,eol], length 0
+13:58:04.477795 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [S.E], seq 2207460345, ack 2650729792, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 398619179 ecr 1203778881,sackOK,eol], length 0
+13:58:04.477927 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [.], ack 1, win 2059, options [nop,nop,TS val 1203778918 ecr 398619179], length 0
+13:58:04.482136 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [P.], seq 1:233, ack 1, win 2059, options [nop,nop,TS val 1203778922 ecr 398619179], length 232
+13:58:04.532498 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], ack 1, win 2059, options [nop,nop,TS val 398619243 ecr 1203778918], length 0
+13:58:04.532498 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], ack 233, win 2056, options [nop,nop,TS val 398619243 ecr 1203778922], length 0
+13:58:04.532499 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], seq 1:1449, ack 233, win 2056, options [nop,nop,TS val 398619248 ecr 1203778922], length 1448
+13:58:04.532499 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [P.], seq 1449:2769, ack 233, win 2056, options [nop,nop,TS val 398619248 ecr 1203778922], length 1320
+13:58:04.532617 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [.], ack 2769, win 2016, options [nop,nop,TS val 1203778973 ecr 398619248], length 0
+13:58:04.535149 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [P.], seq 233:326, ack 2769, win 2048, options [nop,nop,TS val 1203778975 ecr 398619248], length 93
+13:58:04.557895 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], ack 326, win 2055, options [nop,nop,TS val 398619259 ecr 1203778975], length 0
+13:58:04.557895 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [P.], seq 2769:2820, ack 326, win 2055, options [nop,nop,TS val 398619259 ecr 1203778975], length 51
+13:58:04.557896 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [P.], seq 2820:2889, ack 326, win 2055, options [nop,nop,TS val 398619260 ecr 1203778975], length 69
+13:58:04.557971 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [.], ack 2889, win 2047, options [nop,nop,TS val 1203778998 ecr 398619260], length 0
+13:58:04.559038 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [P.], seq 326:471, ack 2889, win 2048, options [nop,nop,TS val 1203778999 ecr 398619260], length 145
+13:58:04.559112 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [P.], seq 471:509, ack 2889, win 2048, options [nop,nop,TS val 1203778999 ecr 398619260], length 38
+13:58:04.731756 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [P.], seq 326:509, ack 2889, win 2048, options [nop,nop,TS val 1203779172 ecr 398619260], length 183
+13:58:04.744914 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], ack 509, win 2053, options [nop,nop,TS val 398619296 ecr 1203778999], length 0
+13:58:04.744914 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [P.], seq 2889:2927, ack 509, win 2053, options [nop,nop,TS val 398619297 ecr 1203778999], length 38
+13:58:04.745008 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [.], ack 2927, win 2048, options [nop,nop,TS val 1203779185 ecr 398619297], length 0
+13:58:04.763899 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], ack 509, win 2053, options [nop,nop,TS val 398619468 ecr 1203779172,nop,nop,sack 1 {326:509}], length 0
+13:58:04.850992 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [P.], seq 2927:3188, ack 509, win 2053, options [nop,nop,TS val 398619554 ecr 1203779185], length 261
+13:58:04.851088 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [.], ack 3188, win 2044, options [nop,nop,TS val 1203779291 ecr 398619554], length 0
+13:58:04.852466 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [P.], seq 509:564, ack 3188, win 2048, options [nop,nop,TS val 1203779293 ecr 398619554], length 55
+13:58:04.852487 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [P.], seq 564:595, ack 3188, win 2048, options [nop,nop,TS val 1203779293 ecr 398619554], length 31
+13:58:04.852790 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [F.], seq 595, ack 3188, win 2048, options [nop,nop,TS val 1203779293 ecr 398619554], length 0
+13:58:04.859579 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], ack 595, win 2052, options [nop,nop,TS val 398619576 ecr 1203779293], length 0
+13:58:04.859580 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [F.], seq 3188, ack 595, win 2052, options [nop,nop,TS val 398619576 ecr 1203779293], length 0
+13:58:04.859580 (proc kernel_task:0, eproc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [F.], seq 3188, ack 596, win 2052, options [nop,nop,TS val 398619578 ecr 1203779293], length 0
+13:58:04.859677 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [F.], seq 595, ack 3189, win 2048, options [nop,nop,TS val 1203779300 ecr 398619576], length 0
+13:58:04.859753 () IP 10.7.1.136.54389 > 10.7.19.193.443: Flags [.], ack 3189, win 2048, options [nop,nop,TS val 1203779300 ecr 398619576], length 0
+13:58:04.868063 (proc curl:21858) IP 10.7.19.193.443 > 10.7.1.136.54389: Flags [.], ack 596, win 2052, options [nop,nop,TS val 398619584 ecr 1203779293], length 0
+[exit code: 0]
+

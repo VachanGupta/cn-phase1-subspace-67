@@ -1,0 +1,26 @@
+### 2026-09-30 13:51:59 IST on mac_abhay (10.7.1.136)
+$ echo '=== --http1.1 ==='; /usr/bin/curl -sv --http1.1  https://app.subspace-67.test/api/status 2>&1 | grep -iE 'ALPN|^> GET|^< HTTP|using HTTP|x-backend'; echo; echo '=== --http2 ==='; /usr/bin/curl -sv --http2  https://app.subspace-67.test/api/status 2>&1 | grep -iE 'ALPN|^> GET|^< HTTP|using HTTP|x-backend|\[HTTP/2\]'
+=== --http1.1 ===
+* ALPN: curl offers http/1.1
+* ALPN: server accepted http/1.1
+* using HTTP/1.x
+> GET /api/status HTTP/1.1
+< HTTP/1.1 200 OK
+< X-Backend: A
+
+=== --http2 ===
+* ALPN: curl offers h2,http/1.1
+* ALPN: server accepted h2
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://app.subspace-67.test/api/status
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: app.subspace-67.test]
+* [HTTP/2] [1] [:path: /api/status]
+* [HTTP/2] [1] [user-agent: curl/8.7.1]
+* [HTTP/2] [1] [accept: */*]
+> GET /api/status HTTP/2
+< HTTP/2 200 
+< x-backend: B
+[exit code: 0]
+

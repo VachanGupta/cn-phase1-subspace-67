@@ -1,0 +1,45 @@
+# Task C - Backend B log: requests arrive from the EDGE (10.7.19.193), the real client only appears in X-Forwarded-For - captured on mac_vachan (10.7.23.136) 2026-09-30 14:13:58 IST
+# mac_aanya (edge) = 10.7.19.193, mac_abhay = 10.7.1.136, mac_vachan (DNS server + Backend B) = 10.7.23.136
+
+$ grep 'client=10.7.19.193' logs/backend_B.log | tail -25
+2026-09-30T14:08:47.437+05:30 backend=B client=10.7.19.193:54239 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:08:48.057+05:30 backend=B client=10.7.19.193:54239 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:08:48.520+05:30 backend=B client=10.7.19.193:54239 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:08:49.017+05:30 backend=B client=10.7.19.193:54239 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:19.185+05:30 backend=B client=10.7.19.193:54239 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:20.188+05:30 backend=B client=10.7.19.193:54239 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:20.816+05:30 backend=B client=10.7.19.193:54239 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:44.585+05:30 backend=B client=10.7.19.193:54341 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:44.801+05:30 backend=B client=10.7.19.193:54341 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:45.137+05:30 backend=B client=10.7.19.193:54341 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:45.626+05:30 backend=B client=10.7.19.193:54343 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:45.872+05:30 backend=B client=10.7.19.193:54343 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:46.271+05:30 backend=B client=10.7.19.193:54341 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:54.111+05:30 backend=B client=10.7.19.193:54356 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:54.571+05:30 backend=B client=10.7.19.193:54343 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:09:55.185+05:30 backend=B client=10.7.19.193:54356 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:11:29.723+05:30 backend=B client=10.7.19.193:54468 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:11:30.222+05:30 backend=B client=10.7.19.193:54470 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:11:30.715+05:30 backend=B client=10.7.19.193:54470 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:11:31.165+05:30 backend=B client=10.7.19.193:54468 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T14:12:09.296+05:30 backend=B client=10.7.19.193:54468 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.1.136 proto=https ua=curl/8.7.1
+2026-09-30T14:12:09.599+05:30 backend=B client=10.7.19.193:54468 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.1.136 proto=https ua=curl/8.7.1
+2026-09-30T14:13:13.901+05:30 backend=B client=10.7.19.193:54599 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.19.193 proto=https ua=curl/8.7.1
+2026-09-30T14:13:14.310+05:30 backend=B client=10.7.19.193:54605 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.19.193 proto=https ua=curl/8.7.1
+2026-09-30T14:13:14.472+05:30 backend=B client=10.7.19.193:54605 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.19.193 proto=https ua=curl/8.7.1
+
+$ grep -c 'client=10.7.19.193' logs/backend_B.log   # requests from the edge
+153
+
+$ grep -vE 'client=(10.7.19.193|10.7.23.136|127.0.0.1)' logs/backend_B.log | grep -c 'client='   # requests from anyone else (clients never connect directly)
+0
+
+$ grep '\[supervisor\]' logs/backend_B.log | tail -8
+2026-09-30T14:09:13.499+05:30 [supervisor] cannot read control.json (URLError: <urlopen error [Errno 51] Network is unreachable>); keeping current state
+2026-09-30T14:09:15.621+05:30 [supervisor] control.json reachable again (http://10.7.23.136:8099/control.json)
+2026-09-30T14:09:21.648+05:30 [supervisor] control.json says B=down
+2026-09-30T14:09:21.649+05:30 [supervisor] stopping backend B (pid 61338): control.json says down
+2026-09-30T14:09:21.668+05:30 [supervisor] backend B is DOWN: pid 61338 gone, port 3002 closed (connection refused)
+2026-09-30T14:09:31.717+05:30 [supervisor] control.json says B=up
+2026-09-30T14:09:31.733+05:30 [supervisor] started backend B (pid 62173) on port 3002
+2026-09-30T14:09:32.047+05:30 [supervisor] backend B is UP: port 3002 accepting connections

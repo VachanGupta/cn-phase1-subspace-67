@@ -1,0 +1,7 @@
+# mac_aanya, 2026-09-30 13:51:44 IST, DNS query/answer to mac_vachan
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y dns -T fields -e frame.number -e ip.src -e ip.dst -e dns.qry.name -e dns.a -e dns.flags.response
+1	10.7.19.193	10.7.23.136	app.subspace-67.test		False
+2	10.7.23.136	10.7.19.193	app.subspace-67.test	10.7.19.193	True
+(exit 0)
+

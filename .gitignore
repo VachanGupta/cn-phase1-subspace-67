@@ -1,0 +1,24 @@
+.DS_Store
+**/.DS_Store
+**/__pycache__/
+
+# Working tree. Every file here is published under deliverables/ in its
+# graded location; these are the live copies the build ran from.
+backend/
+configs/
+tls/
+sudo/
+share/
+collected/
+evidence_work/
+logs/
+run/
+state/
+peers.json
+LEARN_mac_vachan.md
+
+# Session scaffolding, not a deliverable
+prompts/
+
+# Build artifact: regenerate with bin/build_deliverables.py
+deliverables_subspace_67_phase1.zip

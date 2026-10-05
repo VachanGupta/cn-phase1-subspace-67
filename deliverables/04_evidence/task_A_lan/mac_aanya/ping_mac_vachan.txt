@@ -1,0 +1,16 @@
+# captured 2026-09-30 13:28:47 IST on mac_aanya
+
+$ ping -c 4 10.7.23.136
+PING 10.7.23.136 (10.7.23.136): 56 data bytes
+64 bytes from 10.7.23.136: icmp_seq=0 ttl=64 time=169.047 ms
+64 bytes from 10.7.23.136: icmp_seq=1 ttl=64 time=201.007 ms
+64 bytes from 10.7.23.136: icmp_seq=2 ttl=64 time=308.370 ms
+64 bytes from 10.7.23.136: icmp_seq=3 ttl=64 time=11.008 ms
+
+--- 10.7.23.136 ping statistics ---
+4 packets transmitted, 4 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 11.008/172.358/308.370/106.495 ms
+
+$ arp -an | grep -w 10.7.23.136
+? (10.7.23.136) at 6a:e1:56:86:a2:23 on en0 ifscope [ethernet]
+

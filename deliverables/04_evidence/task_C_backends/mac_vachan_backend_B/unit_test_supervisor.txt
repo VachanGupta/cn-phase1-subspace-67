@@ -1,0 +1,29 @@
+# Local test of supervisor.py (isolated test control server on 127.0.0.1:8098, test port 3902)
+# sequence: up -> B=down -> B=up -> control.json 404 (keep state) -> kill -9 supervisor (child exits) -> new supervisor -> SIGTERM (child stopped)
+
+2026-09-30T13:23:35.222+05:30 [supervisor] supervising backend B on port 3902; control http://127.0.0.1:8098/control.json every 2.0s
+2026-09-30T13:23:35.241+05:30 [supervisor] control.json says B=up
+2026-09-30T13:23:35.245+05:30 [supervisor] started backend B (pid 50800) on port 3902
+2026-09-30T13:23:35.288+05:30 backend=B listening on 0.0.0.0:3902 (host Vachans-MacBook-Pro.local, pid 50800, cache-demo ETag "6adb0ec0cb57508d")
+2026-09-30T13:23:35.350+05:30 [supervisor] backend B is UP: port 3902 accepting connections
+2026-09-30T13:23:37.148+05:30 backend=B client=127.0.0.1:58183 "GET /api/status HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:37.354+05:30 [supervisor] control.json says B=down
+2026-09-30T13:23:37.354+05:30 [supervisor] stopping backend B (pid 50800): control.json says down
+2026-09-30T13:23:37.354+05:30 backend=B stopped; port 3902 closed
+2026-09-30T13:23:37.363+05:30 [supervisor] backend B is DOWN: pid 50800 gone, port 3902 closed (connection refused)
+2026-09-30T13:23:41.374+05:30 [supervisor] control.json says B=up
+2026-09-30T13:23:41.383+05:30 [supervisor] started backend B (pid 50816) on port 3902
+2026-09-30T13:23:41.453+05:30 backend=B listening on 0.0.0.0:3902 (host Vachans-MacBook-Pro.local, pid 50816, cache-demo ETag "6adb0ec0cb57508d")
+2026-09-30T13:23:41.489+05:30 [supervisor] backend B is UP: port 3902 accepting connections
+2026-09-30T13:23:43.499+05:30 [supervisor] cannot read control.json (HTTPError: HTTP Error 404: File not found); keeping current state
+2026-09-30T13:23:47.517+05:30 [supervisor] control.json reachable again (http://127.0.0.1:8098/control.json)
+2026-09-30T13:23:48.472+05:30 backend=B supervisor is gone -> exiting
+2026-09-30T13:23:50.926+05:30 [supervisor] supervising backend B on port 3902; control http://127.0.0.1:8098/control.json every 2.0s
+2026-09-30T13:23:50.937+05:30 [supervisor] control.json says B=up
+2026-09-30T13:23:50.939+05:30 [supervisor] started backend B (pid 50837) on port 3902
+2026-09-30T13:23:50.978+05:30 backend=B listening on 0.0.0.0:3902 (host Vachans-MacBook-Pro.local, pid 50837, cache-demo ETag "6adb0ec0cb57508d")
+2026-09-30T13:23:51.044+05:30 [supervisor] backend B is UP: port 3902 accepting connections
+2026-09-30T13:23:52.893+05:30 [supervisor] stopping backend B (pid 50837): supervisor exiting
+2026-09-30T13:23:52.893+05:30 backend=B stopped; port 3902 closed
+2026-09-30T13:23:52.912+05:30 [supervisor] backend B is DOWN: pid 50837 gone, port 3902 closed (connection refused)
+2026-09-30T13:23:52.912+05:30 [supervisor] supervisor exited

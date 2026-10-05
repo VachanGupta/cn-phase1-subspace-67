@@ -1,0 +1,73 @@
+$ openssl x509 -in tls/server.crt -noout -text -fingerprint -sha256
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            41:fa:f1:08:e4:0a:b3:38:3c:c7:6f:6f:43:13:dd:53
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: O=subspace_67, OU=Computer Networks course project, CN=subspace_67 Local Root CA
+        Validity
+            Not Before: Sep 30 07:53:55 2026 GMT
+            Not After : Nov  1 07:53:55 2027 GMT
+        Subject: O=subspace_67, CN=app.subspace-67.test
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:e8:a4:58:2f:04:02:74:8c:6a:cd:60:b4:ee:f4:
+                    9e:91:aa:c2:aa:24:ef:b9:61:6b:63:5d:58:f8:d3:
+                    03:ff:8f:cd:7d:e9:0d:a1:84:8f:35:48:78:97:69:
+                    bd:f8:89:c4:0d:40:0f:4a:ae:77:67:53:b2:4d:cd:
+                    d4:72:08:52:73:d4:90:8a:48:18:25:4b:93:ca:8d:
+                    35:ce:fe:42:66:42:7c:22:d9:15:d3:20:04:8a:e8:
+                    02:23:61:df:60:eb:da:4f:f6:76:83:38:5a:bb:59:
+                    2d:ad:34:94:bb:e4:8f:dd:cb:be:bb:0c:c0:12:ff:
+                    9c:37:2e:de:f4:e1:9a:9f:41:bd:59:59:1a:47:be:
+                    61:3c:2a:28:51:b3:3a:88:b5:6e:c3:94:d0:d8:c7:
+                    c3:d2:8e:37:46:03:2c:03:78:4b:c2:e7:62:c0:99:
+                    9b:8d:f2:23:90:46:34:93:7c:af:03:b4:b0:3f:b2:
+                    ab:1d:6f:65:5d:bc:01:0a:eb:dc:a3:77:49:51:57:
+                    f9:1b:1a:4d:21:a4:03:5f:8d:f3:70:00:30:19:5e:
+                    8f:8d:3a:88:31:04:64:28:12:57:59:99:71:87:b6:
+                    84:45:c4:57:9f:4e:c6:a5:b6:35:05:a1:5e:42:ee:
+                    34:33:e0:50:a3:02:09:31:fa:76:80:ae:e8:e9:a6:
+                    6c:31
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Subject Alternative Name: 
+                DNS:app.subspace-67.test, DNS:api.subspace-67.test
+            X509v3 Subject Key Identifier: 
+                CB:24:30:45:7B:A7:98:3D:74:D5:52:E0:ED:1D:7F:21:25:12:1E:70
+            X509v3 Authority Key Identifier: 
+                93:D9:EF:EC:BF:E4:74:E1:9A:CE:B4:4F:81:3C:41:39:41:41:8D:70
+    Signature Algorithm: sha256WithRSAEncryption
+    Signature Value:
+        6d:5f:cd:e0:1f:ed:69:f5:8b:48:f2:21:07:c9:63:1b:db:d5:
+        0a:55:3a:43:a3:ca:68:06:2c:ad:b5:e9:c9:f8:42:56:5b:d2:
+        d5:ee:35:c8:1a:a8:8e:de:c5:a5:ae:9f:55:55:a4:99:51:44:
+        a8:56:bb:8b:e6:d9:f8:ca:19:3f:db:36:45:96:30:db:43:5e:
+        d7:ea:0d:a7:23:9d:67:a6:9f:9d:92:ee:b8:a6:04:ef:3a:2f:
+        60:54:92:66:3b:9c:04:2c:14:da:54:11:55:c2:ed:c7:e2:53:
+        5f:41:10:21:7a:b8:bf:64:4f:39:92:a1:98:51:93:6f:55:96:
+        b1:bf:07:68:55:cf:06:a8:71:ad:71:ab:38:1e:03:bc:57:ec:
+        a2:b9:55:4b:b3:82:8c:55:39:c6:93:00:f2:7d:1c:1a:ab:01:
+        40:eb:9a:b0:2d:ff:af:28:e2:1e:e1:9b:4d:00:13:3a:10:d5:
+        5d:f1:fe:f2:2e:49:33:6c:4b:09:34:19:01:ed:cf:84:47:f9:
+        01:1e:b4:c5:29:0f:70:c3:9e:9c:e5:04:9c:d8:63:6a:d5:a2:
+        33:77:0b:ae:02:1f:68:fb:31:e4:17:c6:11:0e:76:36:be:58:
+        bb:02:72:22:a5:25:80:e0:a2:fe:ba:92:a8:76:3a:cb:9b:b7:
+        59:52:21:d7:a2:80:c4:88:d1:cd:1a:52:36:04:bf:89:21:e0:
+        ed:49:ed:ee:2a:6d:36:fa:84:30:b2:5b:c8:22:f7:ae:f6:a6:
+        3e:a3:aa:92:e5:28:e8:8f:0f:99:d1:44:10:5c:54:68:8b:8e:
+        1f:e9:09:97:42:1c:68:fa:f1:9b:da:84:59:fb:6f:83:91:05:
+        d1:71:e4:a7:f2:d8:06:10:cd:9c:f0:54:99:72:15:28:67:63:
+        80:04:81:a1:dd:62:a8:8d:49:dc:d5:af:d1:45:f2:37:19:25:
+        d9:af:9d:e7:62:11:74:c7:4b:e4:d1:16:39:6c:fc:94:5a:60:
+        84:16:a9:1d:76:f5
+sha256 Fingerprint=58:1A:10:FB:B2:35:5C:47:68:83:F0:CF:47:0D:E4:54:67:97:A7:FA:D2:3D:D3:BD:5A:C2:EA:30:57:D6:45:96

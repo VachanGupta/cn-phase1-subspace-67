@@ -1,0 +1,17 @@
+# mac_aanya, 2026-09-30 13:52:33 IST, negative test: SNI/hostname not in the certificate
+
+$ echo | /opt/homebrew/bin/openssl s_client -connect app.subspace-67.test:443 -servername wrong.subspace-67.test -verify_hostname wrong.subspace-67.test -CAfile tls/ca.crt -brief
+Connecting to 10.7.19.193
+depth=0 O=subspace_67, CN=app.subspace-67.test
+verify error:num=62:hostname mismatch
+CONNECTION ESTABLISHED
+Protocol version: TLSv1.3
+Ciphersuite: TLS_AES_256_GCM_SHA384
+Peer certificate: O=subspace_67, CN=app.subspace-67.test
+Hash used: SHA256
+Signature type: rsa_pss_rsae_sha256
+Verification error: hostname mismatch
+Negotiated TLS1.3 group: X25519MLKEM768
+DONE
+(exit 0)
+

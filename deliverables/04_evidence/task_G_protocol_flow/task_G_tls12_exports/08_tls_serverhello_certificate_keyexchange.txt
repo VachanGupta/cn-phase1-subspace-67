@@ -1,0 +1,325 @@
+### 2026-09-30 13:59:41 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng' -n -Y 'tcp.stream == 0 && (tls.handshake.type == 2 || tls.handshake.type == 11 || tls.handshake.type == 12 || tls.handshake.type == 14 || tls.handshake.type == 16 || tls.record.content_type == 20)' -O tls -V
+Packet comments
+Frame 11: Packet, 1514 bytes on wire (12112 bits), 1514 bytes captured (12112 bits) on interface en0, id 0
+Ethernet II, Src: d6:d2:39:70:e5:9a, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.19.193, Dst: 10.7.1.136
+Transmission Control Protocol, Src Port: 443, Dst Port: 54389, Seq: 1, Ack: 233, Len: 1448
+Transport Layer Security
+    [Stream index: 0]
+    TLSv1.2 Record Layer: Handshake Protocol: Server Hello
+        Content Type: Handshake (22)
+        Version: TLS 1.2 (0x0303)
+        Length: 104
+        Handshake Protocol: Server Hello
+            Handshake Type: Server Hello (2)
+            Length: 100
+            Version: TLS 1.2 (0x0303)
+            Random: ef9e025fa48928f0750924ca24e07f1f8e0912886e7f2329444f574e47524401
+                GMT Unix Time: May 23, 2097 06:41:59.000000000 IST
+                Random Bytes: a48928f0750924ca24e07f1f8e0912886e7f2329444f574e47524401
+            Session ID Length: 32
+            Session ID: 689ca61bab8d0036171ec3b3da13e53aa80555e2a0e0f0adefd40ee0ce856e4d
+            Cipher Suite: TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (0xc030)
+            Compression Method: null (0)
+            Extensions Length: 28
+            Extension: renegotiation_info (len=1)
+                Type: renegotiation_info (65281)
+                Length: 1
+                Renegotiation Info extension
+                    Renegotiation info extension length: 0
+            Extension: ec_point_formats (len=2)
+                Type: ec_point_formats (11)
+                Length: 2
+                EC point formats Length: 1
+                Elliptic curves point formats (1)
+                    EC point format: uncompressed (0)
+            Extension: extended_master_secret (len=0)
+                Type: extended_master_secret (23)
+                Length: 0
+            Extension: server_name (len=0)
+                Type: server_name (0)
+                Length: 0
+            Extension: application_layer_protocol_negotiation (len=5)
+                Type: application_layer_protocol_negotiation (16)
+                Length: 5
+                ALPN Extension Length: 3
+                ALPN Protocol
+                    ALPN string length: 2
+                    ALPN Next Protocol: h2
+            [JA3S Fullstring: 771,49200,65281-11-23-0-16]
+            [JA3S: 3e75c653bfb9fc58732615f3834de6a1]
+    TLS segment data (1339 bytes)
+
+Packet comments
+Frame 12: Packet, 1386 bytes on wire (11088 bits), 1386 bytes captured (11088 bits) on interface en0, id 0
+Ethernet II, Src: d6:d2:39:70:e5:9a, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.19.193, Dst: 10.7.1.136
+Transmission Control Protocol, Src Port: 443, Dst Port: 54389, Seq: 1449, Ack: 233, Len: 1320
+[2 Reassembled TCP Segments (2345 bytes): #11(1339), #12(1006)]
+Transport Layer Security
+    [Stream index: 0]
+    TLSv1.2 Record Layer: Handshake Protocol: Certificate
+        Content Type: Handshake (22)
+        Version: TLS 1.2 (0x0303)
+        Length: 2340
+        Handshake Protocol: Certificate
+            Handshake Type: Certificate (11)
+            Length: 2336
+            Certificates Length: 2333
+            Certificates (2333 bytes)
+                Certificate Length: 1110
+                Certificate […]: 30820452308202baa003020102021041faf108e40ab3383cc76f6f4313dd53300d06092a864886f70d01010b0500306531143012060355040a0c0b73756273706163655f363731293027060355040b0c20436f6d7075746572204e6574776f726b7320636f757273652070726f6a
+                    signedCertificate
+                        version: v3 (2)
+                        serialNumber: 0x41faf108e40ab3383cc76f6f4313dd53
+                        signature (sha256WithRSAEncryption)
+                            Algorithm Id: 1.2.840.113549.1.1.11 (sha256WithRSAEncryption)
+                        issuer: rdnSequence (0)
+                            rdnSequence: 3 items (id-at-commonName=subspace_67 Local Root CA,id-at-organizationalUnitName=Computer Networks course project,id-at-organizationName=subspace_67)
+                                RDNSequence item: 1 item (id-at-organizationName=subspace_67)
+                                    RelativeDistinguishedName item (id-at-organizationName=subspace_67)
+                                        Object Id: 2.5.4.10 (id-at-organizationName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: subspace_67
+                                RDNSequence item: 1 item (id-at-organizationalUnitName=Computer Networks course project)
+                                    RelativeDistinguishedName item (id-at-organizationalUnitName=Computer Networks course project)
+                                        Object Id: 2.5.4.11 (id-at-organizationalUnitName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: Computer Networks course project
+                                RDNSequence item: 1 item (id-at-commonName=subspace_67 Local Root CA)
+                                    RelativeDistinguishedName item (id-at-commonName=subspace_67 Local Root CA)
+                                        Object Id: 2.5.4.3 (id-at-commonName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: subspace_67 Local Root CA
+                        validity
+                            notBefore: utcTime (0)
+                                utcTime: 2026-09-30 07:53:55 (UTC)
+                            notAfter: utcTime (0)
+                                utcTime: 2027-11-01 07:53:55 (UTC)
+                        subject: rdnSequence (0)
+                            rdnSequence: 2 items (id-at-commonName=app.subspace-67.test,id-at-organizationName=subspace_67)
+                                RDNSequence item: 1 item (id-at-organizationName=subspace_67)
+                                    RelativeDistinguishedName item (id-at-organizationName=subspace_67)
+                                        Object Id: 2.5.4.10 (id-at-organizationName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: subspace_67
+                                RDNSequence item: 1 item (id-at-commonName=app.subspace-67.test)
+                                    RelativeDistinguishedName item (id-at-commonName=app.subspace-67.test)
+                                        Object Id: 2.5.4.3 (id-at-commonName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: app.subspace-67.test
+                        subjectPublicKeyInfo
+                            algorithm (rsaEncryption)
+                                Algorithm Id: 1.2.840.113549.1.1.1 (rsaEncryption)
+                            Padding: 0
+                            subjectPublicKey […]: 3082010a0282010100e8a4582f0402748c6acd60b4eef49e91aac2aa24efb9616b635d58f8d303ff8fcd7de90da1848f3548789769bdf889c40d400f4aae776753b24dcdd472085273d4908a4818254b93ca8d35cefe4266427c22d915d320048ae8022361df60ebda4ff67
+                                RSA Public Key
+                                    modulus: 0x00e8a4582f0402748c6acd60b4eef49e91aac2aa24efb9616b635d58f8d303ff8fcd7de9…
+                                    publicExponent: 65537
+                        extensions: 6 items
+                            Extension (id-ce-basicConstraints)
+                                Extension Id: 2.5.29.19 (id-ce-basicConstraints)
+                                critical: True
+                                BasicConstraintsSyntax [0 length]
+                            Extension (id-ce-keyUsage)
+                                Extension Id: 2.5.29.15 (id-ce-keyUsage)
+                                critical: True
+                                Padding: 5
+                                KeyUsage: a0
+                                    1... .... = digitalSignature: True
+                                    .0.. .... = contentCommitment: False
+                                    ..1. .... = keyEncipherment: True
+                                    ...0 .... = dataEncipherment: False
+                                    .... 0... = keyAgreement: False
+                                    .... .0.. = keyCertSign: False
+                                    .... ..0. = cRLSign: False
+                                    .... ...0 = encipherOnly: False
+                                    0... .... = decipherOnly: False
+                            Extension (id-ce-extKeyUsage)
+                                Extension Id: 2.5.29.37 (id-ce-extKeyUsage)
+                                KeyPurposeIDs: 1 item
+                                    KeyPurposeId: 1.3.6.1.5.5.7.3.1 (id-kp-serverAuth)
+                            Extension (id-ce-subjectAltName)
+                                Extension Id: 2.5.29.17 (id-ce-subjectAltName)
+                                GeneralNames: 2 items
+                                    GeneralName: dNSName (2)
+                                        dNSName: app.subspace-67.test
+                                    GeneralName: dNSName (2)
+                                        dNSName: api.subspace-67.test
+                            Extension (id-ce-subjectKeyIdentifier)
+                                Extension Id: 2.5.29.14 (id-ce-subjectKeyIdentifier)
+                                SubjectKeyIdentifier: cb2430457ba7983d74d552e0ed1d7f2125121e70
+                            Extension (id-ce-authorityKeyIdentifier)
+                                Extension Id: 2.5.29.35 (id-ce-authorityKeyIdentifier)
+                                AuthorityKeyIdentifier
+                                    keyIdentifier: 93d9efecbfe474e19aceb44f813c413941418d70
+                    algorithmIdentifier (sha256WithRSAEncryption)
+                        Algorithm Id: 1.2.840.113549.1.1.11 (sha256WithRSAEncryption)
+                    Padding: 0
+                    encrypted […]: 6d5fcde01fed69f58b48f22107c9631bdbd50a553a43a3ca68062cadb5e9c9f842565bd2d5ee35c81aa88edec5a5ae9f5555a4995144a856bb8be6d9f8ca193fdb36459630db435ed7ea0da7239d67a69f9d92eeb8a604ef3a2f605492663b9c042c14da541155c2edc7e2535f4110
+                Certificate Length: 1217
+                Certificate […]: 308204bd30820325a0030201020210482fcba9d5f5edec1bc9b59e61a23002300d06092a864886f70d01010b0500306531143012060355040a0c0b73756273706163655f363731293027060355040b0c20436f6d7075746572204e6574776f726b7320636f757273652070726f6a
+                    signedCertificate
+                        version: v3 (2)
+                        serialNumber: 0x482fcba9d5f5edec1bc9b59e61a23002
+                        signature (sha256WithRSAEncryption)
+                            Algorithm Id: 1.2.840.113549.1.1.11 (sha256WithRSAEncryption)
+                        issuer: rdnSequence (0)
+                            rdnSequence: 3 items (id-at-commonName=subspace_67 Local Root CA,id-at-organizationalUnitName=Computer Networks course project,id-at-organizationName=subspace_67)
+                                RDNSequence item: 1 item (id-at-organizationName=subspace_67)
+                                    RelativeDistinguishedName item (id-at-organizationName=subspace_67)
+                                        Object Id: 2.5.4.10 (id-at-organizationName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: subspace_67
+                                RDNSequence item: 1 item (id-at-organizationalUnitName=Computer Networks course project)
+                                    RelativeDistinguishedName item (id-at-organizationalUnitName=Computer Networks course project)
+                                        Object Id: 2.5.4.11 (id-at-organizationalUnitName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: Computer Networks course project
+                                RDNSequence item: 1 item (id-at-commonName=subspace_67 Local Root CA)
+                                    RelativeDistinguishedName item (id-at-commonName=subspace_67 Local Root CA)
+                                        Object Id: 2.5.4.3 (id-at-commonName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: subspace_67 Local Root CA
+                        validity
+                            notBefore: utcTime (0)
+                                utcTime: 2026-09-30 07:53:55 (UTC)
+                            notAfter: utcTime (0)
+                                utcTime: 2036-09-27 07:53:55 (UTC)
+                        subject: rdnSequence (0)
+                            rdnSequence: 3 items (id-at-commonName=subspace_67 Local Root CA,id-at-organizationalUnitName=Computer Networks course project,id-at-organizationName=subspace_67)
+                                RDNSequence item: 1 item (id-at-organizationName=subspace_67)
+                                    RelativeDistinguishedName item (id-at-organizationName=subspace_67)
+                                        Object Id: 2.5.4.10 (id-at-organizationName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: subspace_67
+                                RDNSequence item: 1 item (id-at-organizationalUnitName=Computer Networks course project)
+                                    RelativeDistinguishedName item (id-at-organizationalUnitName=Computer Networks course project)
+                                        Object Id: 2.5.4.11 (id-at-organizationalUnitName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: Computer Networks course project
+                                RDNSequence item: 1 item (id-at-commonName=subspace_67 Local Root CA)
+                                    RelativeDistinguishedName item (id-at-commonName=subspace_67 Local Root CA)
+                                        Object Id: 2.5.4.3 (id-at-commonName)
+                                        DirectoryString: uTF8String (4)
+                                            uTF8String: subspace_67 Local Root CA
+                        subjectPublicKeyInfo
+                            algorithm (rsaEncryption)
+                                Algorithm Id: 1.2.840.113549.1.1.1 (rsaEncryption)
+                            Padding: 0
+                            subjectPublicKey […]: 3082018a0282018100a6a3e4b089f17d8295212fbc66ef3ca0398d46ea65b5a8313ff4125a32a7490df159f9e37c50ac36716dc67700f299923de694eae9ecd63d650cb0fef49a9f81f2bfc17d413ec0d373df6a18c46163ea7a2c2748a4e951f0ea23e86a53e1a61586a0c
+                                RSA Public Key
+                                    modulus: 0x00a6a3e4b089f17d8295212fbc66ef3ca0398d46ea65b5a8313ff4125a32a7490df159f9…
+                                    publicExponent: 65537
+                        extensions: 4 items
+                            Extension (id-ce-basicConstraints)
+                                Extension Id: 2.5.29.19 (id-ce-basicConstraints)
+                                critical: True
+                                BasicConstraintsSyntax
+                                    cA: True
+                                    pathLenConstraint: 0
+                            Extension (id-ce-keyUsage)
+                                Extension Id: 2.5.29.15 (id-ce-keyUsage)
+                                critical: True
+                                Padding: 1
+                                KeyUsage: 06
+                                    0... .... = digitalSignature: False
+                                    .0.. .... = contentCommitment: False
+                                    ..0. .... = keyEncipherment: False
+                                    ...0 .... = dataEncipherment: False
+                                    .... 0... = keyAgreement: False
+                                    .... .1.. = keyCertSign: True
+                                    .... ..1. = cRLSign: True
+                                    .... ...0 = encipherOnly: False
+                                    0... .... = decipherOnly: False
+                            Extension (id-ce-subjectKeyIdentifier)
+                                Extension Id: 2.5.29.14 (id-ce-subjectKeyIdentifier)
+                                SubjectKeyIdentifier: 93d9efecbfe474e19aceb44f813c413941418d70
+                            Extension (id-ce-nameConstraints)
+                                Extension Id: 2.5.29.30 (id-ce-nameConstraints)
+                                critical: True
+                                NameConstraintsSyntax
+                                    permittedSubtrees: 1 item
+                                        GeneralSubtree
+                                            base: dNSName (2)
+                                                dNSName: subspace-67.test
+                    algorithmIdentifier (sha256WithRSAEncryption)
+                        Algorithm Id: 1.2.840.113549.1.1.11 (sha256WithRSAEncryption)
+                    Padding: 0
+                    encrypted […]: 7862b81c95a9c3d741da0ec3df5aa610328e67a46aa6d96b602ec9c6099c90ca5291115a7f486c27a7e972e25b88eb84ad3fbd1eb24c89403e8ef16c8454973c5943973485f720ec3a755d16fd78c8ebe317875364373e260acbec80e3bede26e0ee1fe262be2835c57fc1954d32d4
+Transport Layer Security
+    [Stream index: 0]
+    TLSv1.2 Record Layer: Handshake Protocol: Server Key Exchange
+        Content Type: Handshake (22)
+        Version: TLS 1.2 (0x0303)
+        Length: 300
+        Handshake Protocol: Server Key Exchange
+            Handshake Type: Server Key Exchange (12)
+            Length: 296
+            EC Diffie-Hellman Server Params
+                Curve Type: named_curve (0x03)
+                Named Curve: x25519 (0x001d)
+                Pubkey Length: 32
+                Pubkey: 1b7d1d09efa1478d55f0684d4fc16c77c0c34cd1249c512e1c3a8bd524128522
+                Signature Algorithm: rsa_pss_rsae_sha256 (0x0804)
+                    Signature Hash Algorithm Hash: Unknown (8)
+                    Signature Hash Algorithm Signature: Unknown (4)
+                Signature Length: 256
+                Signature […]: b01e961ae95b076bd19f49d87ee62e513385fb67b56b8633f95348379b710645d7bfa0c01ac5da6d1752b8a3ca7239f64fcbe700bcf93a8a27d76ece9baf5233b377b0840e782af38e6ff0fcecb5c6d6175fabfccb8799296671bb6d2c245c359b8fe5f7ae6fda7cac2c62e22b2074
+    TLSv1.2 Record Layer: Handshake Protocol: Server Hello Done
+        Content Type: Handshake (22)
+        Version: TLS 1.2 (0x0303)
+        Length: 4
+        Handshake Protocol: Server Hello Done
+            Handshake Type: Server Hello Done (14)
+            Length: 0
+
+Packet comments
+Frame 14: Packet, 159 bytes on wire (1272 bits), 159 bytes captured (1272 bits) on interface en0, id 0
+Ethernet II, Src: 8e:f6:fb:7b:0a:59, Dst: d6:d2:39:70:e5:9a
+Internet Protocol Version 4, Src: 10.7.1.136, Dst: 10.7.19.193
+Transmission Control Protocol, Src Port: 54389, Dst Port: 443, Seq: 233, Ack: 2769, Len: 93
+Transport Layer Security
+    [Stream index: 0]
+    TLSv1.2 Record Layer: Handshake Protocol: Client Key Exchange
+        Content Type: Handshake (22)
+        Version: TLS 1.2 (0x0303)
+        Length: 37
+        Handshake Protocol: Client Key Exchange
+            Handshake Type: Client Key Exchange (16)
+            Length: 33
+            EC Diffie-Hellman Client Params
+                Pubkey Length: 32
+                Pubkey: 16b0f290d71b34d7daebb33adb01d72f77f0c97dd1b41472d8d001cc92088f3f
+    TLSv1.2 Record Layer: Change Cipher Spec Protocol: Change Cipher Spec
+        Content Type: Change Cipher Spec (20)
+        Version: TLS 1.2 (0x0303)
+        Length: 1
+        Change Cipher Spec Message
+    TLSv1.2 Record Layer: Handshake Protocol: Encrypted Handshake Message
+        Content Type: Handshake (22)
+        Version: TLS 1.2 (0x0303)
+        Length: 40
+        Handshake Protocol: Encrypted Handshake Message
+
+Packet comments
+Frame 16: Packet, 117 bytes on wire (936 bits), 117 bytes captured (936 bits) on interface en0, id 0
+Ethernet II, Src: d6:d2:39:70:e5:9a, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.19.193, Dst: 10.7.1.136
+Transmission Control Protocol, Src Port: 443, Dst Port: 54389, Seq: 2769, Ack: 326, Len: 51
+Transport Layer Security
+    [Stream index: 0]
+    TLSv1.2 Record Layer: Change Cipher Spec Protocol: Change Cipher Spec
+        Content Type: Change Cipher Spec (20)
+        Version: TLS 1.2 (0x0303)
+        Length: 1
+        Change Cipher Spec Message
+    TLSv1.2 Record Layer: Handshake Protocol: Encrypted Handshake Message
+        Content Type: Handshake (22)
+        Version: TLS 1.2 (0x0303)
+        Length: 40
+        Handshake Protocol: Encrypted Handshake Message
+
+[exit code: 0]
+

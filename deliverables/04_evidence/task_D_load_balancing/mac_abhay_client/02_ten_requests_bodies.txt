@@ -1,0 +1,14 @@
+### 2026-09-30 13:51:53 IST on mac_abhay (10.7.1.136)
+$ for i in $(seq 1 10); do /usr/bin/curl -sS  https://app.subspace-67.test/api/status; done
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:51:54.020+05:30"}
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:51:54.290+05:30"}
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:51:54.628+05:30"}
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:51:55.236+05:30"}
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:51:55.378+05:30"}
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:51:55.838+05:30"}
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:51:56.244+05:30"}
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:51:56.737+05:30"}
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:51:56.886+05:30"}
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:51:57.335+05:30"}
+[exit code: 0]
+

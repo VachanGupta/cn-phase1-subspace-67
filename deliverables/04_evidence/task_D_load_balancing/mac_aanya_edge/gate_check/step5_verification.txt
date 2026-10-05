@@ -1,0 +1,158 @@
+# mac_aanya, 2026-09-30 13:50:14 IST, step 5 verification (this Mac as a client, name only, no -k)
+
+$ networksetup -getdnsservers Wi-Fi
+10.7.23.136
+(exit 0)
+
+$ dig app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 61162
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.19.193
+
+;; Query time: 80 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 13:50:14 IST 2026
+;; MSG SIZE  rcvd: 65
+
+(exit 0)
+
+$ dig +short api.subspace-67.test
+10.7.19.193
+(exit 0)
+
+$ security verify-cert -c tls/server.crt -p ssl -s app.subspace-67.test -L   # system trust store (no -r): our CA is trusted
+...certificate verification successful.
+---
+No extended validation result found
+Certificate Transparency (CT) status: [31mnot verified[0m
+Unable to find at least 2 signed certificate timestamps (SCTs) from approved logs
+(exit 0)
+
+$ curl -sS -i https://app.subspace-67.test/api/status
+HTTP/2 200 
+server: nginx
+date: Wed, 30 Sep 2026 08:20:15 GMT
+content-type: application/json; charset=utf-8
+content-length: 126
+x-backend: A
+cache-control: no-store
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:50:15.155+05:30"}
+(exit 0)
+
+$ curl -sS -v --http1.1 -o /dev/null https://app.subspace-67.test/api/status 2>&1 | grep -E '^\* (Connected|SSL connection|ALPN|Server certificate|  subject|  issuer|  SSL certificate verify|using HTTP)|^[<>] (GET|HTTP|x-backend|server)'
+* Connected to app.subspace-67.test (10.7.19.193) port 443
+* ALPN: curl offers http/1.1
+* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+* ALPN: server accepted http/1.1
+* Server certificate:
+* using HTTP/1.x
+> GET /api/status HTTP/1.1
+< HTTP/1.1 200 OK
+(exit 0)
+
+$ curl -sS -v --http2 -o /dev/null https://app.subspace-67.test/api/status 2>&1 | grep -E '^\* (Connected|SSL connection|ALPN|Server certificate|  subject|  issuer|  SSL certificate verify|using HTTP)|^[<>] (GET|HTTP|x-backend|server)'
+* Connected to app.subspace-67.test (10.7.19.193) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+* ALPN: server accepted h2
+* Server certificate:
+* using HTTP/2
+> GET /api/status HTTP/2
+< HTTP/2 200 
+< server: nginx
+< x-backend: A
+(exit 0)
+
+$ for i in $(seq 1 10); do curl -sS -o /dev/null -D - https://app.subspace-67.test/api/status | tr -d '\r' | awk -v i=$i 'tolower($1)=="x-backend:"{print "request " i ": X-Backend " $2}'; done
+request 1: X-Backend B
+request 2: X-Backend A
+request 3: X-Backend B
+request 4: X-Backend A
+request 5: X-Backend B
+request 6: X-Backend A
+request 7: X-Backend B
+request 8: X-Backend A
+request 9: X-Backend B
+request 10: X-Backend A
+(exit 0)
+
+$ curl -sS -o /dev/null -w 'http_version=%{http_version} code=%{http_code} remote=%{remote_ip}:%{remote_port}\n' --http1.1 https://app.subspace-67.test/api/status
+http_version=1.1 code=200 remote=10.7.19.193:443
+(exit 0)
+
+$ curl -sS -o /dev/null -w 'http_version=%{http_version} code=%{http_code} remote=%{remote_ip}:%{remote_port}\n' --http2 https://app.subspace-67.test/api/status
+http_version=2 code=200 remote=10.7.19.193:443
+(exit 0)
+
+$ curl -sS -o /dev/null -w 'code=%{http_code} location=%{redirect_url}\n' http://app.subspace-67.test/api/status
+code=301 location=https://app.subspace-67.test/api/status
+(exit 0)
+
+$ curl -sS -i https://app.subspace-67.test/api/cache-demo   # edge passes Cache-Control / ETag / Last-Modified through untouched (no proxy_cache, no gzip)
+HTTP/2 200 
+server: nginx
+date: Wed, 30 Sep 2026 08:20:26 GMT
+content-type: application/json; charset=utf-8
+content-length: 225
+x-backend: B
+cache-control: public, max-age=60
+etag: "6adb0ec0cb57508d"
+last-modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+{"resource":"cache-demo","team":"subspace_67","version":1,"message":"This body is byte-identical on Backend A and Backend B, so both send the same ETag and a conditional GET gets 304 Not Modified whichever backend answers."}
+(exit 0)
+
+$ ET=$(curl -sS -o /dev/null -D - https://app.subspace-67.test/api/cache-demo | tr -d '\r' | awk 'tolower($1)=="etag:"{print $2}'); for i in 1 2; do curl -sS -o /dev/null -D - -H "If-None-Match: $ET" https://app.subspace-67.test/api/cache-demo | tr -d '\r' | grep -iE '^HTTP|^x-backend|^etag' | tr '\n' ' '; echo; done   # 304 from BOTH backends
+HTTP/2 304  x-backend: B etag: "6adb0ec0cb57508d" 
+HTTP/2 304  x-backend: A etag: "6adb0ec0cb57508d" 
+(exit 0)
+
+$ curl -sS -I https://app.subspace-67.test/   # HEAD
+HTTP/2 200 
+server: nginx
+date: Wed, 30 Sep 2026 08:20:28 GMT
+content-type: application/json; charset=utf-8
+content-length: 150
+x-backend: B
+
+(exit 0)
+
+$ curl -sS -o /dev/null -D - https://app.subspace-67.test/no-such-path | tr -d '\r' | grep -iE '^HTTP|^x-backend'   # 404 still carries X-Backend
+HTTP/2 404 
+x-backend: A
+(exit 0)
+
+$ curl -sS -I https://app.subspace-67.test/api/status   # plain /usr/bin/curl with NO --cacert (does it use the keychain?)
+HTTP/2 200 
+server: nginx
+date: Wed, 30 Sep 2026 08:20:29 GMT
+content-type: application/json; charset=utf-8
+content-length: 125
+x-backend: B
+cache-control: no-store
+
+(exit 0)
+
+$ CURL_SSL_BACKEND=secure-transport curl -sS -I https://app.subspace-67.test/api/status   # Apple's SecureTransport backend = System keychain trust
+HTTP/2 200 
+server: nginx
+date: Wed, 30 Sep 2026 08:20:29 GMT
+content-type: application/json; charset=utf-8
+content-length: 126
+x-backend: A
+cache-control: no-store
+
+(exit 0)
+

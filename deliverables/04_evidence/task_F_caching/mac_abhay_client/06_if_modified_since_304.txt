@@ -1,0 +1,12 @@
+### 2026-09-30 13:52:03 IST on mac_abhay (10.7.1.136)
+$ /usr/bin/curl -sS  -i -H 'If-Modified-Since: Tue, 29 Sep 2026 00:00:00 GMT' https://app.subspace-67.test/api/cache-demo
+HTTP/2 304 
+server: nginx
+date: Wed, 30 Sep 2026 08:22:03 GMT
+x-backend: B
+cache-control: public, max-age=60
+etag: "6adb0ec0cb57508d"
+last-modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+[exit code: 0]
+

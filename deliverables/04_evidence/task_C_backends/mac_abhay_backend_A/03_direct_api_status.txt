@@ -1,0 +1,13 @@
+### 2026-09-30 13:26:23 IST on mac_abhay (10.7.1.136)
+$ curl -sS -i http://10.7.1.136:3001/api/status
+HTTP/1.1 200 OK
+Server: subspace67-backend/1.0
+Date: Wed, 30 Sep 2026 07:56:23 GMT
+X-Backend: A
+Content-Type: application/json; charset=utf-8
+Content-Length: 126
+Cache-Control: no-store
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:26:23.171+05:30"}
+[exit code: 0]
+

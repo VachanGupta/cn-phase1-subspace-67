@@ -1,0 +1,6 @@
+# failure demo time windows on 2026-09-30 (IST, +0530), reconstructed from the per-demo headers in logs/sudo_02.log
+F1_wrong_dns_server      14:07:27 - 14:07:56   (only mac_vachan's resolver changed; no edge traffic expected)
+F2_dns_record_wrong_ip   14:07:56 - 14:08:14   (app.subspace-67.test -> 10.7.1.136; dnsmasq restarted at start and end)
+F3_one_backend_down      14:08:14 - 14:09:21   (B down 14:08:14.9 - ~14:08:30; A down 14:08:41.9 - 14:08:51.4; Wi-Fi blip ~14:09:03-14:09:19)
+F4_both_backends_down    14:09:21 - 14:09:46   (A+B down ~14:09:22 - 14:09:30.7; the 502s at ~14:09:28-14:09:29)
+F5_wrong_port            14:09:46 - 14:09:55   (port 8444 -> RST; nothing changed on the edge)

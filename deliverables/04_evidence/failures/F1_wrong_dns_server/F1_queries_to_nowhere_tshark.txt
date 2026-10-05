@@ -1,0 +1,376 @@
+### All packets
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F1_wrong_dns_server/F1_queries_to_nowhere.pcapng -n
+    1   0.000000  10.7.23.136 → 1.1.1.1      DNS 107 Standard query 0xf97d PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+    2   0.019376  10.7.23.136 → 1.1.1.1      DNS 108 Standard query 0x4312 PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+    3   0.032545  10.7.23.136 → 1.1.1.1      DNS 108 Standard query 0x7b9c PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+    4   0.035203      1.1.1.1 → 10.7.23.136  DNS 108 Standard query response 0x4312 No such name PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+    5   0.035205      1.1.1.1 → 10.7.23.136  DNS 107 Standard query response 0xf97d No such name PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+    6   0.045103  10.7.23.136 → 192.0.2.53   DNS 96 Standard query 0x83e0 PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa
+    7   0.053331  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0x4459 PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa
+    8   0.056588  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0xc788 PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa
+    9   0.057878  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xd7c8 SVCB _dns.resolver.arpa
+   10   0.067549      1.1.1.1 → 10.7.23.136  DNS 108 Standard query response 0x7b9c No such name PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+   11   0.076144  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xc920 PTR 136.23.7.10.in-addr.arpa
+   12   0.092528  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0x858a A app.subspace-67.test OPT
+   13   0.294070  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0xf791 A apple.com
+   14   0.294657  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0x5915 A sentry.io
+   15   0.298427  10.7.23.136 → 192.0.2.53   DNS 82 Standard query 0x8e5b A api.apple-cloudkit.com
+   16   0.306118  10.7.23.136 → 192.0.2.53   DNS 74 Standard query 0x421b A www.google.com
+   17   0.306842  10.7.23.136 → 192.0.2.53   DNS 92 Standard query 0xe147 A 1-courier.sandbox.push.apple.com
+   18   0.306952  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xf720 HTTPS dit.whatsapp.net
+   19   0.307277  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xeb21 A dit.whatsapp.net
+   20   0.307690  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xae54 A 1-courier.push.apple.com
+   21   0.307927  10.7.23.136 → 192.0.2.53   DNS 73 Standard query 0x830e A www.apple.com
+   22   0.540375  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xa9ff HTTPS xp-cdn.apple.com
+   23   0.540461  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xd9df A xp-cdn.apple.com
+   24   0.943359  10.7.23.136 → 192.0.2.53   DNS 75 Standard query 0x14fd A ssl.gstatic.com
+   25   1.073937  10.7.23.136 → 192.0.2.53   DNS 96 Standard query 0x83e0 PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa
+   26   1.074124  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0x4459 PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa
+   27   1.074183  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0xc788 PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa
+   28   1.074294  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xd7c8 SVCB _dns.resolver.arpa
+   29   1.076939  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xc920 PTR 136.23.7.10.in-addr.arpa
+   30   1.343015  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0xf791 A apple.com
+   31   1.343273  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0x5915 A sentry.io
+   32   1.343476  10.7.23.136 → 192.0.2.53   DNS 82 Standard query 0x8e5b A api.apple-cloudkit.com
+   33   1.343572  10.7.23.136 → 192.0.2.53   DNS 74 Standard query 0x421b A www.google.com
+   34   1.343623  10.7.23.136 → 192.0.2.53   DNS 92 Standard query 0xe147 A 1-courier.sandbox.push.apple.com
+   35   1.343692  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xf720 HTTPS dit.whatsapp.net
+   36   1.343764  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xeb21 A dit.whatsapp.net
+   37   1.343811  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xae54 A 1-courier.push.apple.com
+   38   1.343885  10.7.23.136 → 192.0.2.53   DNS 73 Standard query 0x830e A www.apple.com
+   39   1.543627  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xa9ff HTTPS xp-cdn.apple.com
+   40   1.543808  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xd9df A xp-cdn.apple.com
+   41   1.986778  10.7.23.136 → 192.0.2.53   DNS 75 Standard query 0x14fd A ssl.gstatic.com
+   42   2.096556  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0x858a A app.subspace-67.test OPT
+   43   2.936104  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x82c6 HTTPS configuration.ls.apple.com
+   44   2.936191  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x5ff3 A configuration.ls.apple.com
+   45   3.095177  10.7.23.136 → 192.0.2.53   DNS 96 Standard query 0x83e0 PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa
+   46   3.095257  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0x4459 PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa
+   47   3.095293  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0xc788 PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa
+   48   3.095376  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xd7c8 SVCB _dns.resolver.arpa
+   49   3.095466  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xc920 PTR 136.23.7.10.in-addr.arpa
+   50   3.437928  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0xf791 A apple.com
+   51   3.438309  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0x5915 A sentry.io
+   52   3.438672  10.7.23.136 → 192.0.2.53   DNS 82 Standard query 0x8e5b A api.apple-cloudkit.com
+   53   3.438783  10.7.23.136 → 192.0.2.53   DNS 74 Standard query 0x421b A www.google.com
+   54   3.438829  10.7.23.136 → 192.0.2.53   DNS 92 Standard query 0xe147 A 1-courier.sandbox.push.apple.com
+   55   3.438929  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xf720 HTTPS dit.whatsapp.net
+   56   3.439023  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xeb21 A dit.whatsapp.net
+   57   3.439186  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xae54 A 1-courier.push.apple.com
+   58   3.439239  10.7.23.136 → 192.0.2.53   DNS 73 Standard query 0x830e A www.apple.com
+   59   3.621414  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xa9ff HTTPS xp-cdn.apple.com
+   60   3.621663  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xd9df A xp-cdn.apple.com
+   61   3.982544  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x82c6 HTTPS configuration.ls.apple.com
+   62   3.982714  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x5ff3 A configuration.ls.apple.com
+   63   4.084945  10.7.23.136 → 192.0.2.53   DNS 75 Standard query 0x14fd A ssl.gstatic.com
+   64   4.177789  10.7.23.136 → 192.0.2.53   DNS 80 Standard query 0xeb36 A app.subspace-67.test
+   65   5.180760  10.7.23.136 → 192.0.2.53   DNS 80 Standard query 0xeb36 A app.subspace-67.test
+   66   5.389198  10.7.23.136 → 192.0.2.53   DNS 79 Standard query 0x855e A time.cloudflare.com
+   67   5.521029  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7b41 HTTPS ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+   68   5.521081  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x46f1 A ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+   69   6.016444  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x82c6 HTTPS configuration.ls.apple.com
+   70   6.016639  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x5ff3 A configuration.ls.apple.com
+   71   6.149103  10.7.19.193 → 10.7.23.136  DNS 86 Standard query 0xeb87 HTTPS assets-proxy.anthropic.com
+   72   6.149105  10.7.19.193 → 10.7.23.136  DNS 86 Standard query 0x83aa A assets-proxy.anthropic.com
+   73   6.256204  10.7.23.136 → 8.8.8.8      DNS 97 Standard query 0x471a HTTPS assets-proxy.anthropic.com OPT
+   74   6.256207  10.7.23.136 → 1.1.1.1      DNS 97 Standard query 0x471a HTTPS assets-proxy.anthropic.com OPT
+   75   6.256320  10.7.23.136 → 10.7.19.193  DNS 102 Standard query response 0x83aa A assets-proxy.anthropic.com A 160.79.104.10
+   76   6.437894  10.7.23.136 → 192.0.2.53   DNS 79 Standard query 0x855e A time.cloudflare.com
+   77   6.494680      8.8.8.8 → 10.7.23.136  DNS 150 Standard query response 0x471a HTTPS assets-proxy.anthropic.com HTTPS OPT
+   78   6.494683      1.1.1.1 → 10.7.23.136  DNS 150 Standard query response 0x471a HTTPS assets-proxy.anthropic.com HTTPS OPT
+   79   6.495542  10.7.23.136 → 10.7.19.193  DNS 139 Standard query response 0xeb87 HTTPS assets-proxy.anthropic.com HTTPS
+   80   6.536305  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7b41 HTTPS ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+   81   6.536986  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x46f1 A ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+   82   6.709068  10.7.19.193 → 10.7.23.136  ICMP 70 Destination unreachable (Port unreachable)
+   83   6.834385  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0xa579 HTTPS signaler-pa.clients6.google.com
+   84   6.834554  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0xd2fd A signaler-pa.clients6.google.com
+   85   7.235072  10.7.23.136 → 192.0.2.53   DNS 96 Standard query 0x83e0 PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa
+   86   7.235366  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0x4459 PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa
+   87   7.235420  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0xc788 PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa
+   88   7.235527  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xd7c8 SVCB _dns.resolver.arpa
+   89   7.235705  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xc920 PTR 136.23.7.10.in-addr.arpa
+   90   7.235794  10.7.23.136 → 192.0.2.53   DNS 80 Standard query 0xeb36 A app.subspace-67.test
+   91   7.534362  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0xf791 A apple.com
+   92   7.534719  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0x5915 A sentry.io
+   93   7.535097  10.7.23.136 → 192.0.2.53   DNS 82 Standard query 0x8e5b A api.apple-cloudkit.com
+   94   7.536141  10.7.23.136 → 192.0.2.53   DNS 92 Standard query 0xe147 A 1-courier.sandbox.push.apple.com
+   95   7.537365  10.7.23.136 → 192.0.2.53   DNS 74 Standard query 0x421b A www.google.com
+   96   7.537684  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xae54 A 1-courier.push.apple.com
+   97   7.537995  10.7.23.136 → 192.0.2.53   DNS 73 Standard query 0x830e A www.apple.com
+   98   7.538300  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xf720 HTTPS dit.whatsapp.net
+   99   7.538584  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xeb21 A dit.whatsapp.net
+  100   7.751569  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xa9ff HTTPS xp-cdn.apple.com
+  101   7.751684  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xd9df A xp-cdn.apple.com
+  102   7.829956  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xc28f HTTPS suconfig.apple.com
+  103   7.830166  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xbc49 A suconfig.apple.com
+  104   7.848846  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0x4ea4 HTTPS signaler-pa.clients6.google.com
+  105   7.848918  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0xf0da A signaler-pa.clients6.google.com
+  106   8.219643  10.7.23.136 → 192.0.2.53   DNS 75 Standard query 0x14fd A ssl.gstatic.com
+  107   8.486026  10.7.23.136 → 192.0.2.53   DNS 79 Standard query 0x855e A time.cloudflare.com
+  108   8.628010  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7b41 HTTPS ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+  109   8.628148  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x46f1 A ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+  110   8.850906  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xc28f HTTPS suconfig.apple.com
+  111   8.851222  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xbc49 A suconfig.apple.com
+  112   9.192908  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7e05 HTTPS gcs-asia-00002.content-storage-download.googleapis.com
+  113   9.193219  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x90e6 A gcs-asia-00002.content-storage-download.googleapis.com
+  114   9.488235  10.7.23.136 → 192.0.2.53   DNS 77 Standard query 0x2f77 HTTPS sync-v2.brave.com
+  115   9.488307  10.7.23.136 → 192.0.2.53   DNS 77 Standard query 0x0b0b A sync-v2.brave.com
+  116   9.879311  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0x578e A signaler-pa.clients6.google.com
+  117  10.018235  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x82c6 HTTPS configuration.ls.apple.com
+  118  10.019920  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x5ff3 A configuration.ls.apple.com
+  119  10.240189  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7e05 HTTPS gcs-asia-00002.content-storage-download.googleapis.com
+  120  10.240319  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x90e6 A gcs-asia-00002.content-storage-download.googleapis.com
+  121  10.502327  10.7.23.136 → 192.0.2.53   DNS 77 Standard query 0xa493 HTTPS sync-v2.brave.com
+  122  10.502404  10.7.23.136 → 192.0.2.53   DNS 77 Standard query 0xe3e5 A sync-v2.brave.com
+  123  10.888596  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xc28f HTTPS suconfig.apple.com
+  124  10.889502  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xbc49 A suconfig.apple.com
+  125  10.890968  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0x578e A signaler-pa.clients6.google.com
+  126  11.281859  10.7.23.136 → 192.0.2.53   DNS 80 Standard query 0xeb36 A app.subspace-67.test
+  127  12.334706  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7e05 HTTPS gcs-asia-00002.content-storage-download.googleapis.com
+  128  12.335236  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x90e6 A gcs-asia-00002.content-storage-download.googleapis.com
+  129  12.529906  10.7.23.136 → 192.0.2.53   DNS 79 Standard query 0x855e A time.cloudflare.com
+  130  12.530661  10.7.23.136 → 192.0.2.53   DNS 77 Standard query 0x3d3c A sync-v2.brave.com
+  131  12.789671  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7b41 HTTPS ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+  132  12.790370  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x46f1 A ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com
+  133  12.977075  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0x578e A signaler-pa.clients6.google.com
+  134  13.576698  10.7.23.136 → 192.0.2.53   DNS 77 Standard query 0x3d3c A sync-v2.brave.com
+  135  14.228574  10.7.23.136 → 10.7.19.193  ICMP 98 Echo (ping) request  id=0x47ed, seq=0/0, ttl=64
+  136  14.471999  10.7.19.193 → 10.7.23.136  ICMP 98 Echo (ping) reply    id=0x47ed, seq=0/0, ttl=64 (request in 135)
+  137  14.998484  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xc28f HTTPS suconfig.apple.com
+  138  14.998729  10.7.23.136 → 192.0.2.53   DNS 78 Standard query 0xbc49 A suconfig.apple.com
+  139  15.229352  10.7.23.136 → 10.7.19.193  ICMP 98 Echo (ping) request  id=0x47ed, seq=1/256, ttl=64
+  140  15.541386  10.7.19.193 → 10.7.23.136  ICMP 98 Echo (ping) reply    id=0x47ed, seq=1/256, ttl=64 (request in 139)
+  141  15.615550  10.7.23.136 → 192.0.2.53   DNS 96 Standard query 0x83e0 PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa
+  142  15.615730  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0x4459 PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa
+  143  15.615865  10.7.23.136 → 192.0.2.53   DNS 97 Standard query 0xc788 PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa
+  144  15.616076  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xc920 PTR 136.23.7.10.in-addr.arpa
+  145  15.616319  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0xf791 A apple.com
+  146  15.616576  10.7.23.136 → 192.0.2.53   DNS 69 Standard query 0x5915 A sentry.io
+  147  15.616890  10.7.23.136 → 192.0.2.53   DNS 82 Standard query 0x8e5b A api.apple-cloudkit.com
+  148  15.617126  10.7.23.136 → 192.0.2.53   DNS 74 Standard query 0x421b A www.google.com
+  149  15.617689  10.7.23.136 → 192.0.2.53   DNS 92 Standard query 0xe147 A 1-courier.sandbox.push.apple.com
+  150  15.618103  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xf720 HTTPS dit.whatsapp.net
+  151  15.618547  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xeb21 A dit.whatsapp.net
+  152  15.619008  10.7.23.136 → 192.0.2.53   DNS 84 Standard query 0xae54 A 1-courier.push.apple.com
+  153  15.620180  10.7.23.136 → 192.0.2.53   DNS 73 Standard query 0x830e A www.apple.com
+  154  15.620730  10.7.23.136 → 192.0.2.53   DNS 77 Standard query 0x3d3c A sync-v2.brave.com
+  155  15.980029  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xa9ff HTTPS xp-cdn.apple.com
+  156  15.980196  10.7.23.136 → 192.0.2.53   DNS 76 Standard query 0xd9df A xp-cdn.apple.com
+  157  16.230528  10.7.23.136 → 10.7.19.193  ICMP 98 Echo (ping) request  id=0x47ed, seq=2/512, ttl=64
+  158  16.506399  10.7.19.193 → 10.7.23.136  ICMP 98 Echo (ping) reply    id=0x47ed, seq=2/512, ttl=64 (request in 157)
+  159  16.530681  10.7.23.136 → 192.0.2.53   DNS 75 Standard query 0x14fd A ssl.gstatic.com
+  160  16.531032  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x7e05 HTTPS gcs-asia-00002.content-storage-download.googleapis.com
+  161  16.531116  10.7.23.136 → 192.0.2.53   DNS 114 Standard query 0x90e6 A gcs-asia-00002.content-storage-download.googleapis.com
+  162  17.004753  10.7.23.136 → 192.0.2.53   DNS 91 Standard query 0x578e A signaler-pa.clients6.google.com
+  163  18.020062  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x82c6 HTTPS configuration.ls.apple.com
+  164  18.020373  10.7.23.136 → 192.0.2.53   DNS 86 Standard query 0x5ff3 A configuration.ls.apple.com
+
+### DNS queries to 192.0.2.53 (dns.flags.response 0 = query; no response ever arrives)
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F1_wrong_dns_server/F1_queries_to_nowhere.pcapng -n -Y 'dns' -T fields -E header=y -E separator=/t -e frame.number -e frame.time_relative -e ip.src -e udp.srcport -e ip.dst -e udp.dstport -e dns.flags.response -e dns.qry.name -e dns.qry.type
+frame.number	frame.time_relative	ip.src	udp.srcport	ip.dst	udp.dstport	dns.flags.response	dns.qry.name	dns.qry.type
+1	0.000000000	10.7.23.136	64379	1.1.1.1	53	False	b._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+2	0.019376000	10.7.23.136	53042	1.1.1.1	53	False	db._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+3	0.032545000	10.7.23.136	60190	1.1.1.1	53	False	lb._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+4	0.035203000	1.1.1.1	53	10.7.23.136	53042	True	db._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+5	0.035205000	1.1.1.1	53	10.7.23.136	64379	True	b._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+6	0.045103000	10.7.23.136	52729	192.0.2.53	53	False	b._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+7	0.053331000	10.7.23.136	57981	192.0.2.53	53	False	db._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+8	0.056588000	10.7.23.136	51451	192.0.2.53	53	False	lb._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+9	0.057878000	10.7.23.136	49402	192.0.2.53	53	False	_dns.resolver.arpa	64
+10	0.067549000	1.1.1.1	53	10.7.23.136	60190	True	lb._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+11	0.076144000	10.7.23.136	58114	192.0.2.53	53	False	136.23.7.10.in-addr.arpa	12
+12	0.092528000	10.7.23.136	51243	192.0.2.53	53	False	app.subspace-67.test	1
+13	0.294070000	10.7.23.136	58899	192.0.2.53	53	False	apple.com	1
+14	0.294657000	10.7.23.136	53874	192.0.2.53	53	False	sentry.io	1
+15	0.298427000	10.7.23.136	59528	192.0.2.53	53	False	api.apple-cloudkit.com	1
+16	0.306118000	10.7.23.136	62334	192.0.2.53	53	False	www.google.com	1
+17	0.306842000	10.7.23.136	50379	192.0.2.53	53	False	1-courier.sandbox.push.apple.com	1
+18	0.306952000	10.7.23.136	58191	192.0.2.53	53	False	dit.whatsapp.net	65
+19	0.307277000	10.7.23.136	59945	192.0.2.53	53	False	dit.whatsapp.net	1
+20	0.307690000	10.7.23.136	56412	192.0.2.53	53	False	1-courier.push.apple.com	1
+21	0.307927000	10.7.23.136	64300	192.0.2.53	53	False	www.apple.com	1
+22	0.540375000	10.7.23.136	61257	192.0.2.53	53	False	xp-cdn.apple.com	65
+23	0.540461000	10.7.23.136	60044	192.0.2.53	53	False	xp-cdn.apple.com	1
+24	0.943359000	10.7.23.136	50287	192.0.2.53	53	False	ssl.gstatic.com	1
+25	1.073937000	10.7.23.136	52729	192.0.2.53	53	False	b._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+26	1.074124000	10.7.23.136	57981	192.0.2.53	53	False	db._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+27	1.074183000	10.7.23.136	51451	192.0.2.53	53	False	lb._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+28	1.074294000	10.7.23.136	49402	192.0.2.53	53	False	_dns.resolver.arpa	64
+29	1.076939000	10.7.23.136	58114	192.0.2.53	53	False	136.23.7.10.in-addr.arpa	12
+30	1.343015000	10.7.23.136	58899	192.0.2.53	53	False	apple.com	1
+31	1.343273000	10.7.23.136	53874	192.0.2.53	53	False	sentry.io	1
+32	1.343476000	10.7.23.136	59528	192.0.2.53	53	False	api.apple-cloudkit.com	1
+33	1.343572000	10.7.23.136	62334	192.0.2.53	53	False	www.google.com	1
+34	1.343623000	10.7.23.136	50379	192.0.2.53	53	False	1-courier.sandbox.push.apple.com	1
+35	1.343692000	10.7.23.136	58191	192.0.2.53	53	False	dit.whatsapp.net	65
+36	1.343764000	10.7.23.136	59945	192.0.2.53	53	False	dit.whatsapp.net	1
+37	1.343811000	10.7.23.136	56412	192.0.2.53	53	False	1-courier.push.apple.com	1
+38	1.343885000	10.7.23.136	64300	192.0.2.53	53	False	www.apple.com	1
+39	1.543627000	10.7.23.136	61257	192.0.2.53	53	False	xp-cdn.apple.com	65
+40	1.543808000	10.7.23.136	60044	192.0.2.53	53	False	xp-cdn.apple.com	1
+41	1.986778000	10.7.23.136	50287	192.0.2.53	53	False	ssl.gstatic.com	1
+42	2.096556000	10.7.23.136	51243	192.0.2.53	53	False	app.subspace-67.test	1
+43	2.936104000	10.7.23.136	64743	192.0.2.53	53	False	configuration.ls.apple.com	65
+44	2.936191000	10.7.23.136	55103	192.0.2.53	53	False	configuration.ls.apple.com	1
+45	3.095177000	10.7.23.136	52729	192.0.2.53	53	False	b._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+46	3.095257000	10.7.23.136	57981	192.0.2.53	53	False	db._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+47	3.095293000	10.7.23.136	51451	192.0.2.53	53	False	lb._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+48	3.095376000	10.7.23.136	49402	192.0.2.53	53	False	_dns.resolver.arpa	64
+49	3.095466000	10.7.23.136	58114	192.0.2.53	53	False	136.23.7.10.in-addr.arpa	12
+50	3.437928000	10.7.23.136	58899	192.0.2.53	53	False	apple.com	1
+51	3.438309000	10.7.23.136	53874	192.0.2.53	53	False	sentry.io	1
+52	3.438672000	10.7.23.136	59528	192.0.2.53	53	False	api.apple-cloudkit.com	1
+53	3.438783000	10.7.23.136	62334	192.0.2.53	53	False	www.google.com	1
+54	3.438829000	10.7.23.136	50379	192.0.2.53	53	False	1-courier.sandbox.push.apple.com	1
+55	3.438929000	10.7.23.136	58191	192.0.2.53	53	False	dit.whatsapp.net	65
+56	3.439023000	10.7.23.136	59945	192.0.2.53	53	False	dit.whatsapp.net	1
+57	3.439186000	10.7.23.136	56412	192.0.2.53	53	False	1-courier.push.apple.com	1
+58	3.439239000	10.7.23.136	64300	192.0.2.53	53	False	www.apple.com	1
+59	3.621414000	10.7.23.136	61257	192.0.2.53	53	False	xp-cdn.apple.com	65
+60	3.621663000	10.7.23.136	60044	192.0.2.53	53	False	xp-cdn.apple.com	1
+61	3.982544000	10.7.23.136	64743	192.0.2.53	53	False	configuration.ls.apple.com	65
+62	3.982714000	10.7.23.136	55103	192.0.2.53	53	False	configuration.ls.apple.com	1
+63	4.084945000	10.7.23.136	50287	192.0.2.53	53	False	ssl.gstatic.com	1
+64	4.177789000	10.7.23.136	51048	192.0.2.53	53	False	app.subspace-67.test	1
+65	5.180760000	10.7.23.136	51048	192.0.2.53	53	False	app.subspace-67.test	1
+66	5.389198000	10.7.23.136	63633	192.0.2.53	53	False	time.cloudflare.com	1
+67	5.521029000	10.7.23.136	63146	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	65
+68	5.521081000	10.7.23.136	58206	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	1
+69	6.016444000	10.7.23.136	64743	192.0.2.53	53	False	configuration.ls.apple.com	65
+70	6.016639000	10.7.23.136	55103	192.0.2.53	53	False	configuration.ls.apple.com	1
+71	6.149103000	10.7.19.193	13917	10.7.23.136	53	False	assets-proxy.anthropic.com	65
+72	6.149105000	10.7.19.193	51621	10.7.23.136	53	False	assets-proxy.anthropic.com	1
+73	6.256204000	10.7.23.136	50997	8.8.8.8	53	False	assets-proxy.anthropic.com	65
+74	6.256207000	10.7.23.136	50997	1.1.1.1	53	False	assets-proxy.anthropic.com	65
+75	6.256320000	10.7.23.136	53	10.7.19.193	51621	True	assets-proxy.anthropic.com	1
+76	6.437894000	10.7.23.136	63633	192.0.2.53	53	False	time.cloudflare.com	1
+77	6.494680000	8.8.8.8	53	10.7.23.136	50997	True	assets-proxy.anthropic.com	65
+78	6.494683000	1.1.1.1	53	10.7.23.136	50997	True	assets-proxy.anthropic.com	65
+79	6.495542000	10.7.23.136	53	10.7.19.193	13917	True	assets-proxy.anthropic.com	65
+80	6.536305000	10.7.23.136	63146	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	65
+81	6.536986000	10.7.23.136	58206	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	1
+83	6.834385000	10.7.23.136	9142	192.0.2.53	53	False	signaler-pa.clients6.google.com	65
+84	6.834554000	10.7.23.136	4643	192.0.2.53	53	False	signaler-pa.clients6.google.com	1
+85	7.235072000	10.7.23.136	52729	192.0.2.53	53	False	b._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+86	7.235366000	10.7.23.136	57981	192.0.2.53	53	False	db._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+87	7.235420000	10.7.23.136	51451	192.0.2.53	53	False	lb._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+88	7.235527000	10.7.23.136	49402	192.0.2.53	53	False	_dns.resolver.arpa	64
+89	7.235705000	10.7.23.136	58114	192.0.2.53	53	False	136.23.7.10.in-addr.arpa	12
+90	7.235794000	10.7.23.136	51048	192.0.2.53	53	False	app.subspace-67.test	1
+91	7.534362000	10.7.23.136	58899	192.0.2.53	53	False	apple.com	1
+92	7.534719000	10.7.23.136	53874	192.0.2.53	53	False	sentry.io	1
+93	7.535097000	10.7.23.136	59528	192.0.2.53	53	False	api.apple-cloudkit.com	1
+94	7.536141000	10.7.23.136	50379	192.0.2.53	53	False	1-courier.sandbox.push.apple.com	1
+95	7.537365000	10.7.23.136	61801	192.0.2.53	53	False	www.google.com	1
+96	7.537684000	10.7.23.136	56412	192.0.2.53	53	False	1-courier.push.apple.com	1
+97	7.537995000	10.7.23.136	64300	192.0.2.53	53	False	www.apple.com	1
+98	7.538300000	10.7.23.136	54706	192.0.2.53	53	False	dit.whatsapp.net	65
+99	7.538584000	10.7.23.136	51995	192.0.2.53	53	False	dit.whatsapp.net	1
+100	7.751569000	10.7.23.136	61257	192.0.2.53	53	False	xp-cdn.apple.com	65
+101	7.751684000	10.7.23.136	60044	192.0.2.53	53	False	xp-cdn.apple.com	1
+102	7.829956000	10.7.23.136	63310	192.0.2.53	53	False	suconfig.apple.com	65
+103	7.830166000	10.7.23.136	51604	192.0.2.53	53	False	suconfig.apple.com	1
+104	7.848846000	10.7.23.136	18331	192.0.2.53	53	False	signaler-pa.clients6.google.com	65
+105	7.848918000	10.7.23.136	11619	192.0.2.53	53	False	signaler-pa.clients6.google.com	1
+106	8.219643000	10.7.23.136	50287	192.0.2.53	53	False	ssl.gstatic.com	1
+107	8.486026000	10.7.23.136	63633	192.0.2.53	53	False	time.cloudflare.com	1
+108	8.628010000	10.7.23.136	63146	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	65
+109	8.628148000	10.7.23.136	58206	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	1
+110	8.850906000	10.7.23.136	63310	192.0.2.53	53	False	suconfig.apple.com	65
+111	8.851222000	10.7.23.136	51604	192.0.2.53	53	False	suconfig.apple.com	1
+112	9.192908000	10.7.23.136	57297	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	65
+113	9.193219000	10.7.23.136	58517	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	1
+114	9.488235000	10.7.23.136	25538	192.0.2.53	53	False	sync-v2.brave.com	65
+115	9.488307000	10.7.23.136	18038	192.0.2.53	53	False	sync-v2.brave.com	1
+116	9.879311000	10.7.23.136	63050	192.0.2.53	53	False	signaler-pa.clients6.google.com	1
+117	10.018235000	10.7.23.136	64743	192.0.2.53	53	False	configuration.ls.apple.com	65
+118	10.019920000	10.7.23.136	55103	192.0.2.53	53	False	configuration.ls.apple.com	1
+119	10.240189000	10.7.23.136	57297	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	65
+120	10.240319000	10.7.23.136	58517	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	1
+121	10.502327000	10.7.23.136	44342	192.0.2.53	53	False	sync-v2.brave.com	65
+122	10.502404000	10.7.23.136	47293	192.0.2.53	53	False	sync-v2.brave.com	1
+123	10.888596000	10.7.23.136	63310	192.0.2.53	53	False	suconfig.apple.com	65
+124	10.889502000	10.7.23.136	51604	192.0.2.53	53	False	suconfig.apple.com	1
+125	10.890968000	10.7.23.136	63050	192.0.2.53	53	False	signaler-pa.clients6.google.com	1
+126	11.281859000	10.7.23.136	51048	192.0.2.53	53	False	app.subspace-67.test	1
+127	12.334706000	10.7.23.136	57297	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	65
+128	12.335236000	10.7.23.136	58517	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	1
+129	12.529906000	10.7.23.136	63633	192.0.2.53	53	False	time.cloudflare.com	1
+130	12.530661000	10.7.23.136	49226	192.0.2.53	53	False	sync-v2.brave.com	1
+131	12.789671000	10.7.23.136	63146	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	65
+132	12.790370000	10.7.23.136	58206	192.0.2.53	53	False	ap-sin-00001.s3.dualstack.ap-southeast-1.amazonaws.com	1
+133	12.977075000	10.7.23.136	63050	192.0.2.53	53	False	signaler-pa.clients6.google.com	1
+134	13.576698000	10.7.23.136	49226	192.0.2.53	53	False	sync-v2.brave.com	1
+137	14.998484000	10.7.23.136	63310	192.0.2.53	53	False	suconfig.apple.com	65
+138	14.998729000	10.7.23.136	51604	192.0.2.53	53	False	suconfig.apple.com	1
+141	15.615550000	10.7.23.136	52729	192.0.2.53	53	False	b._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+142	15.615730000	10.7.23.136	57981	192.0.2.53	53	False	db._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+143	15.615865000	10.7.23.136	51451	192.0.2.53	53	False	lb._dns-sd._udp.0.0.7.10.in-addr.arpa	12
+144	15.616076000	10.7.23.136	58114	192.0.2.53	53	False	136.23.7.10.in-addr.arpa	12
+145	15.616319000	10.7.23.136	58899	192.0.2.53	53	False	apple.com	1
+146	15.616576000	10.7.23.136	53874	192.0.2.53	53	False	sentry.io	1
+147	15.616890000	10.7.23.136	59528	192.0.2.53	53	False	api.apple-cloudkit.com	1
+148	15.617126000	10.7.23.136	61801	192.0.2.53	53	False	www.google.com	1
+149	15.617689000	10.7.23.136	50379	192.0.2.53	53	False	1-courier.sandbox.push.apple.com	1
+150	15.618103000	10.7.23.136	54706	192.0.2.53	53	False	dit.whatsapp.net	65
+151	15.618547000	10.7.23.136	51995	192.0.2.53	53	False	dit.whatsapp.net	1
+152	15.619008000	10.7.23.136	56412	192.0.2.53	53	False	1-courier.push.apple.com	1
+153	15.620180000	10.7.23.136	64300	192.0.2.53	53	False	www.apple.com	1
+154	15.620730000	10.7.23.136	49226	192.0.2.53	53	False	sync-v2.brave.com	1
+155	15.980029000	10.7.23.136	61257	192.0.2.53	53	False	xp-cdn.apple.com	65
+156	15.980196000	10.7.23.136	60044	192.0.2.53	53	False	xp-cdn.apple.com	1
+159	16.530681000	10.7.23.136	50287	192.0.2.53	53	False	ssl.gstatic.com	1
+160	16.531032000	10.7.23.136	57297	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	65
+161	16.531116000	10.7.23.136	58517	192.0.2.53	53	False	gcs-asia-00002.content-storage-download.googleapis.com	1
+162	17.004753000	10.7.23.136	63050	192.0.2.53	53	False	signaler-pa.clients6.google.com	1
+163	18.020062000	10.7.23.136	64743	192.0.2.53	53	False	configuration.ls.apple.com	65
+164	18.020373000	10.7.23.136	55103	192.0.2.53	53	False	configuration.ls.apple.com	1
+
+### Queries vs responses per server
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F1_wrong_dns_server/F1_queries_to_nowhere.pcapng -n -q -z dns,tree
+
+==============================================================================================================================================
+DNS:
+Packet Type                    Count         Average       Min Val       Max Val       Rate (ms)     Percent       Burst Rate    Burst Start  
+----------------------------------------------------------------------------------------------------------------------------------------------
+Total Packets                  157                                                     0.0087        100%          0.1400        15.616       
+Response                       157                                                     0.0087        100%          0.1400        15.616       
+ Query                         150                                                     0.0083        95.54%        0.1400        15.616       
+ Response                      7                                                       0.0004        4.46%         0.0300        0.000        
+Query Type                     157                                                     0.0087        100%          0.1400        15.616       
+ A                             90                                                      0.0050        57.32%        0.0900        15.616       
+ HTTPS                         37                                                      0.0021        23.57%        0.0400        6.495        
+ PTR                           26                                                      0.0014        16.56%        0.1000        0.000        
+ SVCB                          4                                                       0.0002        2.55%         0.0100        0.000        
+Answer Type                    9                                                       0.0005        100%          0.0500        6.495        
+ OPT                           5                                                       0.0003        55.56%        0.0300        0.000        
+ HTTPS                         3                                                       0.0002        33.33%        0.0300        6.495        
+ A                             1                                                       0.0001        11.11%        0.0100        6.256        
+Query Name                     0                                                       0.0000        100%          -             -            
+Class                          157                                                     0.0087        100%          0.1400        15.616       
+ IN                            157                                                     0.0087        100.00%       0.1400        15.616       
+rcode                          157                                                     0.0087        100%          0.1400        15.616       
+ No error                      154                                                     0.0085        98.09%        0.1400        15.616       
+ No such name                  3                                                       0.0002        1.91%         0.0300        0.000        
+opcodes                        157                                                     0.0087        100%          0.1400        15.616       
+ Standard query                157                                                     0.0087        100.00%       0.1400        15.616       
+Payload size                   157           45.50         27            108           0.0087        100%          0.1400        15.616       
+Query Stats                    0                                                       0.0000        100%          -             -            
+ Qname Len                     150           25.31         9             54            0.0083                      0.1400        15.616       
+ Label Stats                   0                                                       0.0000                      -             -            
+  3rd Level                    73                                                      0.0041                      0.0600        15.617       
+  4th Level or more            67                                                      0.0037                      0.0700        0.000        
+  2nd Level                    10                                                      0.0006                      0.0200        0.294        
+  1st Level                    0                                                       0.0000                      -             -            
+Response Stats                 0                                                       0.0000        100%          -             -            
+ no. of questions              14            1.00          1             1             0.0008                      0.0600        0.000        
+ no. of authorities            14            0.00          0             0             0.0008                      0.0600        0.000        
+ no. of answers                14            0.57          0             1             0.0008                      0.0600        0.000        
+ no. of additionals            14            0.71          0             1             0.0008                      0.0600        0.000        
+Service Stats                  0                                                       0.0000        100%          -             -            
+ request-response time (msec)  7             145.23        15.827000     346.438995    0.0004                      0.0300        0.000        
+ no. of unsolicited responses  0                                                       0.0000                      -             -            
+ no. of retransmissions        0                                                       0.0000                      -             -            
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+

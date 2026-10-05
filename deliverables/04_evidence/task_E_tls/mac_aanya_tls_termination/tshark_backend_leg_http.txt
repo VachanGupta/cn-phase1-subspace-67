@@ -1,0 +1,71 @@
+# mac_aanya, 2026-09-30 13:51:43 IST, LEG 2 edge->backends (en0, ports 3001/3002): plain HTTP, X-Backend visible
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y 'tcp.port==3001 || tcp.port==3002' -T fields -e frame.number -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e _ws.col.Info
+31	10.7.19.193	52085	10.7.23.136	3002	GET /api/status HTTP/1.1 
+32	10.7.23.136	3002	10.7.19.193	52085	3002 → 52085 [ACK] Seq=1 Ack=174 Win=2050 Len=0 TSval=829670758 TSecr=3253075115
+33	10.7.23.136	3002	10.7.19.193	52085	HTTP/1.1 200 OK 
+34	10.7.19.193	52085	10.7.23.136	3002	52085 → 3002 [ACK] Seq=174 Ack=196 Win=2045 Len=0 TSval=3253075594 TSecr=829670759
+35	10.7.23.136	3002	10.7.19.193	52085	HTTP/1.1 200 OK , JSON (application/json)
+36	10.7.19.193	52085	10.7.23.136	3002	52085 → 3002 [ACK] Seq=174 Ack=321 Win=2047 Len=0 TSval=3253076001 TSecr=829671180
+109	10.7.19.193	52055	10.7.1.136	3001	GET /api/cache-demo HTTP/1.1 
+118	10.7.1.136	3001	10.7.19.193	52055	3001 → 52055 [ACK] Seq=1 Ack=178 Win=2049 Len=0 TSval=2688752597 TSecr=3576254141
+119	10.7.1.136	3001	10.7.19.193	52055	HTTP/1.1 200 OK 
+120	10.7.19.193	52055	10.7.1.136	3001	52055 → 3001 [ACK] Seq=178 Ack=278 Win=2044 Len=0 TSval=3576254162 TSecr=2688752598
+121	10.7.1.136	3001	10.7.19.193	52055	HTTP/1.1 200 OK , JSON (application/json)
+122	10.7.19.193	52055	10.7.1.136	3001	52055 → 3001 [ACK] Seq=178 Ack=503 Win=2045 Len=0 TSval=3576254229 TSecr=2688752617
+175	10.7.19.193	52085	10.7.23.136	3002	GET / HTTP/1.1 
+176	10.7.23.136	3002	10.7.19.193	52085	3002 → 52085 [ACK] Seq=321 Ack=337 Win=2048 Len=0 TSval=829672206 TSecr=3253076174
+177	10.7.23.136	3002	10.7.19.193	52085	HTTP/1.1 200 OK 
+178	10.7.19.193	52085	10.7.23.136	3002	52085 → 3002 [ACK] Seq=337 Ack=491 Win=2046 Len=0 TSval=3253077184 TSecr=829672207
+179	10.7.23.136	3002	10.7.19.193	52085	HTTP/1.1 200 OK , JSON (application/json)
+180	10.7.19.193	52085	10.7.23.136	3002	52085 → 3002 [ACK] Seq=337 Ack=641 Win=2046 Len=0 TSval=3253077699 TSecr=829672872
+(exit 0)
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y 'http && (tcp.port==3001 || tcp.port==3002)' -O http -V | grep -E '^Frame|Hypertext|GET |HTTP/1|Host:|X-Real-IP|X-Forwarded|X-Backend|Cache-Control|ETag|Content-Type'
+Frame 31: Packet, 239 bytes on wire (1912 bits), 239 bytes captured (1912 bits) on interface en0, id 0 (outbound) proc: nginx(8221) [8221]
+Hypertext Transfer Protocol
+    GET /api/status HTTP/1.1\r\n
+        Request Version: HTTP/1.1
+    Host: app.subspace-67.test\r\n
+    X-Real-IP: 10.7.19.193\r\n
+    X-Forwarded-For: 10.7.19.193\r\n
+    X-Forwarded-Proto: https\r\n
+Frame 35: Packet, 191 bytes on wire (1528 bits), 191 bytes captured (1528 bits) on interface en0, id 0 (inbound) proc: nginx(8221) [8221]
+Hypertext Transfer Protocol
+    HTTP/1.1 200 OK\r\n
+        Response Version: HTTP/1.1
+    X-Backend: B\r\n
+    Content-Type: application/json; charset=utf-8\r\n
+    Cache-Control: no-store\r\n
+Frame 109: Packet, 243 bytes on wire (1944 bits), 243 bytes captured (1944 bits) on interface en0, id 0 (outbound) proc: nginx(8219) [8219]
+Hypertext Transfer Protocol
+    GET /api/cache-demo HTTP/1.1\r\n
+        Request Version: HTTP/1.1
+    Host: app.subspace-67.test\r\n
+    X-Real-IP: 10.7.19.193\r\n
+    X-Forwarded-For: 10.7.19.193\r\n
+    X-Forwarded-Proto: https\r\n
+Frame 121: Packet, 291 bytes on wire (2328 bits), 291 bytes captured (2328 bits) on interface en0, id 0 (inbound) proc: nginx(8219) [8219]
+Hypertext Transfer Protocol
+    HTTP/1.1 200 OK\r\n
+        Response Version: HTTP/1.1
+    X-Backend: A\r\n
+    Content-Type: application/json; charset=utf-8\r\n
+    Cache-Control: public, max-age=60\r\n
+    ETag: "6adb0ec0cb57508d"\r\n
+Frame 175: Packet, 229 bytes on wire (1832 bits), 229 bytes captured (1832 bits) on interface en0, id 0 (outbound) proc: nginx(8221) [8221]
+Hypertext Transfer Protocol
+    GET / HTTP/1.1\r\n
+        Request Version: HTTP/1.1
+    Host: app.subspace-67.test\r\n
+    X-Real-IP: 10.7.19.193\r\n
+    X-Forwarded-For: 10.7.19.193\r\n
+    X-Forwarded-Proto: https\r\n
+Frame 179: Packet, 216 bytes on wire (1728 bits), 216 bytes captured (1728 bits) on interface en0, id 0 (inbound) proc: nginx(8221) [8221]
+Hypertext Transfer Protocol
+    HTTP/1.1 200 OK\r\n
+        Response Version: HTTP/1.1
+    X-Backend: B\r\n
+    Content-Type: application/json; charset=utf-8\r\n
+(exit 0)
+

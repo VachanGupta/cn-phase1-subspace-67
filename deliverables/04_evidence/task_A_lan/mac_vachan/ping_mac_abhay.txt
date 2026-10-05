@@ -1,0 +1,14 @@
+$ ping -c 5 10.7.1.136   # mac_abhay (IP from its info.json)
+PING 10.7.1.136 (10.7.1.136): 56 data bytes
+64 bytes from 10.7.1.136: icmp_seq=0 ttl=64 time=51.968 ms
+64 bytes from 10.7.1.136: icmp_seq=1 ttl=64 time=63.435 ms
+64 bytes from 10.7.1.136: icmp_seq=2 ttl=64 time=60.321 ms
+64 bytes from 10.7.1.136: icmp_seq=3 ttl=64 time=296.137 ms
+64 bytes from 10.7.1.136: icmp_seq=4 ttl=64 time=116.895 ms
+
+--- 10.7.1.136 ping statistics ---
+5 packets transmitted, 5 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 51.968/117.751/296.137/92.085 ms
+
+$ arp -n 10.7.1.136
+? (10.7.1.136) at 8e:f6:fb:7b:a:59 on en0 ifscope [ethernet]

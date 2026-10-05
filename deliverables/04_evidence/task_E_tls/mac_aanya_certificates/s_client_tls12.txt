@@ -1,0 +1,128 @@
+# mac_aanya, 2026-09-30 13:52:32 IST, openssl s_client, TLS 1.2 forced
+
+$ echo | /opt/homebrew/bin/openssl s_client -connect app.subspace-67.test:443 -servername app.subspace-67.test -CAfile tls/ca.crt -showcerts -tls1_2
+Connecting to 10.7.19.193
+depth=1 O=subspace_67, OU=Computer Networks course project, CN=subspace_67 Local Root CA
+verify return:1
+depth=0 O=subspace_67, CN=app.subspace-67.test
+verify return:1
+CONNECTED(00000005)
+---
+Certificate chain
+ 0 s:O=subspace_67, CN=app.subspace-67.test
+   i:O=subspace_67, OU=Computer Networks course project, CN=subspace_67 Local Root CA
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Sep 30 07:53:55 2026 GMT; NotAfter: Nov  1 07:53:55 2027 GMT
+-----BEGIN CERTIFICATE-----
+MIIEUjCCArqgAwIBAgIQQfrxCOQKszg8x29vQxPdUzANBgkqhkiG9w0BAQsFADBl
+MRQwEgYDVQQKDAtzdWJzcGFjZV82NzEpMCcGA1UECwwgQ29tcHV0ZXIgTmV0d29y
+a3MgY291cnNlIHByb2plY3QxIjAgBgNVBAMMGXN1YnNwYWNlXzY3IExvY2FsIFJv
+b3QgQ0EwHhcNMjYwOTMwMDc1MzU1WhcNMjcxMTAxMDc1MzU1WjA1MRQwEgYDVQQK
+DAtzdWJzcGFjZV82NzEdMBsGA1UEAwwUYXBwLnN1YnNwYWNlLTY3LnRlc3QwggEi
+MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDopFgvBAJ0jGrNYLTu9J6RqsKq
+JO+5YWtjXVj40wP/j8196Q2hhI81SHiXab34icQNQA9KrndnU7JNzdRyCFJz1JCK
+SBglS5PKjTXO/kJmQnwi2RXTIASK6AIjYd9g69pP9naDOFq7WS2tNJS75I/dy767
+DMAS/5w3Lt704ZqfQb1ZWRpHvmE8KihRszqItW7DlNDYx8PSjjdGAywDeEvC52LA
+mZuN8iOQRjSTfK8DtLA/sqsdb2VdvAEK69yjd0lRV/kbGk0hpANfjfNwADAZXo+N
+OogxBGQoEldZmXGHtoRFxFefTsaltjUFoV5C7jQz4FCjAgkx+naArujppmwxAgMB
+AAGjga0wgaowDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAww
+CgYIKwYBBQUHAwEwNQYDVR0RBC4wLIIUYXBwLnN1YnNwYWNlLTY3LnRlc3SCFGFw
+aS5zdWJzcGFjZS02Ny50ZXN0MB0GA1UdDgQWBBTLJDBFe6eYPXTVUuDtHX8hJRIe
+cDAfBgNVHSMEGDAWgBST2e/sv+R04ZrOtE+BPEE5QUGNcDANBgkqhkiG9w0BAQsF
+AAOCAYEAbV/N4B/tafWLSPIhB8ljG9vVClU6Q6PKaAYsrbXpyfhCVlvS1e41yBqo
+jt7Fpa6fVVWkmVFEqFa7i+bZ+MoZP9s2RZYw20Ne1+oNpyOdZ6afnZLuuKYE7zov
+YFSSZjucBCwU2lQRVcLtx+JTX0EQIXq4v2RPOZKhmFGTb1WWsb8HaFXPBqhxrXGr
+OB4DvFfsorlVS7OCjFU5xpMA8n0cGqsBQOuasC3/ryjiHuGbTQATOhDVXfH+8i5J
+M2xLCTQZAe3PhEf5AR60xSkPcMOenOUEnNhjatWiM3cLrgIfaPsx5BfGEQ52Nr5Y
+uwJyIqUlgOCi/rqSqHY6y5u3WVIh16KAxIjRzRpSNgS/iSHg7Unt7iptNvqEMLJb
+yCL3rvamPqOqkuUo6I8PmdFEEFxUaIuOH+kJl0IcaPrxm9qEWftvg5EF0XHkp/LY
+BhDNnPBUmXIVKGdjgASBod1iqI1J3NWv0UXyNxkl2a+d52IRdMdL5NEWOWz8lFpg
+hBapHXb1
+-----END CERTIFICATE-----
+ 1 s:O=subspace_67, OU=Computer Networks course project, CN=subspace_67 Local Root CA
+   i:O=subspace_67, OU=Computer Networks course project, CN=subspace_67 Local Root CA
+   a:PKEY: RSA, 3072 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Sep 30 07:53:55 2026 GMT; NotAfter: Sep 27 07:53:55 2036 GMT
+-----BEGIN CERTIFICATE-----
+MIIEvTCCAyWgAwIBAgIQSC/LqdX17ewbybWeYaIwAjANBgkqhkiG9w0BAQsFADBl
+MRQwEgYDVQQKDAtzdWJzcGFjZV82NzEpMCcGA1UECwwgQ29tcHV0ZXIgTmV0d29y
+a3MgY291cnNlIHByb2plY3QxIjAgBgNVBAMMGXN1YnNwYWNlXzY3IExvY2FsIFJv
+b3QgQ0EwHhcNMjYwOTMwMDc1MzU1WhcNMzYwOTI3MDc1MzU1WjBlMRQwEgYDVQQK
+DAtzdWJzcGFjZV82NzEpMCcGA1UECwwgQ29tcHV0ZXIgTmV0d29ya3MgY291cnNl
+IHByb2plY3QxIjAgBgNVBAMMGXN1YnNwYWNlXzY3IExvY2FsIFJvb3QgQ0EwggGi
+MA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQCmo+SwifF9gpUhL7xm7zygOY1G
+6mW1qDE/9BJaMqdJDfFZ+eN8UKw2cW3GdwDymZI95pTq6ezWPWUMsP70mp+B8r/B
+fUE+wNNz32oYxGFj6nosJ0ik6VHw6iPoalPhphWGoMGp1uUww4wOgk67ICSi+qiz
+zMEOSlPnhcLwtnRHurqYpQmqB4qoCFh5pfCM2G5SXuI1/3nV0SpyTPBp1GSnK2Rq
++wOcMNYmrZFZWGuuSnMvyDdURDRFq79f/veg/2cfitdaKhCHxL5qrKwKB6u5CD1q
+iSpyOQiJFLHE5h+6+h9u754jgk5cIvX1Jq00OKXws2Xhgg4mVQPOI0AYYXBMHscr
+OboYe7pXouv4ryOlEN6IjULAsFGiS2wpnVBSj2ZIRHwd3gI7mO2apd5x23Nqe8xW
+oX3puINNPfOLy9B9qqGV8W6ucEyjzSUrYP1Z9m6XzZVIABhivgQ3FTCqECHpjQYE
+92VhLrvCYlcVT5V0XvQHEHRTqgol8smFFBuSW9UCAwEAAaNpMGcwEgYDVR0TAQH/
+BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYEFJPZ7+y/5HThms60
+T4E8QTlBQY1wMCIGA1UdHgEB/wQYMBagFDASghBzdWJzcGFjZS02Ny50ZXN0MA0G
+CSqGSIb3DQEBCwUAA4IBgQB4YrgclanD10HaDsPfWqYQMo5npGqm2WtgLsnGCZyQ
+ylKREVp/SGwnp+ly4luI64StP70eskyJQD6O8WyEVJc8WUOXNIX3IOw6dV0W/XjI
+6+MXh1NkNz4mCsvsgOO+3ibg7h/iYr4oNcV/wZVNMtRYhuQBXF0H9Kgm2jgjuhqn
+wNJEqRXW7EDN7KcwJdXdCHY0YDpzxIqmC57mJVgrJz6Hit+YFz4GeDZji0giPG9y
+3n6TIZeeLQMz20Jk5BP1w33pIJ1+KeQJlYXmLrmzfG1PEa1tjPdCxMCwbLn9p30v
+654PyoQvKDuVrO2XoHOFI4Xye5DoX+BMYPAQ8jRY159XU/h454HbdXKWI6dVnRJ4
+4nL0GTDZzwK9C8SQwQQ2fArMSUCeX5uCwkHcqXTpT7T1tjnsTAdO0HH5wqchrEkq
+skwF0Uzq0O28S6NY2vBNfN/kw5CS71jpGDo6kBqtsOag8z+ECN8yx53p4Ce4NRjH
+yXhMGsbwpDmsd8JZf3ewHB0=
+-----END CERTIFICATE-----
+---
+Server certificate
+subject=O=subspace_67, CN=app.subspace-67.test
+issuer=O=subspace_67, OU=Computer Networks course project, CN=subspace_67 Local Root CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Peer Temp Key: X25519, 253 bits
+---
+SSL handshake has read 3005 bytes and written 315 bytes
+Verification: OK
+---
+New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+Protocol: TLSv1.2
+Server public key is 2048 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+    Session-ID: A773C8C1A77E26802227051D4F90411D601694D6BA3EA9F4B3AE51B6152ADEAD
+    Session-ID-ctx: 
+    Master-Key: 16C4CBBE425613906FE7C47982D56478CC6560F132F6A951C7A872D6854D02BE1E17D2DA7ABF754B7B30946161678A2C
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 600 (seconds)
+    TLS session ticket:
+    0000 - 67 e7 21 51 57 87 6b 37-e1 15 e3 d3 80 d8 77 f1   g.!QW.k7......w.
+    0010 - 03 07 c3 ec a5 04 30 45-77 0a 1e d6 9b 0b b8 fa   ......0Ew.......
+    0020 - a4 b5 a4 4e 47 a5 20 a5-82 4d 39 be 3a ed aa e1   ...NG. ..M9.:...
+    0030 - 67 3b 37 6c de d8 75 05-57 07 93 cc ee d3 e5 9e   g;7l..u.W.......
+    0040 - 3c 56 19 2d b6 63 35 d5-d6 dd 32 4f b1 18 bb 8d   <V.-.c5...2O....
+    0050 - 3f 2d a2 54 e4 f7 01 9d-0c 08 33 64 c5 68 b7 1d   ?-.T......3d.h..
+    0060 - a7 74 e2 36 ff bb 80 f8-2d c2 15 e4 5f 35 09 ec   .t.6....-..._5..
+    0070 - d8 af b3 ba d3 c4 66 55-a0 f7 69 21 ca 0f 3b c4   ......fU..i!..;.
+    0080 - 78 4c 67 44 b3 47 1c e8-d7 7d 18 15 27 0d a5 df   xLgD.G...}..'...
+    0090 - 7c c0 5f 1f b8 fb da d8-25 32 0c ac 58 9a 12 61   |._.....%2..X..a
+    00a0 - 4a 0e f9 d6 82 2c b3 a6-2d 7d 94 51 fe 5a d7 4b   J....,..-}.Q.Z.K
+    00b0 - 52 32 11 e7 1b fe d3 9b-ef 70 09 0f 09 bc b0 43   R2.......p.....C
+    00c0 - 4f 8c 83 83 0b ec 04 19-a7 03 95 cf 0f 16 82 86   O...............
+
+    Start Time: 1790756553
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: yes
+---
+ECH: NOT CONFIGURED: -103
+---
+DONE
+(exit 0)
+

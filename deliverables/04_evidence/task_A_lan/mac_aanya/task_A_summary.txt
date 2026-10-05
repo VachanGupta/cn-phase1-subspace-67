@@ -1,0 +1,17 @@
+mac_aanya - Task A: network identity of the edge Mac (captured 2026-09-30 13:22:25 IST)
+
+Interface      : en0 (network service "Wi-Fi")
+IPv4 address   : 10.7.19.193
+Subnet mask    : 255.255.224.0  (= /19, network 10.7.0.0/19, broadcast 10.7.31.255)
+Default gateway: 10.7.0.1
+MAC in use     : d6:d2:39:70:e5:9a  (macOS "Private Wi-Fi Address", a per-network randomised MAC)
+Hardware MAC   : 10:9f:41:be:0f:1e  (burned-in Wi-Fi address from networksetup -listallhardwareports)
+Addressing     : DHCP ("networksetup -getinfo Wi-Fi" shows "DHCP Configuration")
+
+What it shows / layer / why:
+- Layer 3 (IP): our address and mask define which peers are "on-link". All 3 Macs are in 10.7.0.0/19,
+  so traffic between them goes straight over Wi-Fi without the router (ARP resolves the peer's MAC directly).
+- Layer 2 (MAC): the address that appears in ARP tables and Ethernet/802.11 frames is the private
+  (randomised) one, not the hardware one.
+- The default route via 10.7.0.1 is only used for off-subnet traffic (internet).
+Commands and full output: task_A_commands.txt. Peer reachability: ping_*.txt.

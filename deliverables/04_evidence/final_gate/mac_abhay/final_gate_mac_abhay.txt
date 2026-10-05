@@ -1,0 +1,49 @@
+### 2026-09-30 14:15:10 IST on mac_abhay (10.7.1.136)
+$ dig app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 7541
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.19.193
+
+;; Query time: 7 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 14:15:10 IST 2026
+;; MSG SIZE  rcvd: 65
+
+[exit code: 0]
+
+### 2026-09-30 14:15:10 IST on mac_abhay (10.7.1.136)
+$ curl -sS -o /dev/null -w '%{http_code} %{ssl_verify_result}
+' https://app.subspace-67.test/api/status
+200 0
+[exit code: 0]
+
+### 2026-09-30 14:15:11 IST on mac_abhay (10.7.1.136)
+$ for i in $(seq 1 10); do curl -s -D - -o /dev/null https://app.subspace-67.test/api/status | grep -i x-backend; done
+x-backend: A
+x-backend: B
+x-backend: A
+x-backend: B
+x-backend: A
+x-backend: B
+x-backend: A
+x-backend: B
+x-backend: A
+x-backend: B
+[exit code: 0]
+
+GATE RESULT (mac_abhay, summary computed 2026-09-30 14:15:27 IST from the outputs above):
+  1) dig answer=10.7.19.193 server=10.7.23.136#53(10.7.23.136) -> PASS
+  2) '%{http_code} %{ssl_verify_result}' = '200 0' (plain /usr/bin/curl, no -k, no --cacert) -> PASS
+  3) X-Backend over 10 requests: A B A B A B A B A B (A=5, B=5) -> PASS
+  OVERALL: PASS

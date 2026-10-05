@@ -1,0 +1,122 @@
+# Task B - DNS resolution through our own server - captured on mac_vachan (10.7.23.136) 2026-09-30 14:13:57 IST
+# mac_aanya (edge) = 10.7.19.193, mac_abhay = 10.7.1.136, mac_vachan (DNS server + Backend B) = 10.7.23.136
+
+$ networksetup -getdnsservers Wi-Fi
+10.7.23.136
+
+$ dig app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 19449
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.19.193
+
+;; Query time: 1 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 14:13:57 IST 2026
+;; MSG SIZE  rcvd: 65
+
+
+$ dig api.subspace-67.test +noall +answer +stats
+
+; <<>> DiG 9.10.6 <<>> api.subspace-67.test +noall +answer +stats
+;; global options: +cmd
+api.subspace-67.test.	60	IN	A	10.7.19.193
+;; Query time: 0 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 14:13:57 IST 2026
+;; MSG SIZE  rcvd: 65
+
+
+$ dig @10.7.23.136 app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> @10.7.23.136 app.subspace-67.test
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 13734
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.19.193
+
+;; Query time: 0 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 14:13:57 IST 2026
+;; MSG SIZE  rcvd: 65
+
+
+$ dig @127.0.0.1 app.subspace-67.test +noall +answer
+
+; <<>> DiG 9.10.6 <<>> @127.0.0.1 app.subspace-67.test +noall +answer
+; (1 server found)
+;; global options: +cmd
+app.subspace-67.test.	60	IN	A	10.7.19.193
+
+$ dig app.subspace-67.test AAAA +noall +comments +answer | grep -E 'status|ANSWER|app'
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test AAAA +noall +comments +answer
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 49064
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+
+$ dig nosuchhost.subspace-67.test | grep -E 'status|SERVER|AUTHORITY'
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 51560
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+
+$ dig google.com +noall +answer +stats
+
+; <<>> DiG 9.10.6 <<>> google.com +noall +answer +stats
+;; global options: +cmd
+google.com.		256	IN	A	192.178.158.100
+google.com.		256	IN	A	192.178.158.102
+google.com.		256	IN	A	192.178.158.138
+google.com.		256	IN	A	192.178.158.139
+google.com.		256	IN	A	192.178.158.101
+google.com.		256	IN	A	192.178.158.113
+;; Query time: 45 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 14:13:57 IST 2026
+;; MSG SIZE  rcvd: 135
+
+
+$ dig api.anthropic.com +short
+160.79.104.10
+
+$ dig -x 10.7.19.193 +short
+app.subspace-67.test.
+
+$ nslookup app.subspace-67.test
+Server:		10.7.23.136
+Address:	10.7.23.136#53
+
+Name:	app.subspace-67.test
+Address: 10.7.19.193
+
+
+$ nslookup api.subspace-67.test 10.7.23.136
+Server:		10.7.23.136
+Address:	10.7.23.136#53
+
+Name:	api.subspace-67.test
+Address: 10.7.19.193
+
+
+$ dscacheutil -q host -a name app.subspace-67.test
+name: app.subspace-67.test
+ip_address: 10.7.19.193
+
+

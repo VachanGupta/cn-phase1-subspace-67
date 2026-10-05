@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>F2 · The DNS record points to the wrong IP address</title><style>
+:root{--bg:#ffffff;--fg:#1d2330;--muted:#5b6475;--line:#d9dee7;--soft:#f5f7fa;--accent:#2f6fd6;--code:#f1f3f7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#14171d;--fg:#e6e9ef;--muted:#9aa3b5;--line:#2e3441;--soft:#1b1f27;--accent:#6aa0f5;--code:#1f2430}}
+:root[data-theme="dark"]{--bg:#14171d;--fg:#e6e9ef;--muted:#9aa3b5;--line:#2e3441;--soft:#1b1f27;--accent:#6aa0f5;--code:#1f2430}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .6em} h2{font-size:1.45rem;margin:1.8em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.15rem;margin:1.4em 0 .4em} h4{font-size:1rem;margin:1.2em 0 .3em}
+a{color:var(--accent)} p{margin:.6em 0} ul,ol{padding-left:1.4em} li{margin:.2em 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--code);padding:.1em .35em;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.45}
+pre code{background:none;padding:0;font-size:.85em}
+.table{overflow-x:auto;margin:1em 0} table{border-collapse:collapse;width:100%;font-size:.93em}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top} th{background:var(--soft)}
+blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--accent);background:var(--soft);border-radius:0 6px 6px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+figure{margin:1.2em 0} figure svg,figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
+figcaption{color:var(--muted);font-size:.9em;margin-top:.3em}
+@media print{body{background:#fff;color:#000} main{max-width:none;padding:0} h2{break-before:auto} pre,table,figure{break-inside:avoid}}
+</style></head>
+<body><main>
+<h1 id="f2-the-dns-record-points-to-the-wrong-ip-address">F2 · The DNS record points to the wrong IP address</h1>
+<p><strong>Run:</strong> 2026-09-30 14:07:56-14:08:14 IST on mac_vachan (DNS server + client). <strong>Break:</strong> <code>app.subspace-67.test</code> was pointed at <strong>10.7.1.136</strong> (mac_abhay: a live host, but nothing listens on 443 there): <code>bin/gen_dnsmasq.py --app-ip 10.7.1.136</code>, then a dnsmasq restart and a cache flush.</p>
+<h2 id="observation">Observation</h2>
+<div class="table"><table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td><code>dig app.subspace-67.test</code></td><td><code>status: NOERROR</code>, flags <code>qr aa rd ra</code>, <code>app.subspace-67.test. 60 IN A 10.7.1.136</code>, <code>SERVER: 10.7.23.136#53</code>: a perfectly "successful" lookup</td></tr><tr><td><code>curl -v https://app.subspace-67.test/api/status</code></td><td><code>Trying 10.7.1.136:443...</code> -&gt; <code>connect to 10.7.1.136 port 443 ... failed: Connection refused</code></td></tr><tr><td><code>ping -c 2 10.7.1.136</code></td><td>2/2 replies: the wrong host is alive</td></tr><tr><td><code>nc -vz 10.7.1.136 443</code></td><td><code>Connection refused</code></td></tr><tr><td>capture <code>F2_wrong_record.pcapng</code></td><td>frame 20: SYN 10.7.23.136:49346 -&gt; 10.7.1.136:443; frame 26: <strong>RST,ACK</strong> from 10.7.1.136 (retry at frames 27/28). The DNS answer itself is not on en0, because this Mac is its own DNS server and that query goes over loopback; the <code>dig</code> output shows it.</td></tr></tbody></table></div>
+<p>After restoring the record: <code>dig</code> -&gt; 10.7.19.193, HTTPS 200, healthy.</p>
+<h2 id="layer-and-why">Layer and why</h2>
+<p><strong>DNS is a directory, not a connection.</strong> The DNS server answered exactly what it was configured to say, with authority and a 60 s TTL. It has no idea whether that IP runs our service. The client then did what DNS told it: opened TCP to 10.7.1.136:443. That host's kernel refused the connection (RST) because no process listens on</p>
+<ol><li>The failure shows up at the transport layer, but its cause is a wrong DNS record. <strong>Diagnosis rule:</strong></li></ol>
+<p>compare the IP <code>dig</code> returns with the IP you expect before debugging TCP or TLS. The 60 s TTL also means any client that looked up the name during the fault keeps the wrong answer for up to a minute (or until its cache is flushed).</p>
+<p>Files: <code>commands_output.txt</code>, <code>F2_wrong_record.pcapng</code> + <code>F2_wrong_record_tshark.txt</code>.</p>
+</main></body></html>

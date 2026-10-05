@@ -1,0 +1,18 @@
+### 2026-09-30 13:21:17 IST on mac_abhay (10.7.1.136)
+$ networksetup -getdnsservers Wi-Fi; scutil --dns | sed -n '/resolver #1/,/^$/p'
+There aren't any DNS Servers set on Wi-Fi.
+resolver #1
+  nameserver[0] : 8.8.8.8
+  nameserver[1] : 10.5.7.1
+  if_index : 11 (en0)
+  flags    : Request A records
+  reach    : 0x00000002 (Reachable)
+
+resolver #1
+  nameserver[0] : 8.8.8.8
+  nameserver[1] : 10.5.7.1
+  if_index : 11 (en0)
+  flags    : Scoped, Request A records
+  reach    : 0x00000002 (Reachable)
+[exit code: 0]
+

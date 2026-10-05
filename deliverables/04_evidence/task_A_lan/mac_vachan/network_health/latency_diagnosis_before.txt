@@ -1,0 +1,31 @@
+# Network health on mac_vachan - high latency diagnosed (2026-09-30 14:03:00 IST)
+# Reported by mac_aanya: ping to 10.7.23.136 avg 666 ms (max 1.27 s), TCP connect to :3002 0.6-1.0 s; other Macs 20-75 ms.
+
+$ ping -c 8 -i 0.2 -q 10.7.0.1
+8 packets transmitted, 8 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 17.358/295.279/663.426/238.191 ms
+
+$ system_profiler SPAirPortDataType | grep -E "PHY Mode|Channel|Signal / Noise|Transmit Rate"
+              PHY Mode: 802.11ax
+              Channel: 100 (5GHz, 40MHz)
+              Signal / Noise: -39 dBm / -94 dBm
+              Transmit Rate: 516
+
+$ AssetCacheManagerUtil status | grep -E "Activated|Active|Peers|TotalBytesReturnedToClients"
+    Activated: true
+    Active: true
+    Peers: (17)
+    TotalBytesReturnedToClients: 16.16 GB
+    TotalBytesReturnedToPeers: 4.17 GB
+    TotalBytesStoredFromPeers: 8.3 GB
+
+$ nettop -P -L 2 -d -s 3 -n -x -J bytes_in,bytes_out   # 2nd sample = bytes in the last 3 s
+AssetCache.21525,22300838,3185622,
+
+$ pmset -g batt | head -1
+Now drawing from 'Battery Power'
+
+# Diagnosis: radio link is excellent (strong signal, high SNR, 802.11ax), but macOS Content Caching is uploading/downloading
+# several MB/s to other devices on the campus network. The Wi-Fi transmit queue fills up (bufferbloat), so every packet to/from
+# this Mac waits behind the bulk transfer: high latency to ALL destinations, including the gateway, with no packet loss.
+# Layer: L2/L3 queueing on this host's uplink - not DNS, TCP or TLS. Fix: pause Content Caching, plug in the charger.

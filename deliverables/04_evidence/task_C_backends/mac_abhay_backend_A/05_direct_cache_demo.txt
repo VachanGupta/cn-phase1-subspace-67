@@ -1,0 +1,25 @@
+### 2026-09-30 13:26:23 IST on mac_abhay (10.7.1.136)
+$ curl -sS -i http://10.7.1.136:3001/api/cache-demo; echo; echo '--- conditional (If-None-Match with the ETag) ---'; curl -sS -i -H 'If-None-Match: "6adb0ec0cb57508d"' http://10.7.1.136:3001/api/cache-demo
+HTTP/1.1 200 OK
+Server: subspace67-backend/1.0
+Date: Wed, 30 Sep 2026 07:56:23 GMT
+X-Backend: A
+Content-Type: application/json; charset=utf-8
+Content-Length: 225
+Cache-Control: public, max-age=60
+ETag: "6adb0ec0cb57508d"
+Last-Modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+{"resource":"cache-demo","team":"subspace_67","version":1,"message":"This body is byte-identical on Backend A and Backend B, so both send the same ETag and a conditional GET gets 304 Not Modified whichever backend answers."}
+
+--- conditional (If-None-Match with the ETag) ---
+HTTP/1.1 304 Not Modified
+Server: subspace67-backend/1.0
+Date: Wed, 30 Sep 2026 07:56:23 GMT
+X-Backend: A
+Cache-Control: public, max-age=60
+ETag: "6adb0ec0cb57508d"
+Last-Modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+[exit code: 0]
+

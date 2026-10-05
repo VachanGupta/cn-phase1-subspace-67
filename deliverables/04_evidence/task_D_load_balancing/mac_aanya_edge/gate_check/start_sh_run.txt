@@ -1,0 +1,31 @@
+# mac_aanya, 2026-09-30 14:02:09 IST: live test of the demo-day script (./start.sh), run while everything was already up
+
+$ ./start.sh
+== 1. caffeinate + beacon
+  OK   caffeinate pid 3401 (keep the lid open and the charger in)
+  OK   beacon on :8099 (serves share/ only)
+== 2. this Mac
+  OK   ip=10.7.19.193/19 gw=10.7.0.1 iface=en0 service=Wi-Fi
+== 3. peers
+  OK   mac_vachan = 10.7.23.136
+  OK   mac_abhay  = 10.7.1.136
+== 4. certificates
+  OK   tls/ca.crt + tls/server.crt valid for app/api.subspace-67.test
+== 5. nginx
+  ..   config: unchanged port=443 A=10.7.1.136 B=10.7.23.136
+  OK   nginx already running, config unchanged
+  OK   nginx listening on :443 and :80
+  OK   backend 10.7.1.136:3001 answers directly (200)
+  OK   backend 10.7.23.136:3002 answers directly (200)
+== 6. system settings (the only sudo step)
+  OK   DNS on Wi-Fi = 10.7.23.136 (mac_vachan only)
+  OK   our CA is trusted in the System keychain
+== 7. end-to-end verification (edge = this Mac, clients use only the name)
+  OK   dig app.subspace-67.test -> 10.7.19.193 (server 10.7.23.136#53(10.7.23.136))
+  OK   10 requests via https://app.subspace-67.test -> X-Backend: A B A B A B A B A B 
+  OK   HTTP/1.1 over TLS: 1.1 200
+  OK   HTTP/2 over TLS:   2 200
+  OK   http:// -> 301 https://app.subspace-67.test/
+
+EDGE READY: https://app.subspace-67.test (edge_ready=true on the bus)
+(exit 0)

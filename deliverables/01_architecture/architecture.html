@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>subspace_67 · Phase 1 architecture</title><style>
+:root{--bg:#ffffff;--fg:#1d2330;--muted:#5b6475;--line:#d9dee7;--soft:#f5f7fa;--accent:#2f6fd6;--code:#f1f3f7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#14171d;--fg:#e6e9ef;--muted:#9aa3b5;--line:#2e3441;--soft:#1b1f27;--accent:#6aa0f5;--code:#1f2430}}
+:root[data-theme="dark"]{--bg:#14171d;--fg:#e6e9ef;--muted:#9aa3b5;--line:#2e3441;--soft:#1b1f27;--accent:#6aa0f5;--code:#1f2430}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .6em} h2{font-size:1.45rem;margin:1.8em 0 .5em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.15rem;margin:1.4em 0 .4em} h4{font-size:1rem;margin:1.2em 0 .3em}
+a{color:var(--accent)} p{margin:.6em 0} ul,ol{padding-left:1.4em} li{margin:.2em 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--code);padding:.1em .35em;border-radius:4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.45}
+pre code{background:none;padding:0;font-size:.85em}
+.table{overflow-x:auto;margin:1em 0} table{border-collapse:collapse;width:100%;font-size:.93em}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top} th{background:var(--soft)}
+blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--accent);background:var(--soft);border-radius:0 6px 6px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+figure{margin:1.2em 0} figure svg,figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:10px}
+figcaption{color:var(--muted);font-size:.9em;margin-top:.3em}
+@media print{body{background:#fff;color:#000} main{max-width:none;padding:0} h2{break-before:auto} pre,table,figure{break-inside:avoid}}
+</style></head>
+<body><main>
+<h1 id="subspace-67-phase-1-architecture">subspace_67 · Phase 1 architecture</h1>
+<p><strong>Goal.</strong> A client opens <code>https://app.subspace-67.test</code>. Our own DNS server (mac_vachan) resolves the name to the edge (mac_aanya). nginx on the edge terminates TLS and load-balances each request round-robin to <strong>Backend A</strong> (mac_abhay) or <strong>Backend B</strong> (mac_vachan). The app is deliberately trivial: <em>the network is the project.</em></p>
+<p><strong>Phase 1 gate.</strong> A client resolves <code>app.subspace-67.test</code>, connects over HTTPS with <strong>no certificate warning</strong>, and gets responses from <strong>both</strong> backends through the load balancer. It passed on all three Macs (see <code>04_evidence</code> and the final gate check).</p>
+<blockquote><p><strong>Roles are combined because we are a team of 3.</strong> The brief describes 4 machines. Mac 4 (the test client) is merged into Mac 1 (mac_vachan), and every Mac also acts as a client for its own checks. The brief allows combining roles, and the network behaviour is identical: each role is still a separate service on its own port, reached over the real Wi-Fi LAN.</p></blockquote>
+<h2 id="1-topology">1. Topology</h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" role="img" aria-label="subspace_67 phase 1 topology">
+<style>
+  .bg{fill:#ffffff} .ink{fill:#1d2330} .muted{fill:#5b6475} .line{stroke:#8a93a6}
+  .box{fill:#f6f8fb;stroke:#c9d1de} .bus{fill:#e8eef8;stroke:#9fb3d6}
+  .dns{fill:#7a4bd1} .edge{fill:#0f7b6c} .be{fill:#c25e00} .cli{fill:#2f6fd6} .net{fill:#6b7385}
+  .s-dns{stroke:#7a4bd1} .s-edge{stroke:#0f7b6c} .s-be{stroke:#c25e00} .s-cli{stroke:#2f6fd6}
+  .chip{fill:#eef1f6} .lbl{fill:#ffffff}
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#14171d} .ink{fill:#e6e9ef} .muted{fill:#9aa3b5} .line{stroke:#5d6679}
+    .box{fill:#1c2029;stroke:#343b4a} .bus{fill:#1b2536;stroke:#34507e}
+    .dns{fill:#a57cf0} .edge{fill:#3fbfa8} .be{fill:#f0913a} .cli{fill:#6aa0f5} .net{fill:#8d95a8}
+    .s-dns{stroke:#a57cf0} .s-edge{stroke:#3fbfa8} .s-be{stroke:#f0913a} .s-cli{stroke:#6aa0f5}
+    .chip{fill:#252b37} .lbl{fill:#14171d}
+  }
+</style>
+<rect class="bg" width="1100" height="640"/>
+<text x="40" y="40" class="ink" font-size="22" text-anchor="start" font-weight="700">subspace_67 · Phase 1 topology</text>
+<text x="40" y="64" class="muted" font-size="13" text-anchor="start" font-weight="normal">Three Macs on one Wi-Fi LAN (10.7.0.0/19). Real IPs as captured on the evidence day.</text>
+<rect class="box" x="430" y="84" width="240" height="46" rx="10"/>
+<text x="550" y="104" class="ink" font-size="14" text-anchor="middle" font-weight="600">Internet</text>
+<text x="550" y="121" class="muted" font-size="12" text-anchor="middle" font-weight="normal">upstream DNS 8.8.8.8 · 1.1.1.1</text>
+<line class="line" x1="550" y1="130" x2="550" y2="156" stroke-width="2"/>
+<rect class="box" x="455" y="156" width="190" height="36" rx="8"/>
+<text x="550" y="179" class="ink mono" font-size="13" text-anchor="middle" font-weight="normal">gateway 10.7.0.1</text>
+<line class="line" x1="550" y1="192" x2="550" y2="214" stroke-width="2"/>
+<rect class="bus" x="40" y="214" width="1020" height="34" rx="8"/>
+<text x="550" y="236" class="ink" font-size="13" text-anchor="middle" font-weight="600">Wi-Fi LAN 10.7.0.0/19 · mask 255.255.224.0 · every Mac one hop from the others (ping TTL 64)</text>
+<line class="line" x1="200" y1="248" x2="200" y2="286" stroke-width="2"/>
+<text x="208" y="272" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">10.7.1.136</text>
+<rect class="box" x="40" y="286" width="320" height="300" rx="12"/>
+<rect class="cli" x="40" y="286" width="320" height="6" rx="3"/>
+<text x="58" y="318" class="ink" font-size="18" text-anchor="start" font-weight="700">mac_abhay</text>
+<text x="342" y="318" class="muted" font-size="12" text-anchor="end" font-weight="normal">Mac 3</text>
+<text x="58" y="342" class="ink mono" font-size="12" text-anchor="start" font-weight="normal">10.7.1.136/19  ·  en0 (Wi-Fi)</text>
+<text x="58" y="360" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">MAC 8e:f6:fb:7b:0a:59</text>
+<rect class="chip" x="54" y="386" width="292" height="44" rx="8"/>
+<circle class="be" cx="70" cy="408" r="6"/>
+<text x="84" y="404" class="ink" font-size="13" text-anchor="start" font-weight="600">Backend A</text>
+<text x="84" y="421" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:3001/tcp HTTP</text>
+<rect class="chip" x="54" y="436" width="292" height="44" rx="8"/>
+<circle class="cli" cx="70" cy="458" r="6"/>
+<text x="84" y="454" class="ink" font-size="13" text-anchor="start" font-weight="600">Main test client</text>
+<text x="84" y="471" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">captures (tcpdump/Wireshark)</text>
+<line class="line" x1="550" y1="248" x2="550" y2="286" stroke-width="2"/>
+<text x="558" y="272" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">10.7.19.193</text>
+<rect class="box" x="390" y="286" width="320" height="300" rx="12"/>
+<rect class="edge" x="390" y="286" width="320" height="6" rx="3"/>
+<text x="408" y="318" class="ink" font-size="18" text-anchor="start" font-weight="700">mac_aanya</text>
+<text x="692" y="318" class="muted" font-size="12" text-anchor="end" font-weight="normal">Mac 2</text>
+<text x="408" y="342" class="ink mono" font-size="12" text-anchor="start" font-weight="normal">10.7.19.193/19  ·  en0 (Wi-Fi)</text>
+<text x="408" y="360" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">MAC d6:d2:39:70:e5:9a</text>
+<rect class="chip" x="404" y="386" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="408" r="6"/>
+<text x="434" y="404" class="ink" font-size="13" text-anchor="start" font-weight="600">nginx edge</text>
+<text x="434" y="421" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:443/tcp TLS 1.2+1.3, HTTP/2</text>
+<rect class="chip" x="404" y="436" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="458" r="6"/>
+<text x="434" y="454" class="ink" font-size="13" text-anchor="start" font-weight="600">Load balancer</text>
+<text x="434" y="471" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">round robin -&gt; A, B</text>
+<rect class="chip" x="404" y="486" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="508" r="6"/>
+<text x="434" y="504" class="ink" font-size="13" text-anchor="start" font-weight="600">HTTP redirect</text>
+<text x="434" y="521" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:80 -&gt; 301 https</text>
+<rect class="chip" x="404" y="536" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="558" r="6"/>
+<text x="434" y="554" class="ink" font-size="13" text-anchor="start" font-weight="600">Local CA</text>
+<text x="434" y="571" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">subspace_67 Local Root CA</text>
+<line class="line" x1="900" y1="248" x2="900" y2="286" stroke-width="2"/>
+<text x="908" y="272" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">10.7.23.136</text>
+<rect class="box" x="740" y="286" width="320" height="300" rx="12"/>
+<rect class="dns" x="740" y="286" width="320" height="6" rx="3"/>
+<text x="758" y="318" class="ink" font-size="18" text-anchor="start" font-weight="700">mac_vachan</text>
+<text x="1042" y="318" class="muted" font-size="12" text-anchor="end" font-weight="normal">Mac 1</text>
+<text x="758" y="342" class="ink mono" font-size="12" text-anchor="start" font-weight="normal">10.7.23.136/19  ·  en0 (Wi-Fi)</text>
+<text x="758" y="360" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">MAC 6a:e1:56:86:a2:23</text>
+<rect class="chip" x="754" y="386" width="292" height="44" rx="8"/>
+<circle class="dns" cx="770" cy="408" r="6"/>
+<text x="784" y="404" class="ink" font-size="13" text-anchor="start" font-weight="600">DNS server</text>
+<text x="784" y="421" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">dnsmasq :53/udp+tcp</text>
+<rect class="chip" x="754" y="436" width="292" height="44" rx="8"/>
+<circle class="be" cx="770" cy="458" r="6"/>
+<text x="784" y="454" class="ink" font-size="13" text-anchor="start" font-weight="600">Backend B</text>
+<text x="784" y="471" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:3002/tcp HTTP</text>
+<rect class="chip" x="754" y="486" width="292" height="44" rx="8"/>
+<circle class="cli" cx="770" cy="508" r="6"/>
+<text x="784" y="504" class="ink" font-size="13" text-anchor="start" font-weight="600">Client + integrator</text>
+<text x="784" y="521" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">failure demos, deliverables</text>
+<rect class="chip" x="754" y="536" width="292" height="44" rx="8"/>
+<circle class="net" cx="770" cy="558" r="6"/>
+<text x="784" y="554" class="ink" font-size="13" text-anchor="start" font-weight="600">Team bus</text>
+<text x="784" y="571" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:8099/tcp (HTTP)</text>
+<text x="40" y="610" class="ink" font-size="12.5" text-anchor="start" font-weight="normal">Request path: client -&gt; mac_vachan:53 (DNS over UDP) -&gt; mac_aanya:443 (TCP + TLS + HTTP/2) -&gt; mac_abhay:3001 or mac_vachan:3002 (plain HTTP on the LAN).</text>
+<text x="40" y="630" class="muted" font-size="12" text-anchor="start" font-weight="normal">Clients only ever use the name app.subspace-67.test; backend IPs are known to the edge alone.</text>
+</svg><figcaption>Topology: three Macs on one Wi-Fi LAN, their roles, IPs and ports</figcaption></figure>
+<h3 id="ip-service-table-captured-on-the-evidence-day-from-each-mac-s-own-info-json">IP / service table (captured on the evidence day, from each Mac's own info.json)</h3>
+<div class="table"><table><thead><tr><th>Mac</th><th>Project role</th><th>IPv4 / prefix</th><th>Netmask</th><th>Gateway</th><th>Interface</th><th>MAC in use (hardware MAC)</th><th>Services (port/proto)</th></tr></thead><tbody><tr><td><strong>mac_vachan</strong> (Mac 1, + Mac 4 client)</td><td>DNS server, Backend B, test client, integrator</td><td>10.7.23.136/19</td><td>255.255.224.0</td><td>10.7.0.1</td><td>en0 (Wi-Fi)</td><td>6a:e1:56:86:a2:23 (10:9f:41:ba:e3:83)</td><td>dnsmasq <strong>53/udp+tcp</strong>; Backend B <strong>3002/tcp</strong>; team bus 8099/tcp</td></tr><tr><td><strong>mac_aanya</strong> (Mac 2)</td><td>Edge reverse proxy, load balancer, TLS termination, local CA</td><td>10.7.19.193/19</td><td>255.255.224.0</td><td>10.7.0.1</td><td>en0 (Wi-Fi)</td><td>d6:d2:39:70:e5:9a</td><td>nginx <strong>443/tcp</strong> (HTTPS, HTTP/2); <strong>80/tcp</strong> -&gt; 301 to https; team bus 8099/tcp</td></tr><tr><td><strong>mac_abhay</strong> (Mac 3)</td><td>Backend A, main test client (packet captures)</td><td>10.7.1.136/19</td><td>255.255.224.0</td><td>10.7.0.1</td><td>en0 (Wi-Fi)</td><td>8e:f6:fb:7b:0a:59 (10:9f:41:b9:7b:b6)</td><td>Backend A <strong>3001/tcp</strong>; team bus 8099/tcp</td></tr></tbody></table></div>
+<ul><li>All three addresses are inside <strong>10.7.0.0/19</strong> (10.7.0.0 to 10.7.31.255). The Macs reach each other directly on the LAN: ARP finds the peer's MAC, with no router hop, so ping shows TTL 64.</li><li>macOS uses a <em>Private Wi-Fi Address</em> (a randomised MAC) per network. That is why the MAC in use differs from the hardware MAC.</li><li>Every Mac uses <strong>only 10.7.23.136</strong> (mac_vachan) as its DNS server.</li></ul>
+<h3 id="dns-records-served-by-dnsmasq-on-mac-vachan">DNS records (served by dnsmasq on mac_vachan)</h3>
+<div class="table"><table><thead><tr><th>Name</th><th>Type</th><th>Value</th><th>TTL</th><th>Note</th></tr></thead><tbody><tr><td>app.subspace-67.test</td><td>A</td><td>10.7.19.193 (the edge)</td><td>60 s</td><td>the service</td></tr><tr><td>api.subspace-67.test</td><td>A</td><td>10.7.19.193 (the edge)</td><td>60 s</td><td>second name on the same certificate</td></tr><tr><td>anything else in subspace-67.test</td><td>-</td><td>NXDOMAIN</td><td>-</td><td><code>local=/subspace-67.test/</code>: never forwarded upstream</td></tr><tr><td>every other name (google.com ...)</td><td>-</td><td>forwarded to 8.8.8.8 / 1.1.1.1</td><td>upstream TTL</td><td>the internet keeps working</td></tr></tbody></table></div>
+<p>Clients use <strong>names only</strong>. The backend IPs appear in exactly one place: the edge's nginx <code>upstream</code>.</p>
+<h2 id="2-request-flow-layer-by-layer">2. Request flow, layer by layer</h2>
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="request flow for https://app.subspace-67.test/api/status">
+<style>
+  .bg{fill:#ffffff} .ink{fill:#1d2330} .muted{fill:#5b6475} .line{stroke:#8a93a6}
+  .box{fill:#f6f8fb;stroke:#c9d1de} .bus{fill:#e8eef8;stroke:#9fb3d6}
+  .dns{fill:#7a4bd1} .edge{fill:#0f7b6c} .be{fill:#c25e00} .cli{fill:#2f6fd6} .net{fill:#6b7385}
+  .s-dns{stroke:#7a4bd1} .s-edge{stroke:#0f7b6c} .s-be{stroke:#c25e00} .s-cli{stroke:#2f6fd6}
+  .chip{fill:#eef1f6} .lbl{fill:#ffffff}
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#14171d} .ink{fill:#e6e9ef} .muted{fill:#9aa3b5} .line{stroke:#5d6679}
+    .box{fill:#1c2029;stroke:#343b4a} .bus{fill:#1b2536;stroke:#34507e}
+    .dns{fill:#a57cf0} .edge{fill:#3fbfa8} .be{fill:#f0913a} .cli{fill:#6aa0f5} .net{fill:#8d95a8}
+    .s-dns{stroke:#a57cf0} .s-edge{stroke:#3fbfa8} .s-be{stroke:#f0913a} .s-cli{stroke:#6aa0f5}
+    .chip{fill:#252b37} .lbl{fill:#14171d}
+  }
+</style>
+<rect class="bg" width="1200" height="900"/>
+<defs><marker id="ah-cli" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="cli"/></marker><marker id="ah-dns" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dns"/></marker><marker id="ah-edge" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="edge"/></marker><marker id="ah-be" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="be"/></marker></defs>
+<text x="40" y="40" class="ink" font-size="22" text-anchor="start" font-weight="700">One request to https://app.subspace-67.test/api/status, layer by layer</text>
+<text x="40" y="64" class="muted" font-size="13" text-anchor="start" font-weight="normal">Time flows downwards. Right column: the layer that step belongs to (OSI / TCP-IP).</text>
+<rect class="box" x="25" y="84" width="190" height="46" rx="9"/>
+<rect class="cli" x="25" y="84" width="190" height="5" rx="2"/>
+<text x="120" y="106" class="ink" font-size="14" text-anchor="middle" font-weight="700">Client</text>
+<text x="120" y="123" class="muted mono" font-size="11" text-anchor="middle" font-weight="normal">any Mac (main: mac_abhay)</text>
+<line class="line" x1="120" y1="130" x2="120" y2="760" stroke-width="1.5" stroke-dasharray="4 5"/>
+<rect class="box" x="250" y="84" width="190" height="46" rx="9"/>
+<rect class="dns" x="250" y="84" width="190" height="5" rx="2"/>
+<text x="345" y="106" class="ink" font-size="14" text-anchor="middle" font-weight="700">DNS server</text>
+<text x="345" y="123" class="muted mono" font-size="11" text-anchor="middle" font-weight="normal">mac_vachan 10.7.23.136:53</text>
+<line class="line" x1="345" y1="130" x2="345" y2="760" stroke-width="1.5" stroke-dasharray="4 5"/>
+<rect class="box" x="490" y="84" width="190" height="46" rx="9"/>
+<rect class="edge" x="490" y="84" width="190" height="5" rx="2"/>
+<text x="585" y="106" class="ink" font-size="14" text-anchor="middle" font-weight="700">Edge (nginx)</text>
+<text x="585" y="123" class="muted mono" font-size="11" text-anchor="middle" font-weight="normal">mac_aanya 10.7.19.193:443</text>
+<line class="line" x1="585" y1="130" x2="585" y2="760" stroke-width="1.5" stroke-dasharray="4 5"/>
+<rect class="box" x="720" y="84" width="190" height="46" rx="9"/>
+<rect class="be" x="720" y="84" width="190" height="5" rx="2"/>
+<text x="815" y="106" class="ink" font-size="14" text-anchor="middle" font-weight="700">Backend A or B</text>
+<text x="815" y="123" class="muted mono" font-size="11" text-anchor="middle" font-weight="normal">10.7.1.136:3001 / 10.7.23.136:3002</text>
+<line class="line" x1="815" y1="130" x2="815" y2="760" stroke-width="1.5" stroke-dasharray="4 5"/>
+<text x="1080" y="106" class="ink" font-size="14" text-anchor="middle" font-weight="700">Layer</text>
+<text x="22" y="148" class="muted" font-size="11" text-anchor="start" font-weight="600">1 · name -&gt; address</text>
+<line class="s-cli" x1="126" y1="170" x2="339" y2="170" stroke-width="2.2" marker-end="url(#ah-cli)"/>
+<rect class="lbl" x="45.0" y="149" width="375" height="16" rx="3"/>
+<text x="232.5" y="162" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">DNS query  A? app.subspace-67.test   (ephemeral port -&gt; 53)</text>
+<text x="1080" y="174" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L7 DNS · L4 UDP · L3 IP</text>
+<line class="s-dns" x1="339" y1="220" x2="126" y2="220" stroke-width="2.2" marker-end="url(#ah-dns)"/>
+<rect class="lbl" x="59.099999999999994" y="199" width="346.8" height="16" rx="3"/>
+<text x="232.5" y="212" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">answer  10.7.19.193   TTL 60, flag aa (our own zone)</text>
+<text x="1080" y="224" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L7 DNS · L4 UDP</text>
+<text x="22" y="248" class="muted" font-size="11" text-anchor="start" font-weight="600">2 · TCP 3-way handshake</text>
+<line class="s-cli" x1="126" y1="270" x2="579" y2="270" stroke-width="2.2" marker-end="url(#ah-cli)"/>
+<rect class="lbl" x="230.3" y="249" width="244.4" height="16" rx="3"/>
+<text x="352.5" y="262" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">SYN   (ephemeral port -&gt; 443, seq x)</text>
+<text x="1080" y="274" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L4 TCP</text>
+<line class="s-edge" x1="579" y1="320" x2="126" y2="320" stroke-width="2.2" marker-end="url(#ah-edge)"/>
+<rect class="lbl" x="262.3" y="299" width="180.4" height="16" rx="3"/>
+<text x="352.5" y="312" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">SYN-ACK   (seq y, ack x+1)</text>
+<text x="1080" y="324" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L4 TCP</text>
+<line class="s-cli" x1="126" y1="370" x2="579" y2="370" stroke-width="2.2" marker-end="url(#ah-cli)"/>
+<rect class="lbl" x="214.29999999999998" y="349" width="276.40000000000003" height="16" rx="3"/>
+<text x="352.5" y="362" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">ACK   (ack y+1) -&gt; connection established</text>
+<text x="1080" y="374" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L4 TCP</text>
+<text x="22" y="398" class="muted" font-size="11" text-anchor="start" font-weight="600">3 · TLS handshake</text>
+<line class="s-cli" x1="126" y1="420" x2="579" y2="420" stroke-width="2.2" marker-end="url(#ah-cli)"/>
+<rect class="lbl" x="195.1" y="399" width="314.8" height="16" rx="3"/>
+<text x="352.5" y="412" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">ClientHello   SNI app.subspace-67.test, ALPN h2</text>
+<text x="1080" y="424" class="muted" font-size="11" text-anchor="middle" font-weight="normal">TLS (OSI L5-6 · TCP/IP application)</text>
+<line class="s-edge" x1="579" y1="470" x2="126" y2="470" stroke-width="2.2" marker-end="url(#ah-edge)"/>
+<rect class="lbl" x="175.89999999999998" y="449" width="353.20000000000005" height="16" rx="3"/>
+<text x="352.5" y="462" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">ServerHello, Certificate (signed by our CA), Finished</text>
+<text x="1080" y="474" class="muted" font-size="11" text-anchor="middle" font-weight="normal">TLS</text>
+<line class="s-cli" x1="126" y1="520" x2="579" y2="520" stroke-width="2.2" marker-end="url(#ah-cli)"/>
+<rect class="lbl" x="156.7" y="499" width="391.6" height="16" rx="3"/>
+<text x="352.5" y="512" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">Finished -&gt; keys agreed; everything after this is encrypted</text>
+<text x="1080" y="524" class="muted" font-size="11" text-anchor="middle" font-weight="normal">TLS</text>
+<text x="22" y="548" class="muted" font-size="11" text-anchor="start" font-weight="600">4 · HTTP request</text>
+<line class="s-cli" x1="126" y1="570" x2="579" y2="570" stroke-width="2.2" marker-end="url(#ah-cli)"/>
+<rect class="lbl" x="227.1" y="549" width="250.8" height="16" rx="3"/>
+<text x="352.5" y="562" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">GET /api/status   (HTTP/2 inside TLS)</text>
+<text x="1080" y="574" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L7 HTTP over TLS over TCP</text>
+<text x="22" y="598" class="muted" font-size="11" text-anchor="start" font-weight="600">5 · load balancing</text>
+<line class="s-edge" x1="591" y1="620" x2="809" y2="620" stroke-width="2.2" marker-end="url(#ah-edge)"/>
+<rect class="lbl" x="510.0" y="599" width="380" height="16" rx="3"/>
+<text x="700.0" y="612" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">round robin: GET /api/status HTTP/1.1 + X-Forwarded-For (plain, LAN)</text>
+<text x="1080" y="624" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L7 reverse proxy / load balancer</text>
+<line class="s-be" x1="809" y1="670" x2="591" y2="670" stroke-width="2.2" marker-end="url(#ah-be)"/>
+<rect class="lbl" x="536.2" y="649" width="327.6" height="16" rx="3"/>
+<text x="700.0" y="662" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">200 OK   X-Backend: A|B   Cache-Control: no-store</text>
+<text x="1080" y="674" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L7 HTTP · L4 TCP</text>
+<text x="22" y="698" class="muted" font-size="11" text-anchor="start" font-weight="600">6 · response</text>
+<line class="s-edge" x1="579" y1="720" x2="126" y2="720" stroke-width="2.2" marker-end="url(#ah-edge)"/>
+<rect class="lbl" x="140.7" y="699" width="423.6" height="16" rx="3"/>
+<text x="352.5" y="712" class="ink" font-size="11.5" text-anchor="middle" font-weight="normal">HTTP/2 200 (encrypted)   X-Backend shows which backend served it</text>
+<text x="1080" y="724" class="muted" font-size="11" text-anchor="middle" font-weight="normal">L7 HTTP over TLS</text>
+<text x="40" y="792" class="ink" font-size="12.5" text-anchor="start" font-weight="normal">Under every step: L3 IPv4 packets between 10.7.x.x addresses; L2 Wi-Fi frames between MAC addresses (found with ARP); L1 radio.</text>
+<text x="40" y="814" class="ink" font-size="12.5" text-anchor="start" font-weight="normal">TLS ends at the edge: client -&gt; edge is encrypted, edge -&gt; backend is plain HTTP on the LAN (the edge re-opens a separate TCP connection to the backend).</text>
+<text x="40" y="836" class="muted" font-size="12" text-anchor="start" font-weight="normal">Failure demos: F1/F2 break step 1, F5 breaks step 2 (wrong port -&gt; RST), F3/F4 break step 5 (F4: TLS still completes, then the edge answers 502).</text>
+</svg><figcaption>One request, step by step, each step mapped to its layer</figcaption></figure>
+<div class="table"><table><thead><tr><th>#</th><th>Step</th><th>Who, from -&gt; to</th><th>Protocol / port</th><th>OSI layer</th><th>TCP/IP layer</th></tr></thead><tbody><tr><td>1</td><td>DNS query <code>A? app.subspace-67.test</code></td><td>client -&gt; mac_vachan</td><td>DNS over <strong>UDP 53</strong> (ephemeral source port)</td><td>7 (app) over 4</td><td>Application / Transport</td></tr><tr><td>2</td><td>DNS answer <code>10.7.19.193</code>, TTL 60, flag <code>aa</code></td><td>mac_vachan -&gt; client</td><td>UDP 53</td><td>7 over 4</td><td>Application / Transport</td></tr><tr><td>3</td><td>TCP 3-way handshake SYN, SYN-ACK, ACK</td><td>client &lt;-&gt; edge</td><td><strong>TCP 443</strong></td><td>4</td><td>Transport</td></tr><tr><td>4</td><td>TLS handshake: ClientHello (SNI, ALPN h2) -&gt; ServerHello, Certificate, key exchange, Finished</td><td>client &lt;-&gt; edge</td><td>TLS 1.3 (1.2 also allowed)</td><td>5-6</td><td>Application</td></tr><tr><td>5</td><td><code>GET /api/status</code> over <strong>HTTP/2</strong>, encrypted</td><td>client -&gt; edge</td><td>HTTPS</td><td>7</td><td>Application</td></tr><tr><td>6</td><td>nginx picks the next backend (round robin, shared across workers via <code>zone</code>) and sends <code>GET /api/status HTTP/1.1</code> with <code>X-Forwarded-For</code> / <code>X-Real-IP</code> / <code>X-Forwarded-Proto</code></td><td>edge -&gt; 10.7.1.136:<strong>3001</strong> or 10.7.23.136:<strong>3002</strong></td><td>plain HTTP over TCP (LAN)</td><td>7 (reverse proxy / LB) over 4</td><td>Application</td></tr><tr><td>7</td><td><code>200 OK</code> + <code>X-Backend: A</code> or <code>B</code></td><td>backend -&gt; edge</td><td>HTTP</td><td>7</td><td>Application</td></tr><tr><td>8</td><td>Response relayed back inside TLS</td><td>edge -&gt; client</td><td>HTTPS (HTTP/2)</td><td>7 over 5-6 over 4</td><td>Application</td></tr></tbody></table></div>
+<p>Under every step: <strong>L3</strong> IPv4 packets between 10.7.x.x addresses, <strong>L2</strong> Wi-Fi (802.11) frames between MAC addresses (resolved with ARP), and <strong>L1</strong> radio.</p>
+<p><strong>Where TLS ends.</strong> Client to edge is encrypted. Edge to backend is plain HTTP on the LAN, over a <em>separate</em> TCP connection that the edge opens. The backend logs therefore show the <strong>edge's IP</strong> as the TCP peer, and the original client appears only in <code>X-Forwarded-For</code>.</p>
+<h2 id="3-osi-vs-tcp-ip-with-our-protocols">3. OSI vs TCP/IP, with our protocols</h2>
+<div class="table"><table><thead><tr><th>OSI layer</th><th>TCP/IP layer</th><th>In this project</th><th>Seen with</th></tr></thead><tbody><tr><td>7 Application</td><td>Application</td><td>HTTP/1.1 and HTTP/2 (<code>/api/status</code>, <code>X-Backend</code>, <code>Cache-Control</code>, <code>ETag</code>, 304), DNS (A records, TTL)</td><td>curl -v, dig, nginx and backend logs</td></tr><tr><td>6 Presentation</td><td>Application</td><td>TLS encryption and X.509 certificates (our CA), JSON bodies</td><td>openssl s_client, Wireshark <code>tls.handshake</code></td></tr><tr><td>5 Session</td><td>Application</td><td><strong>TLS</strong> (the brief maps it to <em>Session/Transport</em>: it runs on top of TCP and secures the session for HTTP), HTTP keep-alive, HTTP/2 streams</td><td>curl -v (ALPN h2), Wireshark</td></tr><tr><td>4 Transport</td><td>Transport</td><td><strong>UDP 53</strong> (DNS), <strong>TCP 443 / 80 / 3001 / 3002 / 8099</strong>, ports, 3-way handshake, seq/ack, RST</td><td>tcpdump, <code>tcp.flags.syn==1</code>, nc -vz</td></tr><tr><td>3 Network</td><td>Internet</td><td>IPv4 10.7.0.0/19, gateway 10.7.0.1, ICMP (ping)</td><td>ifconfig, route -n get default, ping</td></tr><tr><td>2 Data link</td><td>Link</td><td>Wi-Fi 802.11 frames, MAC addresses, ARP. The Wi-Fi driver hands macOS Ethernet II framing, so captures on en0 show <strong>Ethernet</strong> headers (raw 802.11 headers appear only in monitor mode)</td><td>ifconfig ether, arp -an, Wireshark <code>eth</code></td></tr><tr><td>1 Physical</td><td>Link</td><td>2.4/5 GHz radio</td><td>-</td></tr></tbody></table></div>
+<p>TCP/IP folds OSI 5-7 into one <em>Application</em> layer and 1-2 into one <em>Link</em> layer. The brief's mapping: DNS -&gt; Application, HTTP -&gt; Application, TLS -&gt; Session/Transport, TCP/UDP -&gt; Transport, IP -&gt; Network, Ethernet -&gt; Link. TLS sits between TCP and HTTP: it uses TCP's reliable byte stream and provides encryption, integrity and server authentication to the HTTP session above it.</p>
+<h2 id="4-cloud-equivalents">4. Cloud equivalents</h2>
+<div class="table"><table><thead><tr><th>Here</th><th>Role</th><th>Cloud equivalent</th></tr></thead><tbody><tr><td>dnsmasq on mac_vachan</td><td>Private DNS zone for internal names, forwarder for the rest</td><td><strong>AWS Route 53</strong> private hosted zone + Resolver (GCP Cloud DNS private zone)</td></tr><tr><td>nginx on mac_aanya</td><td>Reverse proxy, TLS termination, round-robin load balancer, health-based failover</td><td><strong>AWS Application Load Balancer</strong> (ALB) / GCP HTTPS Load Balancer, or a <strong>CDN edge</strong> (CloudFront)</td></tr><tr><td>Local CA on mac_aanya</td><td>Issues the edge's certificate; trusted by every client</td><td><strong>AWS Certificate Manager (ACM)</strong> / ACM Private CA</td></tr><tr><td>Backend A / Backend B</td><td>Identical stateless app servers behind the LB</td><td><strong>EC2</strong> instances in a target group (or containers on ECS/GKE)</td></tr><tr><td>control.json + supervisor</td><td>Takes a backend in or out of service</td><td>Auto Scaling / target health (instance stopped means the LB stops sending traffic)</td></tr><tr><td>Wi-Fi LAN 10.7.0.0/19</td><td>One private network for all servers</td><td>a <strong>VPC</strong> subnet</td></tr></tbody></table></div>
+<h2 id="5-design-decisions-and-why">5. Design decisions (and why)</h2>
+<ul><li><strong><code>.test</code> with a hyphen.</strong> <code>.test</code> is reserved for testing (RFC 2606/6761), so it can't clash with a real domain. <code>.local</code> is avoided because macOS resolves it with multicast DNS (mDNS/Bonjour). Hyphen, not underscore: underscores are invalid in hostnames and break certificate validation.</li><li><strong>Our own DNS server, used exclusively.</strong> Public resolvers would answer NXDOMAIN for our private zone. dnsmasq answers our names <em>authoritatively</em> (<code>local=</code>) and forwards everything else, so internet access keeps working. <code>no-resolv</code> prevents a forwarding loop once mac_vachan uses itself as its DNS server. <strong>TTL 60 s</strong> is short, so an IP change on demo day propagates quickly.</li><li><strong>dnsmasq runs as a root Homebrew service.</strong> On macOS it always binds each listen address separately, and binding port 53 on a specific address needs root. It drops to <code>nobody</code> right after binding. The config is a byte-identical copy in <code>/opt/homebrew/etc</code>, because macOS privacy protection (TCC) stops a root launchd daemon from reading <code>~/Desktop</code>. The first attempt crash-looped with dnsmasq exit code 3 ("filesystem problem").</li><li><strong>TLS terminates at the edge.</strong> Only the edge holds a private key. Backends stay simple HTTP services on the private LAN, and one certificate covers both names (SAN: <code>app</code> + <code>api</code>).</li><li><strong>Our own CA, trusted in every Mac's System keychain; never <code>curl -k</code>.</strong> The CA is <em>name-constrained</em> to <code>subspace-67.test</code>, so even if its key leaked it could not impersonate any other site. <code>/usr/bin/curl</code> on macOS honours the keychain trust settings, verified with <code>ssl_verify_result=0</code>.</li><li><strong>Round robin with a shared <code>zone</code>.</strong> Without it, each of nginx's 10 worker processes keeps its own pointer, and one client can see A A B B. With <code>zone team_backends 1m;</code> the rotation and failure counters are shared.</li><li><strong>Failover.</strong> <code>max_fails=1 fail_timeout=10s</code> plus <code>proxy_next_upstream error timeout http_502 http_503</code> and <code>proxy_connect_timeout 2s</code>. If one backend refuses a connection, nginx retries the other one inside the <em>same</em> client request (F3: the client still gets 200), and it skips the failed one for 10 s. If both are down, nginx itself answers <strong>502 Bad Gateway</strong> after a successful TLS handshake (F4).</li><li><strong>No proxy cache, no gzip at the edge.</strong> Every request must reach a backend (so <code>X-Backend</code> alternates), and <code>Cache-Control</code> / <code>ETag</code> must pass through untouched for the caching demo (304s).</li><li><strong>Identical backend code.</strong> Byte-identical <code>backend.py</code> on both Macs (SHA-256 verified) with a byte-identical <code>/api/cache-demo</code> body. Both compute the same ETag, so a conditional request gets 304 whichever backend answers.</li><li><strong>Real failures, not fake error pages.</strong> <code>control.json</code> + <code>supervisor.py</code> really stop a backend process, so its port closes and nginx gets <em>connection refused</em> (TCP RST).</li><li><strong>Single points of failure</strong> (honest limits of Phase 1): the one edge and the one DNS server. In the cloud these become managed, multi-AZ services (ALB, Route 53).</li></ul>
+</main></body></html>

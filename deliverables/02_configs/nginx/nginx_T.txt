@@ -1,0 +1,208 @@
+# mac_aanya, 2026-09-30 13:53:35 IST, full effective nginx configuration
+
+$ /opt/homebrew/bin/nginx -T
+nginx: the configuration file /opt/homebrew/etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /opt/homebrew/etc/nginx/nginx.conf test is successful
+# configuration file /opt/homebrew/etc/nginx/nginx.conf:
+# Homebrew nginx main config, reduced for subspace_67 by scripts/gen_nginx_conf.py.
+# The original is saved next to it as nginx.conf.orig_subspace67 (restore_network.sh puts it back).
+worker_processes  auto;
+error_log  /Users/aanyamehrotra/Desktop/CN_subspace_67/logs/nginx_error.log  notice;
+pid        /Users/aanyamehrotra/Desktop/CN_subspace_67/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile      on;
+    keepalive_timeout  65;
+
+    include /Users/aanyamehrotra/Desktop/CN_subspace_67/configs/nginx_subspace_67.conf;
+}
+
+# configuration file /opt/homebrew/etc/nginx/mime.types:
+
+types {
+    text/html                                        html htm shtml;
+    text/css                                         css;
+    text/xml                                         xml;
+    image/gif                                        gif;
+    image/jpeg                                       jpeg jpg;
+    application/javascript                           js;
+    application/atom+xml                             atom;
+    application/rss+xml                              rss;
+
+    text/mathml                                      mml;
+    text/plain                                       txt;
+    text/vnd.sun.j2me.app-descriptor                 jad;
+    text/vnd.wap.wml                                 wml;
+    text/x-component                                 htc;
+
+    image/avif                                       avif;
+    image/png                                        png;
+    image/svg+xml                                    svg svgz;
+    image/tiff                                       tif tiff;
+    image/vnd.wap.wbmp                               wbmp;
+    image/webp                                       webp;
+    image/x-icon                                     ico;
+    image/x-jng                                      jng;
+    image/x-ms-bmp                                   bmp;
+
+    font/woff                                        woff;
+    font/woff2                                       woff2;
+
+    application/java-archive                         jar war ear;
+    application/json                                 json;
+    application/mac-binhex40                         hqx;
+    application/msword                               doc;
+    application/pdf                                  pdf;
+    application/postscript                           ps eps ai;
+    application/rtf                                  rtf;
+    application/vnd.apple.mpegurl                    m3u8;
+    application/vnd.google-earth.kml+xml             kml;
+    application/vnd.google-earth.kmz                 kmz;
+    application/vnd.ms-excel                         xls;
+    application/vnd.ms-fontobject                    eot;
+    application/vnd.ms-powerpoint                    ppt;
+    application/vnd.oasis.opendocument.graphics      odg;
+    application/vnd.oasis.opendocument.presentation  odp;
+    application/vnd.oasis.opendocument.spreadsheet   ods;
+    application/vnd.oasis.opendocument.text          odt;
+    application/vnd.openxmlformats-officedocument.presentationml.presentation
+                                                     pptx;
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+                                                     xlsx;
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                                                     docx;
+    application/vnd.wap.wmlc                         wmlc;
+    application/wasm                                 wasm;
+    application/x-7z-compressed                      7z;
+    application/x-cocoa                              cco;
+    application/x-java-archive-diff                  jardiff;
+    application/x-java-jnlp-file                     jnlp;
+    application/x-makeself                           run;
+    application/x-perl                               pl pm;
+    application/x-pilot                              prc pdb;
+    application/x-rar-compressed                     rar;
+    application/x-redhat-package-manager             rpm;
+    application/x-sea                                sea;
+    application/x-shockwave-flash                    swf;
+    application/x-stuffit                            sit;
+    application/x-tcl                                tcl tk;
+    application/x-x509-ca-cert                       der pem crt;
+    application/x-xpinstall                          xpi;
+    application/xhtml+xml                            xhtml;
+    application/xspf+xml                             xspf;
+    application/zip                                  zip;
+
+    application/octet-stream                         bin exe dll;
+    application/octet-stream                         deb;
+    application/octet-stream                         dmg;
+    application/octet-stream                         iso img;
+    application/octet-stream                         msi msp msm;
+
+    audio/midi                                       mid midi kar;
+    audio/mpeg                                       mp3;
+    audio/ogg                                        ogg;
+    audio/x-m4a                                      m4a;
+    audio/x-realaudio                                ra;
+
+    video/3gpp                                       3gpp 3gp;
+    video/mp2t                                       ts;
+    video/mp4                                        mp4;
+    video/mpeg                                       mpeg mpg;
+    video/quicktime                                  mov;
+    video/webm                                       webm;
+    video/x-flv                                      flv;
+    video/x-m4v                                      m4v;
+    video/x-mng                                      mng;
+    video/x-ms-asf                                   asx asf;
+    video/x-ms-wmv                                   wmv;
+    video/x-msvideo                                  avi;
+}
+
+# configuration file /Users/aanyamehrotra/Desktop/CN_subspace_67/configs/nginx_subspace_67.conf:
+# =====================================================================================
+# subspace_67 edge on mac_aanya: TLS termination + round-robin load balancer
+# GENERATED by scripts/gen_nginx_conf.py (2026-09-30T13:53:23+05:30). Don't edit by hand; run start.sh.
+# Backend IPs come from each peer's own info.json (peers.json), never hard-coded.
+# Included from Homebrew's /opt/homebrew/etc/nginx/nginx.conf, inside the http {} block.
+# =====================================================================================
+
+server_tokens off;   # don't advertise the nginx version in headers / error pages
+gzip          off;   # never re-encode proxied bodies: Content-Length and ETag stay exactly the backend's
+# (and deliberately NO proxy_cache: every request must reach a backend so X-Backend alternates,
+#  and Cache-Control / ETag / Last-Modified / 304 pass through untouched)
+
+# Edge-side proof of load balancing and failover: who asked, which backend answered, over which TLS.
+log_format subspace67 '$time_iso8601 client=$remote_addr:$remote_port host=$host "$request" '
+                      'status=$status bytes=$body_bytes_sent proto=$server_protocol tls=$ssl_protocol '
+                      'upstream=$upstream_addr upstream_status=$upstream_status x_backend=$upstream_http_x_backend '
+                      'request_time=$request_time upstream_connect=$upstream_connect_time upstream_header=$upstream_header_time upstream_time=$upstream_response_time';
+access_log /Users/aanyamehrotra/Desktop/CN_subspace_67/logs/nginx_access.log subspace67;
+
+# TLS settings shared by every HTTPS server block below
+ssl_certificate     /Users/aanyamehrotra/Desktop/CN_subspace_67/tls/fullchain.crt;   # leaf + CA (the chain the client sees)
+ssl_certificate_key /Users/aanyamehrotra/Desktop/CN_subspace_67/tls/server.key;      # private key, chmod 600, never shared
+ssl_protocols       TLSv1.2 TLSv1.3;         # 1.2 kept so a capture can show the Certificate message in clear
+ssl_session_cache   shared:SSL:1m;
+ssl_session_timeout 10m;
+
+# The pool. No balancing directive = round robin (A, B, A, B, ...).
+# max_fails=1 fail_timeout=10s: one failed attempt takes a backend out of rotation for 10 s.
+# zone: nginx runs one worker per CPU core; without a shared-memory zone each worker keeps
+# its own round-robin pointer and failure counters (so the order looks random and a dead
+# backend is "discovered" once per worker). With the zone all workers share one state.
+upstream team_backends {
+    zone team_backends 1m;
+    server 10.7.1.136:3001 max_fails=1 fail_timeout=10s;   # Backend A @ mac_abhay
+    server 10.7.23.136:3002 max_fails=1 fail_timeout=10s;   # Backend B @ mac_vachan
+}
+
+# ---- HTTPS: the real service -------------------------------------------------------
+server {
+    listen 443 ssl;
+    http2  on;
+    server_name app.subspace-67.test api.subspace-67.test;
+
+    location / {
+        proxy_pass http://team_backends;               # plain HTTP to the backends on the LAN
+        proxy_http_version 1.1;
+        proxy_next_upstream error timeout http_502 http_503;   # failover: retry the other backend
+        proxy_connect_timeout 2s;                      # a dead backend is detected within 2 s
+        proxy_read_timeout 10s;
+        proxy_set_header Host              $host;                       # original name the client asked for
+        proxy_set_header X-Real-IP         $remote_addr;                # real client IP
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;  # client IP chain
+        proxy_set_header X-Forwarded-Proto $scheme;                     # "https": TLS ended at the edge
+    }
+}
+
+# ---- HTTPS default: bare IP / unknown SNI or Host -> tell the user to use the name ------
+server {
+    listen 443 ssl default_server;
+    http2  on;
+    server_name _;
+    default_type text/plain;
+    return 400 "subspace_67 edge: please use the domain name, e.g. https://app.subspace-67.test/ (requests by IP address or for unknown host names are not served)\n";
+}
+
+# ---- HTTP :80 -> HTTPS -------------------------------------------------------------
+server {
+    listen 80;
+    server_name app.subspace-67.test api.subspace-67.test;
+    return 301 https://$host$request_uri;
+}
+
+# ---- HTTP :80 default: bare IP / unknown Host ----------------------------------------
+server {
+    listen 80 default_server;
+    server_name _;
+    default_type text/plain;
+    return 400 "subspace_67 edge: please use the domain name, e.g. https://app.subspace-67.test/ (requests by IP address or for unknown host names are not served)\n";
+}
+
+(exit 0)

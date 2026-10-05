@@ -1,0 +1,36 @@
+# mac_vachan as a client after edge_ready - 2026-09-30 13:51:41 IST  (name only, no -k, no --cacert)
+
+$ dig app.subspace-67.test +noall +answer +stats | grep -E "subspace|SERVER"
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test +noall +answer +stats
+app.subspace-67.test.	60	IN	A	10.7.19.193
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+
+$ curl -sS -v https://app.subspace-67.test/api/status 2>&1 | grep -E "Connected to|SSL connection|subject:|issuer:|SSL certificate verify|ALPN|^< HTTP|^< x-backend|^\{"
+* Connected to app.subspace-67.test (10.7.19.193) port 443
+* ALPN: curl offers h2,http/1.1
+{ [122 bytes data]
+{ [47 bytes data]
+{ [2345 bytes data]
+{ [264 bytes data]
+{ [36 bytes data]
+* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+* ALPN: server accepted h2
+*  subject: O=subspace_67; CN=app.subspace-67.test
+*  issuer: O=subspace_67; OU=Computer Networks course project; CN=subspace_67 Local Root CA
+*  SSL certificate verify ok.
+< HTTP/2 200 
+< x-backend: A
+{ [126 bytes data]
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T13:51:41.744+05:30"}
+
+$ bin/lb_probe.sh 10
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  9: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request 10: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A

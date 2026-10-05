@@ -1,0 +1,80 @@
+# captured 2026-09-30 13:22:21 IST on mac_aanya (Aanyas-MacBook-Pro.local)
+
+$ ifconfig en0
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether d6:d2:39:70:e5:9a
+	inet6 fe80::1887:5f59:38fc:6339%en0 prefixlen 64 secured scopeid 0xb 
+	inet 10.7.19.193 netmask 0xffffe000 broadcast 10.7.31.255
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+
+$ route -n get default
+   route to: default
+destination: default
+       mask: default
+    gateway: 10.7.0.1
+  interface: en0
+      flags: <UP,GATEWAY,DONE,STATIC,PRCLONING,GLOBAL>
+ recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire
+       0         0         0         0         0         0      1500         0 
+
+$ networksetup -getinfo Wi-Fi
+DHCP Configuration
+IP address: 10.7.19.193
+Subnet mask: 255.255.224.0
+Router: 10.7.0.1
+Client ID: 
+IPv6: Automatic
+IPv6 IP address: none
+IPv6 Router: none
+Wi-Fi ID: 10:9f:41:be:0f:1e
+
+$ ipconfig getifaddr en0
+10.7.19.193
+
+$ ipconfig getoption en0 subnet_mask
+255.255.224.0
+
+$ ipconfig getoption en0 router
+10.7.0.1
+
+$ networksetup -listallhardwareports
+
+Hardware Port: Ethernet Adapter (en3)
+Device: en3
+Ethernet Address: 2e:e3:0c:f7:4a:5f
+
+Hardware Port: Ethernet Adapter (en4)
+Device: en4
+Ethernet Address: 2e:e3:0c:f7:4a:60
+
+Hardware Port: Thunderbolt Bridge
+Device: bridge0
+Ethernet Address: 36:87:e3:17:28:80
+
+Hardware Port: Wi-Fi
+Device: en0
+Ethernet Address: 10:9f:41:be:0f:1e
+
+Hardware Port: Thunderbolt 1
+Device: en1
+Ethernet Address: 36:87:e3:17:28:80
+
+Hardware Port: Thunderbolt 2
+Device: en2
+Ethernet Address: 36:87:e3:17:28:84
+
+VLAN Configurations
+===================
+
+$ networksetup -listnetworkserviceorder
+An asterisk (*) denotes that a network service is disabled.
+(1) Thunderbolt Bridge
+(Hardware Port: Thunderbolt Bridge, Device: bridge0)
+
+(2) Wi-Fi
+(Hardware Port: Wi-Fi, Device: en0)
+
+

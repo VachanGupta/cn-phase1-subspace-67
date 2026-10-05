@@ -1,0 +1,12 @@
+### 2026-09-30 13:51:59 IST on mac_abhay (10.7.1.136)
+$ security verify-cert -c /Users/abhaymalik/Desktop/CN_subspace_67/certs/server_seen_by_client.pem -p ssl -s app.subspace-67.test; echo; security dump-trust-settings -d 2>/dev/null | grep -A2 subspace_67
+...certificate verification successful.
+---
+No extended validation result found
+Certificate Transparency (CT) status: [31mnot verified[0m
+Unable to find at least 2 signed certificate timestamps (SCTs) from approved logs
+
+Cert 0: subspace_67 Local Root CA
+   Number of trust settings : 0
+[exit code: 0]
+

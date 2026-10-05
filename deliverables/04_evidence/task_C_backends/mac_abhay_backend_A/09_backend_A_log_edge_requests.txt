@@ -1,0 +1,13 @@
+### 2026-09-30 13:51:49 IST on mac_abhay (10.7.1.136)
+$ awk -v m='2026-09-30T13:51:45' '$1 >= m' /Users/abhaymalik/Desktop/CN_subspace_67/logs/backend_A.log | grep -E 'client=' ; echo; echo 'TCP peers seen by Backend A since 2026-09-30T13:51:45 (IP only):'; awk -v m='2026-09-30T13:51:45' '$1 >= m' /Users/abhaymalik/Desktop/CN_subspace_67/logs/backend_A.log | grep -oE 'client=[0-9.]+' | sort | uniq -c
+2026-09-30T13:51:45.706+05:30 backend=A client=10.7.19.193:52055 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T13:51:46.372+05:30 backend=A client=10.7.19.193:52169 "GET / HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.1.136 proto=https ua=curl/8.7.1
+2026-09-30T13:51:46.858+05:30 backend=A client=10.7.19.193:52169 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.1.136 proto=https ua=curl/8.7.1
+2026-09-30T13:51:47.078+05:30 backend=A client=10.7.19.193:52172 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T13:51:47.427+05:30 backend=A client=10.7.19.193:52169 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.23.136 proto=https ua=curl/8.7.1
+2026-09-30T13:51:48.000+05:30 backend=A client=10.7.19.193:52169 "GET /api/status HTTP/1.1" 200 host=app.subspace-67.test xff=10.7.1.136 proto=https ua=curl/8.7.1
+
+TCP peers seen by Backend A since 2026-09-30T13:51:45 (IP only):
+   6 client=10.7.19.193
+[exit code: 0]
+

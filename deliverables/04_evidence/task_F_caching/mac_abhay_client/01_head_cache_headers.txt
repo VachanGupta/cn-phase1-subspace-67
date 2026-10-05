@@ -1,0 +1,14 @@
+### 2026-09-30 13:52:00 IST on mac_abhay (10.7.1.136)
+$ /usr/bin/curl -sS  -I https://app.subspace-67.test/api/cache-demo
+HTTP/2 200 
+server: nginx
+date: Wed, 30 Sep 2026 08:22:01 GMT
+content-type: application/json; charset=utf-8
+content-length: 225
+x-backend: A
+cache-control: public, max-age=60
+etag: "6adb0ec0cb57508d"
+last-modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+[exit code: 0]
+

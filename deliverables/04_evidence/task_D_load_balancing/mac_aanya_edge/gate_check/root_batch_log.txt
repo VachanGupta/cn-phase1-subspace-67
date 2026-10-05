@@ -1,0 +1,29 @@
+[13:49:23] === mac_aanya root batch start: service=Wi-Fi iface=en0 me=10.7.19.193 vachan(DNS)=10.7.23.136 abhay=10.7.1.136 edge_port=443
+[13:49:23] check: @10.7.23.136 app.subspace-67.test -> '10.7.19.193' (want 10.7.19.193); api.anthropic.com -> '160.79.104.10'
+[13:49:23] original DNS on Wi-Fi: 1.0.01 
+[13:49:23] set DNS on Wi-Fi -> 10.7.23.136
+[13:49:23] flushed DNS cache (dscacheutil + mDNSResponder HUP)
+[13:49:25] now: 10.7.23.136 
+DNS configuration
+
+resolver #1
+  nameserver[0] : 10.7.23.136
+  flags    : Request A records
+  reach    : 0x00020002 (Reachable,Directly Reachable Address)
+
+resolver #2
+  domain   : local
+  options  : mdns
+  timeout  : 5
+  flags    : Request A records
+[13:49:37] trusted tls/ca.crt (subspace_67 Local Root CA) in the System keychain
+[13:49:37] check: macOS now trusts the edge certificate for app.subspace-67.test (system trust, no -r)
+[13:49:37] capture: waiting (max 20 min) for the operator to create run/capture.start ... (leave this window open)
+[13:50:46] capture: tcpdump -i pktap,lo0,en0 filter: (src host 10.7.19.193 and dst host 10.7.19.193 and tcp port 443) or (host 10.7.1.136 and tcp port 3001) or (host 10.7.23.136 and tcp port 3002) or (host 10.7.23.136 and port 53)
+tcpdump: data link type PKTAP
+tcpdump: listening on pktap,lo0,en0, link-type PKTAP (Apple DLT_PKTAP), snapshot length 524288 bytes
+196 packets captured
+1198 packets received by filter
+0 packets dropped by kernel
+[13:50:53] capture: saved /Users/aanyamehrotra/Desktop/CN_subspace_67/share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng (53716 bytes)
+[13:50:53] === all done. You can close this window.

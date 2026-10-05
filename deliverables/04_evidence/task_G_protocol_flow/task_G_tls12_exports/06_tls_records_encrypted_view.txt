@@ -1,0 +1,17 @@
+### 2026-09-30 13:59:41 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng' -n -Y 'tcp.stream == 0 && tls' -T fields -E header=y -E separator='|' -e frame.number -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tls.record.version -e tls.record.content_type -e tls.handshake.type -e _ws.col.info | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py
+frame.number  ip.src       tcp.srcport  ip.dst       tcp.dstport  tls.record.version    tls.record.content_type  tls.handshake.type  _ws.col.info
+8             10.7.1.136   54389        10.7.19.193  443          0x0301                22                       1                   Client Hello (SNI=app.subspace-67.test)
+11            10.7.19.193  443          10.7.1.136   54389        0x0303                22                       2                   Server Hello
+12            10.7.19.193  443          10.7.1.136   54389        0x0303,0x0303,0x0303  22,22,22                 11,12,14            Certificate, Server Key Exchange, Server Hello Done
+14            10.7.1.136   54389        10.7.19.193  443          0x0303,0x0303,0x0303  22,20,22                 16                  Client Key Exchange, Change Cipher Spec, Encrypted Handshake Message
+16            10.7.19.193  443          10.7.1.136   54389        0x0303,0x0303         20,22                    -                   Change Cipher Spec, Encrypted Handshake Message
+17            10.7.19.193  443          10.7.1.136   54389        0x0303                23                       -                   Application Data
+19            10.7.1.136   54389        10.7.19.193  443          0x0303                23                       -                   Application Data
+20            10.7.1.136   54389        10.7.19.193  443          0x0303                23                       -                   Application Data
+23            10.7.19.193  443          10.7.1.136   54389        0x0303                23                       -                   Application Data
+26            10.7.19.193  443          10.7.1.136   54389        0x0303                23                       -                   Application Data
+28            10.7.1.136   54389        10.7.19.193  443          0x0303                23                       -                   Application Data
+29            10.7.1.136   54389        10.7.19.193  443          0x0303                21                       -                   Encrypted Alert
+[exit code: 0]
+

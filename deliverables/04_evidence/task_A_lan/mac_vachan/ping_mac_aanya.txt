@@ -1,0 +1,14 @@
+$ ping -c 5 10.7.19.193   # mac_aanya (IP from its info.json) - 2026-09-30 13:57:58 IST
+PING 10.7.19.193 (10.7.19.193): 56 data bytes
+64 bytes from 10.7.19.193: icmp_seq=0 ttl=64 time=207.638 ms
+64 bytes from 10.7.19.193: icmp_seq=1 ttl=64 time=229.323 ms
+64 bytes from 10.7.19.193: icmp_seq=2 ttl=64 time=41.457 ms
+64 bytes from 10.7.19.193: icmp_seq=3 ttl=64 time=43.634 ms
+64 bytes from 10.7.19.193: icmp_seq=4 ttl=64 time=41.610 ms
+
+--- 10.7.19.193 ping statistics ---
+5 packets transmitted, 5 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 41.457/112.732/229.323/86.618 ms
+
+$ arp -n 10.7.19.193
+? (10.7.19.193) at d6:d2:39:70:e5:9a on en0 ifscope [ethernet]

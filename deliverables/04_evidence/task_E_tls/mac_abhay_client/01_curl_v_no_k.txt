@@ -1,0 +1,62 @@
+### 2026-09-30 13:51:57 IST on mac_abhay (10.7.1.136)
+$ /usr/bin/curl -v https://app.subspace-67.test/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host app.subspace-67.test:443 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.19.193
+*   Trying 10.7.19.193:443...
+* Connected to app.subspace-67.test (10.7.19.193) port 443
+* ALPN: curl offers h2,http/1.1
+* (304) (OUT), TLS handshake, Client hello (1):
+} [325 bytes data]
+*  CAfile: /etc/ssl/cert.pem
+*  CApath: none
+* (304) (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* (304) (IN), TLS handshake, Unknown (8):
+{ [47 bytes data]
+* (304) (IN), TLS handshake, Certificate (11):
+{ [2345 bytes data]
+* (304) (IN), TLS handshake, CERT verify (15):
+{ [264 bytes data]
+* (304) (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* (304) (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: O=subspace_67; CN=app.subspace-67.test
+*  start date: Sep 30 07:53:55 2026 GMT
+*  expire date: Nov  1 07:53:55 2027 GMT
+*  subjectAltName: host "app.subspace-67.test" matched cert's "app.subspace-67.test"
+*  issuer: O=subspace_67; OU=Computer Networks course project; CN=subspace_67 Local Root CA
+*  SSL certificate verify ok.
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://app.subspace-67.test/
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: app.subspace-67.test]
+* [HTTP/2] [1] [:path: /]
+* [HTTP/2] [1] [user-agent: curl/8.7.1]
+* [HTTP/2] [1] [accept: */*]
+> GET / HTTP/2
+> Host: app.subspace-67.test
+> User-Agent: curl/8.7.1
+> Accept: */*
+> 
+* Request completely sent off
+< HTTP/2 200 
+< server: nginx
+< date: Wed, 30 Sep 2026 08:21:57 GMT
+< content-type: application/json; charset=utf-8
+< content-length: 150
+< x-backend: B
+< 
+{ [150 bytes data]
+100   150  100   150    0     0    472      0 --:--:-- --:--:-- --:--:--   473
+* Connection #0 to host app.subspace-67.test left intact
+{"service": "subspace_67 backend", "backend": "B", "status": "running", "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:51:57.702+05:30"}
+[exit code: 0]
+

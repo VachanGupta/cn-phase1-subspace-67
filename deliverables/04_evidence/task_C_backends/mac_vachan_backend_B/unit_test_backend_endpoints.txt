@@ -1,0 +1,149 @@
+# Local unit test of backend.py (before publishing) - 2026-09-30 13:23:13 IST
+# test instances: B on :3902, A on :3901 (the real ports 3001/3002 are used later)
+
+$ curl -si http://127.0.0.1:3902/
+HTTP/1.1 200 OK
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 150
+
+{"service": "subspace_67 backend", "backend": "B", "status": "running", "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:23:13.543+05:30"}
+
+$ curl -sI http://127.0.0.1:3902/
+HTTP/1.1 200 OK
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 150
+
+
+$ curl -si http://127.0.0.1:3902/api/status
+HTTP/1.1 200 OK
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 125
+Cache-Control: no-store
+
+{"backend": "B", "status": "ok", "port": 3902, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T13:23:13.562+05:30"}
+
+$ curl -sI http://127.0.0.1:3902/api/status
+HTTP/1.1 200 OK
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 125
+Cache-Control: no-store
+
+
+$ curl -si http://127.0.0.1:3902/api/cache-demo
+HTTP/1.1 200 OK
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 225
+Cache-Control: public, max-age=60
+ETag: "6adb0ec0cb57508d"
+Last-Modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+{"resource":"cache-demo","team":"subspace_67","version":1,"message":"This body is byte-identical on Backend A and Backend B, so both send the same ETag and a conditional GET gets 304 Not Modified whichever backend answers."}
+
+# ETag from B = "6adb0ec0cb57508d" ; recomputed first 16 hex of sha256(body):
+$ curl -s http://127.0.0.1:3902/api/cache-demo | shasum -a 256 | cut -c1-16
+6adb0ec0cb57508d
+
+# identical body on A and B?
+$ cmp <(curl -s http://127.0.0.1:3901/api/cache-demo) <(curl -s http://127.0.0.1:3902/api/cache-demo) && echo 'A and B cache-demo bodies are byte-identical'
+A and B cache-demo bodies are byte-identical
+
+$ curl -sI http://127.0.0.1:3901/api/cache-demo | grep -iE 'etag|x-backend'
+X-Backend: A
+ETag: "6adb0ec0cb57508d"
+
+$ curl -si -H 'If-None-Match: "6adb0ec0cb57508d"' http://127.0.0.1:3902/api/cache-demo
+HTTP/1.1 304 Not Modified
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Cache-Control: public, max-age=60
+ETag: "6adb0ec0cb57508d"
+Last-Modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+
+$ curl -si -H 'If-None-Match: "6adb0ec0cb57508d"' http://127.0.0.1:3901/api/cache-demo
+HTTP/1.1 304 Not Modified
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: A
+Cache-Control: public, max-age=60
+ETag: "6adb0ec0cb57508d"
+Last-Modified: Tue, 29 Sep 2026 00:00:00 GMT
+
+
+$ curl -si -H 'If-None-Match: W/"6adb0ec0cb57508d"' http://127.0.0.1:3902/api/cache-demo | head -1
+HTTP/1.1 304 Not Modified
+
+$ curl -si -H 'If-None-Match: "0000000000000000"' http://127.0.0.1:3902/api/cache-demo | head -1
+HTTP/1.1 200 OK
+
+$ curl -si -H 'If-Modified-Since: Wed, 30 Sep 2026 00:00:00 GMT' http://127.0.0.1:3902/api/cache-demo | head -1
+HTTP/1.1 304 Not Modified
+
+$ curl -si http://127.0.0.1:3902/does-not-exist
+HTTP/1.1 404 Not Found
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 66
+
+{"error": "not found", "path": "/does-not-exist", "backend": "B"}
+
+$ curl -sI http://127.0.0.1:3902/does-not-exist
+HTTP/1.1 404 Not Found
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 66
+
+
+$ curl -si -X POST http://127.0.0.1:3902/api/status
+HTTP/1.1 405 method not allowed
+Server: subspace67-backend/1.0 
+Date: Wed, 30 Sep 2026 07:53:13 GMT
+X-Backend: B
+Content-Type: application/json; charset=utf-8
+Content-Length: 61
+Connection: close
+Allow: GET, HEAD
+
+{"error": "method not allowed", "code": 405, "backend": "B"}
+
+$ curl -si 'http://127.0.0.1:3902/api/status?x=1' | head -1
+HTTP/1.1 200 OK
+
+# backend B stdout log (client IP:port per request):
+2026-09-30T13:23:12.611+05:30 backend=B listening on 0.0.0.0:3902 (host Vachans-MacBook-Pro.local, pid 50733, cache-demo ETag "6adb0ec0cb57508d")
+2026-09-30T13:23:13.543+05:30 backend=B client=127.0.0.1:58151 "GET / HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.554+05:30 backend=B client=127.0.0.1:58152 "HEAD / HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.562+05:30 backend=B client=127.0.0.1:58153 "GET /api/status HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.569+05:30 backend=B client=127.0.0.1:58154 "HEAD /api/status HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.575+05:30 backend=B client=127.0.0.1:58155 "GET /api/cache-demo HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.582+05:30 backend=B client=127.0.0.1:58156 "HEAD /api/cache-demo HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.589+05:30 backend=B client=127.0.0.1:58157 "GET /api/cache-demo HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.621+05:30 backend=B client=127.0.0.1:58158 "GET /api/cache-demo HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.636+05:30 backend=B client=127.0.0.1:58161 "GET /api/cache-demo HTTP/1.1" 304 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.649+05:30 backend=B client=127.0.0.1:58163 "GET /api/cache-demo HTTP/1.1" 304 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.655+05:30 backend=B client=127.0.0.1:58164 "GET /api/cache-demo HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.660+05:30 backend=B client=127.0.0.1:58165 "GET /api/cache-demo HTTP/1.1" 304 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.666+05:30 backend=B client=127.0.0.1:58166 "GET /does-not-exist HTTP/1.1" 404 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.671+05:30 backend=B client=127.0.0.1:58167 "HEAD /does-not-exist HTTP/1.1" 404 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.676+05:30 backend=B client=127.0.0.1:58168 "POST /api/status HTTP/1.1" 405 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1
+2026-09-30T13:23:13.682+05:30 backend=B client=127.0.0.1:58169 "GET /api/status?x=1 HTTP/1.1" 200 host=127.0.0.1:3902 xff=- proto=- ua=curl/8.7.1

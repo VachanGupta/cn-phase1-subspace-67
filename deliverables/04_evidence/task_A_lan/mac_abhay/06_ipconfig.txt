@@ -1,0 +1,8 @@
+### 2026-09-30 13:21:17 IST on mac_abhay (10.7.1.136)
+$ ipconfig getifaddr en0; ipconfig getoption en0 subnet_mask; ipconfig getoption en0 router; ipconfig getoption en0 domain_name_server
+10.7.1.136
+255.255.224.0
+10.7.0.1
+8.8.8.8
+[exit code: 0]
+

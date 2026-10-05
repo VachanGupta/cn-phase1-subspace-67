@@ -1,0 +1,22 @@
+### 2026-09-30 14:11:58 IST on mac_abhay (10.7.1.136)
+$ awk '$1 >= "2026-09-30T14:08:40" && $1 <= "2026-09-30T14:09:31.999"' /Users/abhaymalik/Desktop/CN_subspace_67/logs/backend_A.log | grep -E '\[supervisor\]|backend=A (listening|stopped)'
+2026-09-30T14:08:41.907+05:30 [supervisor] control.json says A=down
+2026-09-30T14:08:41.911+05:30 [supervisor] stopping backend A (pid 15451): control.json says down
+2026-09-30T14:08:41.911+05:30 backend=A stopped; port 3001 closed
+2026-09-30T14:08:41.920+05:30 [supervisor] backend A is DOWN: pid 15451 gone, port 3001 closed (connection refused)
+2026-09-30T14:08:50.712+05:30 [supervisor] control.json says A=up
+2026-09-30T14:08:50.720+05:30 [supervisor] started backend A (pid 24329) on port 3001
+2026-09-30T14:08:51.298+05:30 backend=A listening on 0.0.0.0:3001 (host Abhays-MacBook-Pro-4.local, pid 24329, cache-demo ETag "6adb0ec0cb57508d")
+2026-09-30T14:08:51.355+05:30 [supervisor] backend A is UP: port 3001 accepting connections
+2026-09-30T14:09:10.088+05:30 [supervisor] cannot read control.json (URLError: <urlopen error timed out>); keeping current state
+2026-09-30T14:09:18.182+05:30 [supervisor] control.json reachable again (http://10.7.23.136:8099/control.json)
+2026-09-30T14:09:22.318+05:30 [supervisor] control.json says A=down
+2026-09-30T14:09:22.319+05:30 [supervisor] stopping backend A (pid 24329): control.json says down
+2026-09-30T14:09:22.321+05:30 backend=A stopped; port 3001 closed
+2026-09-30T14:09:22.341+05:30 [supervisor] backend A is DOWN: pid 24329 gone, port 3001 closed (connection refused)
+2026-09-30T14:09:30.622+05:30 [supervisor] control.json says A=up
+2026-09-30T14:09:30.628+05:30 [supervisor] started backend A (pid 24524) on port 3001
+2026-09-30T14:09:30.713+05:30 backend=A listening on 0.0.0.0:3001 (host Abhays-MacBook-Pro-4.local, pid 24524, cache-demo ETag "6adb0ec0cb57508d")
+2026-09-30T14:09:30.731+05:30 [supervisor] backend A is UP: port 3001 accepting connections
+[exit code: 0]
+

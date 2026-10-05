@@ -1,0 +1,159 @@
+### 2026-09-30 13:59:42 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls13.pcapng' -n -Y 'dns.qry.name == "app.subspace-67.test" && dns.qry.type == 1' -O dns -V -c 400 | sed -n '1,400p'
+Packet comments
+Frame 1: Packet, 91 bytes on wire (728 bits), 91 bytes captured (728 bits) on interface en0, id 0
+Ethernet II, Src: 8e:f6:fb:7b:0a:59, Dst: 6a:e1:56:86:a2:23
+Internet Protocol Version 4, Src: 10.7.1.136, Dst: 10.7.23.136
+User Datagram Protocol, Src Port: 61173, Dst Port: 53
+Domain Name System (query)
+    Transaction ID: 0x2fb0
+    Flags: 0x0120 Standard query
+        0... .... .... .... = Response: Message is a query
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..1. .... = AD bit: Set
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 0
+    Additional RRs: 1
+    Queries
+        app.subspace-67.test: type A, class IN
+            Name: app.subspace-67.test
+            [Name Length: 20]
+            [Label Count: 3]
+            Type: A (1) (Host Address)
+            Class: IN (0x0001)
+    Additional records
+        <Root>: type OPT
+            Name: <Root>
+            Type: OPT (41) 
+            UDP payload size: 4096
+            Higher bits in extended RCODE: 0x00
+            EDNS0 version: 0
+            Z: 0x0000
+                0... .... .... .... = DO bit: Cannot handle DNSSEC security RRs
+                .000 0000 0000 0000 = Reserved: 0x0000
+            Data length: 0
+
+Packet comments
+Frame 2: Packet, 107 bytes on wire (856 bits), 107 bytes captured (856 bits) on interface en0, id 0
+Ethernet II, Src: 6a:e1:56:86:a2:23, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.23.136, Dst: 10.7.1.136
+User Datagram Protocol, Src Port: 53, Dst Port: 61173
+Domain Name System (response)
+    Transaction ID: 0x2fb0
+    Flags: 0x8580 Standard query response, No error
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .1.. .... .... = Authoritative: Server is an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+        .... .... .... 0000 = Reply code: No error (0)
+    Questions: 1
+    Answer RRs: 1
+    Authority RRs: 0
+    Additional RRs: 1
+    Queries
+        app.subspace-67.test: type A, class IN
+            Name: app.subspace-67.test
+            [Name Length: 20]
+            [Label Count: 3]
+            Type: A (1) (Host Address)
+            Class: IN (0x0001)
+    Answers
+        app.subspace-67.test: type A, class IN, addr 10.7.19.193
+            Name: app.subspace-67.test
+            Type: A (1) (Host Address)
+            Class: IN (0x0001)
+            Time to live: 60 (1 minute)
+            Data length: 4
+            Address: 10.7.19.193
+    Additional records
+        <Root>: type OPT
+            Name: <Root>
+            Type: OPT (41) 
+            UDP payload size: 1232
+            Higher bits in extended RCODE: 0x00
+            EDNS0 version: 0
+            Z: 0x0000
+                0... .... .... .... = DO bit: Cannot handle DNSSEC security RRs
+                .000 0000 0000 0000 = Reserved: 0x0000
+            Data length: 0
+    [Request In: 1]
+    [Time: 196.881000 milliseconds]
+
+Packet comments
+Frame 3: Packet, 80 bytes on wire (640 bits), 80 bytes captured (640 bits) on interface en0, id 0
+Ethernet II, Src: 8e:f6:fb:7b:0a:59, Dst: 6a:e1:56:86:a2:23
+Internet Protocol Version 4, Src: 10.7.1.136, Dst: 10.7.23.136
+User Datagram Protocol, Src Port: 53824, Dst Port: 53
+Domain Name System (query)
+    Transaction ID: 0xa00f
+    Flags: 0x0100 Standard query
+        0... .... .... .... = Response: Message is a query
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+    Questions: 1
+    Answer RRs: 0
+    Authority RRs: 0
+    Additional RRs: 0
+    Queries
+        app.subspace-67.test: type A, class IN
+            Name: app.subspace-67.test
+            [Name Length: 20]
+            [Label Count: 3]
+            Type: A (1) (Host Address)
+            Class: IN (0x0001)
+
+Packet comments
+Frame 4: Packet, 96 bytes on wire (768 bits), 96 bytes captured (768 bits) on interface en0, id 0
+Ethernet II, Src: 6a:e1:56:86:a2:23, Dst: 8e:f6:fb:7b:0a:59
+Internet Protocol Version 4, Src: 10.7.23.136, Dst: 10.7.1.136
+User Datagram Protocol, Src Port: 53, Dst Port: 53824
+Domain Name System (response)
+    Transaction ID: 0xa00f
+    Flags: 0x8580 Standard query response, No error
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .1.. .... .... = Authoritative: Server is an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+        .... .... .... 0000 = Reply code: No error (0)
+    Questions: 1
+    Answer RRs: 1
+    Authority RRs: 0
+    Additional RRs: 0
+    Queries
+        app.subspace-67.test: type A, class IN
+            Name: app.subspace-67.test
+            [Name Length: 20]
+            [Label Count: 3]
+            Type: A (1) (Host Address)
+            Class: IN (0x0001)
+    Answers
+        app.subspace-67.test: type A, class IN, addr 10.7.19.193
+            Name: app.subspace-67.test
+            Type: A (1) (Host Address)
+            Class: IN (0x0001)
+            Time to live: 60 (1 minute)
+            Data length: 4
+            Address: 10.7.19.193
+    [Request In: 3]
+    [Time: 14.292000 milliseconds]
+
+[exit code: 0]
+

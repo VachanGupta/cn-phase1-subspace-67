@@ -1,0 +1,376 @@
+=== failure demos on mac_vachan (10.7.23.136), edge mac_aanya=10.7.19.193, mac_abhay=10.7.1.136 - 2026-09-30 14:07:23 IST
+--- pre-flight
+HEALTHY (2026-09-30 14:07:27 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+# F1 - wrong DNS server on a client (2026-09-30 14:07:27 IST)
+# Break: this Mac's resolver -> 192.0.2.53 (TEST-NET-1: a documentation address where no DNS server exists).
+$ sudo networksetup -setdnsservers Wi-Fi 192.0.2.53
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ networksetup -getdnsservers Wi-Fi
+192.0.2.53
+
+$ scutil --dns | sed -n '1,8p'
+DNS configuration
+
+resolver #1
+  nameserver[0] : 192.0.2.53
+  flags    : Request A records
+  reach    : 0x00000002 (Reachable)
+
+resolver #2
+
+$ dig app.subspace-67.test +time=2 +tries=2
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test +time=2 +tries=2
+;; global options: +cmd
+;; connection timed out; no servers could be reached
+
+$ curl -sS -v --max-time 10 https://app.subspace-67.test/api/status
+* Resolving timed out after 10002 milliseconds
+* Closing connection
+curl: (28) Resolving timed out after 10002 milliseconds
+
+# IP connectivity to the edge is fine - only the name lookup is broken:
+$ ping -c 3 10.7.19.193
+PING 10.7.19.193 (10.7.19.193): 56 data bytes
+64 bytes from 10.7.19.193: icmp_seq=0 ttl=64 time=244.570 ms
+64 bytes from 10.7.19.193: icmp_seq=1 ttl=64 time=314.024 ms
+64 bytes from 10.7.19.193: icmp_seq=2 ttl=64 time=276.771 ms
+
+--- 10.7.19.193 ping statistics ---
+3 packets transmitted, 3 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 244.570/278.455/314.024/28.379 ms
+
+$ nc -vz -G 3 10.7.19.193 443
+Connection to 10.7.19.193 port 443 [tcp/https] succeeded!
+
+# Same HTTPS request with the edge IP supplied by hand (DNS bypassed; certificate still verified, no -k):
+$ curl -sS --max-time 5 --resolve app.subspace-67.test:443:10.7.19.193 https://app.subspace-67.test/api/status
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T14:07:47.216+05:30"}
+
+# --- restore: DNS server back to mac_vachan (10.7.23.136)
+$ sudo networksetup -setdnsservers Wi-Fi 10.7.23.136
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ networksetup -getdnsservers Wi-Fi
+10.7.23.136
+
+$ dig app.subspace-67.test +short
+10.7.19.193
+
+$ curl -sS https://app.subspace-67.test/api/status
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T14:07:49.477+05:30"}
+
+HEALTHY (2026-09-30 14:07:56 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+# F2 - the DNS record points to the wrong IP (2026-09-30 14:07:56 IST)
+# Break: app.subspace-67.test -> 10.7.1.136 (mac_abhay is up, but nothing listens on 443 there).
+$ python3 bin/gen_dnsmasq.py --app-ip 10.7.1.136
+CHANGED /Users/vachanP/Desktop/work/CN/configs/dnsmasq.conf (app->10.7.1.136, api->10.7.19.193, listen 10.7.23.136, upstream 8.8.8.8,1.1.1.1); installed copy /opt/homebrew/etc/dnsmasq.conf updated
+
+$ grep '^host-record' configs/dnsmasq.conf
+host-record=app.subspace-67.test,10.7.1.136
+host-record=api.subspace-67.test,10.7.19.193
+
+$ sudo /opt/homebrew/bin/brew services restart dnsmasq
+Stopping `dnsmasq`... (might take a while)
+Warning: Taking root:admin ownership of some dnsmasq paths:
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin/dnsmasq
+  /opt/homebrew/opt/dnsmasq
+  /opt/homebrew/opt/dnsmasq/sbin
+  /opt/homebrew/var/homebrew/linked/dnsmasq
+This will require manual removal of these paths using `sudo rm` on
+brew upgrade/reinstall/uninstall.
+==> Successfully stopped `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+==> Successfully started `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ dig app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 63278
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.1.136
+
+;; Query time: 1 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 14:08:02 IST 2026
+;; MSG SIZE  rcvd: 65
+
+
+$ curl -sS -v --max-time 8 https://app.subspace-67.test/api/status
+* Host app.subspace-67.test:443 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.1.136
+*   Trying 10.7.1.136:443...
+* connect to 10.7.1.136 port 443 from 10.7.23.136 port 49346 failed: Connection refused
+* Failed to connect to app.subspace-67.test port 443 after 1124 ms: Couldn't connect to server
+* Closing connection
+curl: (7) Failed to connect to app.subspace-67.test port 443 after 1124 ms: Couldn't connect to server
+
+# The wrong host is alive; it just has no service on 443:
+$ ping -c 2 10.7.1.136
+PING 10.7.1.136 (10.7.1.136): 56 data bytes
+64 bytes from 10.7.1.136: icmp_seq=0 ttl=64 time=48.741 ms
+64 bytes from 10.7.1.136: icmp_seq=1 ttl=64 time=76.661 ms
+
+--- 10.7.1.136 ping statistics ---
+2 packets transmitted, 2 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 48.741/62.701/76.661/13.960 ms
+
+$ nc -vz -G 3 10.7.1.136 443
+nc: connectx to 10.7.1.136 port 443 (tcp) failed: Connection refused
+
+# --- restore: record back to the edge (10.7.19.193)
+$ python3 bin/gen_dnsmasq.py
+CHANGED /Users/vachanP/Desktop/work/CN/configs/dnsmasq.conf (app->10.7.19.193, api->10.7.19.193, listen 10.7.23.136, upstream 8.8.8.8,1.1.1.1); installed copy /opt/homebrew/etc/dnsmasq.conf updated
+
+$ grep '^host-record' configs/dnsmasq.conf
+host-record=app.subspace-67.test,10.7.19.193
+host-record=api.subspace-67.test,10.7.19.193
+
+$ sudo /opt/homebrew/bin/brew services restart dnsmasq
+Stopping `dnsmasq`... (might take a while)
+Warning: Taking root:admin ownership of some dnsmasq paths:
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin/dnsmasq
+  /opt/homebrew/opt/dnsmasq
+  /opt/homebrew/opt/dnsmasq/sbin
+  /opt/homebrew/var/homebrew/linked/dnsmasq
+This will require manual removal of these paths using `sudo rm` on
+brew upgrade/reinstall/uninstall.
+==> Successfully stopped `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+==> Successfully started `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ dig app.subspace-67.test +short
+10.7.19.193
+
+HEALTHY (2026-09-30 14:08:14 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+# F3 - one backend stopped (2026-09-30 14:08:14 IST)
+# Break: control.json B -> down (the supervisor on mac_vachan really stops Backend B; port 3002 closes).
+$ cat share/control.json
+{"A": "up", "B": "down"}
+
+$ nc -vz -G 2 10.7.23.136 3002
+nc: connectx to 10.7.23.136 port 3002 (tcp) failed: Connection refused
+
+$ grep '\[supervisor\]' logs/backend_B.log | tail -3
+2026-09-30T14:08:14.958+05:30 [supervisor] control.json says B=down
+2026-09-30T14:08:14.963+05:30 [supervisor] stopping backend B (pid 50908): control.json says down
+2026-09-30T14:08:15.005+05:30 [supervisor] backend B is DOWN: pid 50908 gone, port 3002 closed (connection refused)
+
+# Clients still get 200 - every answer now comes from Backend A (nginx fails over):
+$ bin/lb_probe.sh 8
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+
+# --- restore: B -> up
+$ cat share/control.json
+{"A": "up", "B": "up"}
+
+$ nc -vz -G 2 10.7.23.136 3002
+Connection to 10.7.23.136 port 3002 [tcp/exlm-agent] succeeded!
+
+# waiting 11 s: nginx marked B as failed (max_fails=1 fail_timeout=10s) and only retries it after that
+$ bin/lb_probe.sh 8
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+
+HEALTHY (2026-09-30 14:08:40 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+# --- the brief's demo step 8 variant: stop Mac 3 (Backend A) -> the service continues through Backend B only
+$ cat share/control.json
+{"A": "down", "B": "up"}
+
+$ nc -vz -G 2 10.7.1.136 3001
+nc: connectx to 10.7.1.136 port 3001 (tcp) failed: Connection refused
+
+$ bin/lb_probe.sh 8
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+
+# --- restore: A -> up
+$ nc -vz -G 2 10.7.1.136 3001
+Connection to 10.7.1.136 port 3001 [tcp/redwood-broker] succeeded!
+
+$ bin/lb_probe.sh 8
+request  1: HTTP=000 edge=10.7.19.193:443 verify=0 X-Backend: -
+request  2: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  3: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  4: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  5: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  6: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  7: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  8: HTTP=000 edge=:0 verify=0 X-Backend: -
+
+HEALTHY (2026-09-30 14:09:21 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+# F4 - both backends stopped (2026-09-30 14:09:21 IST)
+# Break: control.json A -> down, B -> down (both supervisors stop their backend; ports 3001 and 3002 close).
+$ cat share/control.json
+{"A": "down", "B": "down"}
+
+$ nc -vz -G 2 10.7.1.136 3001
+nc: connectx to 10.7.1.136 port 3001 (tcp) failed: Connection refused
+
+$ nc -vz -G 2 10.7.23.136 3002
+nc: connectx to 10.7.23.136 port 3002 (tcp) failed: Connection refused
+
+# The edge still completes TCP + TLS (certificate verified), then answers 502 Bad Gateway itself:
+$ curl -v https://app.subspace-67.test/api/status
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host app.subspace-67.test:443 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.19.193
+*   Trying 10.7.19.193:443...
+* Connected to app.subspace-67.test (10.7.19.193) port 443
+* ALPN: curl offers h2,http/1.1
+* (304) (OUT), TLS handshake, Client hello (1):
+} [325 bytes data]
+*  CAfile: /etc/ssl/cert.pem
+*  CApath: none
+* (304) (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* (304) (IN), TLS handshake, Unknown (8):
+{ [47 bytes data]
+* (304) (IN), TLS handshake, Certificate (11):
+{ [2345 bytes data]
+* (304) (IN), TLS handshake, CERT verify (15):
+{ [264 bytes data]
+* (304) (IN), TLS handshake, Finished (20):
+{ [36 bytes data]
+* (304) (OUT), TLS handshake, Finished (20):
+} [36 bytes data]
+* SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: O=subspace_67; CN=app.subspace-67.test
+*  start date: Sep 30 07:53:55 2026 GMT
+*  expire date: Nov  1 07:53:55 2027 GMT
+*  subjectAltName: host "app.subspace-67.test" matched cert's "app.subspace-67.test"
+*  issuer: O=subspace_67; OU=Computer Networks course project; CN=subspace_67 Local Root CA
+*  SSL certificate verify ok.
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://app.subspace-67.test/api/status
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: app.subspace-67.test]
+* [HTTP/2] [1] [:path: /api/status]
+* [HTTP/2] [1] [user-agent: curl/8.7.1]
+* [HTTP/2] [1] [accept: */*]
+> GET /api/status HTTP/2
+> Host: app.subspace-67.test
+> User-Agent: curl/8.7.1
+> Accept: */*
+> 
+* Request completely sent off
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0< HTTP/2 502 
+< server: nginx
+< date: Wed, 30 Sep 2026 08:39:28 GMT
+< content-type: text/html
+< content-length: 150
+< 
+{ [150 bytes data]
+100   150  100   150    0     0     72      0  0:00:02  0:00:02 --:--:--    72
+* Connection #0 to host app.subspace-67.test left intact
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+# Same request with per-session TLS keys logged (SSLKEYLOGFILE) so the capture can be decrypted:
+$ SSLKEYLOGFILE=/Users/vachanP/Desktop/work/CN/evidence_work/failures/F4_tls_session_keys.log /opt/homebrew/opt/curl/bin/curl -sS --cacert tls/ca.crt -o /dev/null -w 'http_version=%{http_version} status=%{http_code} ssl_verify_result=%{ssl_verify_result} tcp_connect=%{time_connect}s tls_done=%{time_appconnect}s total=%{time_total}s\n' https://app.subspace-67.test/api/status
+http_version=2 status=502 ssl_verify_result=0 tcp_connect=0.140477s tls_done=0.174659s total=0.190957s
+
+# --- restore: A -> up, B -> up
+$ nc -vz -G 2 10.7.1.136 3001
+Connection to 10.7.1.136 port 3001 [tcp/redwood-broker] succeeded!
+
+$ nc -vz -G 2 10.7.23.136 3002
+Connection to 10.7.23.136 port 3002 [tcp/exlm-agent] succeeded!
+
+# waiting 11 s for nginx's fail_timeout to expire
+$ bin/lb_probe.sh 8
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+
+HEALTHY (2026-09-30 14:09:46 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+# F5 - wrong destination port (2026-09-30 14:09:46 IST)
+# Nothing is broken on the servers: the client asks for port 8444, where nothing listens on the edge.
+$ curl -sS -v --max-time 5 https://app.subspace-67.test:8444/api/status
+* Host app.subspace-67.test:8444 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.19.193
+*   Trying 10.7.19.193:8444...
+* connect to 10.7.19.193 port 8444 from 10.7.23.136 port 49761 failed: Connection refused
+* Failed to connect to app.subspace-67.test port 8444 after 1012 ms: Couldn't connect to server
+* Closing connection
+curl: (7) Failed to connect to app.subspace-67.test port 8444 after 1012 ms: Couldn't connect to server
+
+$ ping -c 3 10.7.19.193
+PING 10.7.19.193 (10.7.19.193): 56 data bytes
+64 bytes from 10.7.19.193: icmp_seq=0 ttl=64 time=11.502 ms
+64 bytes from 10.7.19.193: icmp_seq=1 ttl=64 time=21.228 ms
+64 bytes from 10.7.19.193: icmp_seq=2 ttl=64 time=116.556 ms
+
+--- 10.7.19.193 ping statistics ---
+3 packets transmitted, 3 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 11.502/49.762/116.556/47.397 ms
+
+$ nc -vz -G 3 10.7.19.193 443
+Connection to 10.7.19.193 port 443 [tcp/https] succeeded!
+
+$ nc -vz -G 3 10.7.19.193 8444
+nc: connectx to 10.7.19.193 port 8444 (tcp) failed: Connection refused
+
+HEALTHY (2026-09-30 14:09:55 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+--- tshark text exports
+/Users/vachanP/Desktop/work/CN/bin/failure_exports.sh: line 20: share/evidence/mac_vachan/failures/F1_wrong_dns_server/F1_queries_to_nowhere_tshark.txt: Permission denied
+/Users/vachanP/Desktop/work/CN/bin/failure_exports.sh: line 28: share/evidence/mac_vachan/failures/F2_dns_record_wrong_ip/F2_wrong_record_tshark.txt: Permission denied
+/Users/vachanP/Desktop/work/CN/bin/failure_exports.sh: line 38: share/evidence/mac_vachan/failures/F4_both_backends_down/F4_502_after_tls_tshark.txt: Permission denied
+/Users/vachanP/Desktop/work/CN/bin/failure_exports.sh: line 46: share/evidence/mac_vachan/failures/F5_wrong_port/F5_syn_rst_tshark.txt: Permission denied
+-rw-r--r--  1 vachanP  staff  23388 30 Sep 14:07 F1_queries_to_nowhere.pcapng
+-rw-r--r--  1 vachanP  staff  8336 30 Sep 14:08 F2_wrong_record.pcapng
+-rw-r--r--  1 vachanP  staff  19364 30 Sep 14:09 F4_502_after_tls.pcapng
+-rw-r--r--  1 vachanP  staff  3128 30 Sep 14:09 F5_syn_rst.pcapng
+=== all 5 failure demos done and everything restored (2026-09-30 14:09:55 IST). Tell the operator.

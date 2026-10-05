@@ -1,0 +1,85 @@
+# mac_aanya, 2026-09-30 13:51:44 IST, same capture read by macOS tcpdump with pktap metadata (interface, process)
+
+$ tcpdump -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -k NP -nn 2>/dev/null | head -80
+13:50:48.303416 () IP 10.7.19.193.50454 > 10.7.23.136.53: 39444+ [1au] A? app.subspace-67.test. (49)
+13:50:48.390892 (proc dig:9366) IP 10.7.23.136.53 > 10.7.19.193.50454: 39444* 1/0/1 A 10.7.19.193 (65)
+13:50:48.411051 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [S], seq 2910838866, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 678337013 ecr 0,sackOK,eol], length 0
+13:50:48.411069 () IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [S], seq 2910838866, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 678337013 ecr 0,sackOK,eol], length 0
+13:50:48.411342 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [S.], seq 3627303649, ack 2910838867, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 1083946454 ecr 678337013,sackOK,eol], length 0
+13:50:48.411350 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [S.], seq 3627303649, ack 2910838867, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 1083946454 ecr 678337013,sackOK,eol], length 0
+13:50:48.411382 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 1, win 6380, options [nop,nop,TS val 678337013 ecr 1083946454], length 0
+13:50:48.411385 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 1, win 6380, options [nop,nop,TS val 678337013 ecr 1083946454], length 0
+13:50:48.411408 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 1, win 6380, options [nop,nop,TS val 1083946454 ecr 678337013], length 0
+13:50:48.411411 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 1, win 6380, options [nop,nop,TS val 1083946454 ecr 678337013], length 0
+13:50:48.411563 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 1:235, ack 1, win 6380, options [nop,nop,TS val 678337013 ecr 1083946454], length 234
+13:50:48.411576 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 1:235, ack 1, win 6380, options [nop,nop,TS val 678337013 ecr 1083946454], length 234
+13:50:48.411599 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 235, win 6377, options [nop,nop,TS val 1083946454 ecr 678337013], length 0
+13:50:48.411604 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 235, win 6377, options [nop,nop,TS val 1083946454 ecr 678337013], length 0
+13:50:48.414695 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [P.], seq 1:2771, ack 235, win 6377, options [nop,nop,TS val 1083946458 ecr 678337013], length 2770
+13:50:48.414705 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [P.], seq 1:2771, ack 235, win 6377, options [nop,nop,TS val 1083946458 ecr 678337013], length 2770
+13:50:48.414722 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 2771, win 6337, options [nop,nop,TS val 678337017 ecr 1083946458], length 0
+13:50:48.414726 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 2771, win 6337, options [nop,nop,TS val 678337017 ecr 1083946458], length 0
+13:50:48.418272 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 235:320, ack 2771, win 6337, options [nop,nop,TS val 678337020 ecr 1083946458], length 85
+13:50:48.418289 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 235:320, ack 2771, win 6337, options [nop,nop,TS val 678337020 ecr 1083946458], length 85
+13:50:48.418321 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 320, win 6376, options [nop,nop,TS val 1083946461 ecr 678337020], length 0
+13:50:48.418329 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 320, win 6376, options [nop,nop,TS val 1083946461 ecr 678337020], length 0
+13:50:48.418486 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [P.], seq 2771:2814, ack 320, win 6376, options [nop,nop,TS val 1083946461 ecr 678337020], length 43
+13:50:48.418496 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [P.], seq 2771:2814, ack 320, win 6376, options [nop,nop,TS val 1083946461 ecr 678337020], length 43
+13:50:48.418503 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 2814, win 6337, options [nop,nop,TS val 678337020 ecr 1083946461], length 0
+13:50:48.418508 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 2814, win 6337, options [nop,nop,TS val 678337020 ecr 1083946461], length 0
+13:50:48.418576 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 320:434, ack 2814, win 6337, options [nop,nop,TS val 678337020 ecr 1083946461], length 114
+13:50:48.418585 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 320:434, ack 2814, win 6337, options [nop,nop,TS val 678337020 ecr 1083946461], length 114
+13:50:48.418590 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 434, win 6375, options [nop,nop,TS val 1083946461 ecr 678337020], length 0
+13:50:48.418594 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 434, win 6375, options [nop,nop,TS val 1083946461 ecr 678337020], length 0
+13:50:48.418653 (proc nginx:8221) IP 10.7.19.193.52085 > 10.7.23.136.3002: Flags [P.], seq 2725389979:2725390152, ack 702122276, win 2048, options [nop,nop,TS val 3253075115 ecr 829662418], length 173
+13:50:48.897241 (proc nginx:8221, eproc nginx:8221) IP 10.7.23.136.3002 > 10.7.19.193.52085: Flags [.], ack 173, win 2050, options [nop,nop,TS val 829670758 ecr 3253075115], length 0
+13:50:48.897243 (proc nginx:8221, eproc nginx:8221) IP 10.7.23.136.3002 > 10.7.19.193.52085: Flags [P.], seq 1:196, ack 173, win 2050, options [nop,nop,TS val 829670759 ecr 3253075115], length 195
+13:50:48.897440 (proc nginx:8221) IP 10.7.19.193.52085 > 10.7.23.136.3002: Flags [.], ack 196, win 2045, options [nop,nop,TS val 3253075594 ecr 829670759], length 0
+13:50:49.303946 (proc nginx:8221, eproc nginx:8221) IP 10.7.23.136.3002 > 10.7.19.193.52085: Flags [P.], seq 196:321, ack 173, win 2050, options [nop,nop,TS val 829671180 ecr 3253075594], length 125
+13:50:49.304113 (proc nginx:8221) IP 10.7.19.193.52085 > 10.7.23.136.3002: Flags [.], ack 321, win 2047, options [nop,nop,TS val 3253076001 ecr 829671180], length 0
+13:50:49.305108 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [P.], seq 2814:3162, ack 434, win 6375, options [nop,nop,TS val 1083947348 ecr 678337020], length 348
+13:50:49.305162 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [P.], seq 2814:3162, ack 434, win 6375, options [nop,nop,TS val 1083947348 ecr 678337020], length 348
+13:50:49.305229 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 3162, win 6332, options [nop,nop,TS val 678337907 ecr 1083947348], length 0
+13:50:49.305257 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 3162, win 6332, options [nop,nop,TS val 678337907 ecr 1083947348], length 0
+13:50:49.305955 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 434:457, ack 3162, win 6332, options [nop,nop,TS val 678337908 ecr 1083947348], length 23
+13:50:49.305999 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [P.], seq 434:457, ack 3162, win 6332, options [nop,nop,TS val 678337908 ecr 1083947348], length 23
+13:50:49.306053 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 457, win 6375, options [nop,nop,TS val 1083947349 ecr 678337908], length 0
+13:50:49.306073 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 457, win 6375, options [nop,nop,TS val 1083947349 ecr 678337908], length 0
+13:50:49.306384 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [F.], seq 3162, ack 457, win 6375, options [nop,nop,TS val 1083947349 ecr 678337908], length 0
+13:50:49.306442 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [F.], seq 3162, ack 457, win 6375, options [nop,nop,TS val 1083947349 ecr 678337908], length 0
+13:50:49.306490 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 3163, win 6332, options [nop,nop,TS val 678337908 ecr 1083947349], length 0
+13:50:49.306501 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [.], ack 3163, win 6332, options [nop,nop,TS val 678337908 ecr 1083947349], length 0
+13:50:49.308085 (proc curl:9368) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [F.], seq 457, ack 3163, win 6332, options [nop,nop,TS val 678337910 ecr 1083947349], length 0
+13:50:49.308129 (proc nginx:8221) IP 10.7.19.193.52116 > 10.7.19.193.443: Flags [F.], seq 457, ack 3163, win 6332, options [nop,nop,TS val 678337910 ecr 1083947349], length 0
+13:50:49.308248 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 458, win 6375, options [nop,nop,TS val 1083947351 ecr 678337910], length 0
+13:50:49.308263 (proc curl:9368) IP 10.7.19.193.443 > 10.7.19.193.52116: Flags [.], ack 458, win 6375, options [nop,nop,TS val 1083947351 ecr 678337910], length 0
+13:50:49.338283 (proc curl:9370) IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [S], seq 263279676, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 42220759 ecr 0,sackOK,eol], length 0
+13:50:49.338309 () IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [S], seq 263279676, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 42220759 ecr 0,sackOK,eol], length 0
+13:50:49.338642 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [S.], seq 3017870569, ack 263279677, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 1477737716 ecr 42220759,sackOK,eol], length 0
+13:50:49.338653 (proc curl:9370) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [S.], seq 3017870569, ack 263279677, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 1477737716 ecr 42220759,sackOK,eol], length 0
+13:50:49.338695 (proc curl:9370) IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [.], ack 1, win 6380, options [nop,nop,TS val 42220760 ecr 1477737716], length 0
+13:50:49.338698 (proc nginx:8221) IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [.], ack 1, win 6380, options [nop,nop,TS val 42220760 ecr 1477737716], length 0
+13:50:49.338722 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [.], ack 1, win 6380, options [nop,nop,TS val 1477737717 ecr 42220760], length 0
+13:50:49.338725 (proc curl:9370) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [.], ack 1, win 6380, options [nop,nop,TS val 1477737717 ecr 42220760], length 0
+13:50:49.338776 (proc curl:9370) IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [F.], seq 1, ack 1, win 6380, options [nop,nop,TS val 42220760 ecr 1477737717], length 0
+13:50:49.338797 (proc nginx:8221) IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [F.], seq 1, ack 1, win 6380, options [nop,nop,TS val 42220760 ecr 1477737717], length 0
+13:50:49.338819 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [.], ack 2, win 6380, options [nop,nop,TS val 1477737717 ecr 42220760], length 0
+13:50:49.338827 (proc curl:9370) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [.], ack 2, win 6380, options [nop,nop,TS val 1477737717 ecr 42220760], length 0
+13:50:49.340794 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [F.], seq 1, ack 2, win 6380, options [nop,nop,TS val 1477737719 ecr 42220760], length 0
+13:50:49.340815 (proc curl:9370) IP 10.7.19.193.443 > 10.7.19.193.52119: Flags [F.], seq 1, ack 2, win 6380, options [nop,nop,TS val 1477737719 ecr 42220760], length 0
+13:50:49.340898 (proc :9370) IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [.], ack 2, win 6380, options [nop,nop,TS val 42220762 ecr 1477737719], length 0
+13:50:49.340910 (proc nginx:8221) IP 10.7.19.193.52119 > 10.7.19.193.443: Flags [.], ack 2, win 6380, options [nop,nop,TS val 42220762 ecr 1477737719], length 0
+13:50:49.354194 (proc curl:9371) IP 10.7.19.193.52120 > 10.7.19.193.443: Flags [S], seq 1419845545, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 2129010048 ecr 0,sackOK,eol], length 0
+13:50:49.354214 () IP 10.7.19.193.52120 > 10.7.19.193.443: Flags [S], seq 1419845545, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 2129010048 ecr 0,sackOK,eol], length 0
+13:50:49.354460 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52120: Flags [S.], seq 2453540149, ack 1419845546, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 2806574321 ecr 2129010048,sackOK,eol], length 0
+13:50:49.354468 (proc curl:9371) IP 10.7.19.193.443 > 10.7.19.193.52120: Flags [S.], seq 2453540149, ack 1419845546, win 65535, options [mss 16344,nop,wscale 6,nop,nop,TS val 2806574321 ecr 2129010048,sackOK,eol], length 0
+13:50:49.354502 (proc curl:9371) IP 10.7.19.193.52120 > 10.7.19.193.443: Flags [.], ack 1, win 6380, options [nop,nop,TS val 2129010048 ecr 2806574321], length 0
+13:50:49.354505 (proc nginx:8221) IP 10.7.19.193.52120 > 10.7.19.193.443: Flags [.], ack 1, win 6380, options [nop,nop,TS val 2129010048 ecr 2806574321], length 0
+13:50:49.354526 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52120: Flags [.], ack 1, win 6380, options [nop,nop,TS val 2806574321 ecr 2129010048], length 0
+13:50:49.354529 (proc curl:9371) IP 10.7.19.193.443 > 10.7.19.193.52120: Flags [.], ack 1, win 6380, options [nop,nop,TS val 2806574321 ecr 2129010048], length 0
+13:50:49.354678 (proc curl:9371) IP 10.7.19.193.52120 > 10.7.19.193.443: Flags [P.], seq 1:331, ack 1, win 6380, options [nop,nop,TS val 2129010049 ecr 2806574321], length 330
+13:50:49.354694 (proc nginx:8221) IP 10.7.19.193.52120 > 10.7.19.193.443: Flags [P.], seq 1:331, ack 1, win 6380, options [nop,nop,TS val 2129010049 ecr 2806574321], length 330
+13:50:49.354714 (proc nginx:8221) IP 10.7.19.193.443 > 10.7.19.193.52120: Flags [.], ack 331, win 6375, options [nop,nop,TS val 2806574322 ecr 2129010049], length 0
+13:50:49.354719 (proc curl:9371) IP 10.7.19.193.443 > 10.7.19.193.52120: Flags [.], ack 331, win 6375, options [nop,nop,TS val 2806574322 ecr 2129010049], length 0
+(exit 0)
+

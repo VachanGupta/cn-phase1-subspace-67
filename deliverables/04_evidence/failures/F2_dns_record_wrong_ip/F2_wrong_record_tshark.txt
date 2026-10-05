@@ -1,0 +1,67 @@
+### All packets
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F2_dns_record_wrong_ip/F2_wrong_record.pcapng -n
+    1   0.000000  10.7.23.136 → 10.7.0.1     DNS 82 Standard query 0x93d6 A example.com OPT
+    2   1.027828  10.7.23.136 → 8.8.8.8      DNS 82 Standard query 0xe934 A example.com OPT
+    3   1.066250      8.8.8.8 → 10.7.23.136  DNS 114 Standard query response 0xe934 A example.com A 172.66.147.243 A 104.20.23.154 OPT
+    4   1.088684  10.7.23.136 → 10.5.7.1     DNS 82 Standard query 0xe553 A example.com OPT
+    5   2.631146  10.7.23.136 → 8.8.8.8      DNS 111 Standard query 0x05f5 A eu-central-1-1.aws.cloud2.influxdata.com OPT
+    6   2.631167  10.7.23.136 → 1.1.1.1      DNS 111 Standard query 0x05f5 A eu-central-1-1.aws.cloud2.influxdata.com OPT
+    7   2.685757      8.8.8.8 → 10.7.23.136  DNS 218 Standard query response 0x05f5 A eu-central-1-1.aws.cloud2.influxdata.com CNAME aed270f02d59711e9aaa902ee3ef9179-9aec589b0bda0555.elb.eu-central-1.amazonaws.com A 3.123.149.45 OPT
+    8   2.999604      1.1.1.1 → 10.7.23.136  DNS 218 Standard query response 0x05f5 A eu-central-1-1.aws.cloud2.influxdata.com CNAME aed270f02d59711e9aaa902ee3ef9179-9aec589b0bda0555.elb.eu-central-1.amazonaws.com A 3.123.149.45 OPT
+    9   3.972784  10.7.23.136 → 8.8.8.8      DNS 107 Standard query 0x38a4 HTTPS api.apple-cloudkit.fe2.apple-dns.net OPT
+   10   3.972890  10.7.23.136 → 1.1.1.1      DNS 107 Standard query 0x38a4 HTTPS api.apple-cloudkit.fe2.apple-dns.net OPT
+   11   4.017524      8.8.8.8 → 10.7.23.136  DNS 192 Standard query response 0x38a4 HTTPS api.apple-cloudkit.fe2.apple-dns.net SOA ns-1396.awsdns-46.org OPT
+   12   4.029085      1.1.1.1 → 10.7.23.136  DNS 192 Standard query response 0x38a4 HTTPS api.apple-cloudkit.fe2.apple-dns.net SOA ns-1396.awsdns-46.org OPT
+   13   4.159110  10.7.23.136 → 8.8.8.8      DNS 94 Standard query 0xd7d6 A mmx-ds.cdn.whatsapp.net OPT
+   14   4.177583      8.8.8.8 → 10.7.23.136  DNS 110 Standard query response 0xd7d6 A mmx-ds.cdn.whatsapp.net A 57.144.147.32 OPT
+   15   4.490900  10.7.23.136 → 8.8.8.8      DNS 107 Standard query 0x9e5d PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+   16   4.491556  10.7.23.136 → 8.8.8.8      DNS 108 Standard query 0x0fa0 PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+   17   4.492244  10.7.23.136 → 8.8.8.8      DNS 108 Standard query 0x4f00 PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+   18   4.492295  10.7.23.136 → 8.8.8.8      DNS 85 Standard query 0x4b70 A www.google.com OPT
+   19   4.492917  10.7.23.136 → 8.8.8.8      DNS 94 Standard query 0xfd10 HTTPS mmx-ds.cdn.whatsapp.net OPT
+   20   4.549818  10.7.23.136 → 10.7.1.136   TCP 78 49346 → 443 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3462399640 TSecr=0 SACK_PERM
+   21   4.564117      8.8.8.8 → 10.7.23.136  DNS 108 Standard query response 0x4f00 No such name PTR lb._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+   22   4.567618      8.8.8.8 → 10.7.23.136  DNS 108 Standard query response 0x0fa0 No such name PTR db._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+   23   4.567620      8.8.8.8 → 10.7.23.136  DNS 107 Standard query response 0x9e5d No such name PTR b._dns-sd._udp.0.0.7.10.in-addr.arpa OPT
+   24   4.567621      8.8.8.8 → 10.7.23.136  DNS 213 Standard query response 0x4b70 A www.google.com A 142.251.155.119 A 142.251.150.119 A 142.251.157.119 A 142.251.151.119 A 142.251.152.119 A 142.251.156.119 A 142.251.153.119 A 142.251.154.119 OPT
+   25   4.567622      8.8.8.8 → 10.7.23.136  DNS 139 Standard query response 0xfd10 HTTPS mmx-ds.cdn.whatsapp.net SOA a.ns.whatsapp.net OPT
+   26   4.692193   10.7.1.136 → 10.7.23.136  TCP 54 443 → 49346 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+   27   5.551273  10.7.23.136 → 10.7.1.136   TCP 78 [TCP Port numbers reused] 49346 → 443 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3462400641 TSecr=0 SACK_PERM
+   28   5.668625   10.7.1.136 → 10.7.23.136  TCP 54 443 → 49346 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+   29   6.110571   10.7.1.136 → 10.7.23.136  DNS 96 Standard query 0x238f A api.apple-cloudkit.fe2.apple-dns.net
+   30   6.113554  10.7.23.136 → 8.8.8.8      DNS 107 Standard query 0x8f4d A api.apple-cloudkit.fe2.apple-dns.net OPT
+   31   6.132295      8.8.8.8 → 10.7.23.136  DNS 139 Standard query response 0x8f4d A api.apple-cloudkit.fe2.apple-dns.net A 17.248.239.65 A 17.248.239.64 OPT
+   32   6.133297  10.7.23.136 → 10.7.1.136   DNS 128 Standard query response 0x238f A api.apple-cloudkit.fe2.apple-dns.net A 17.248.239.65 A 17.248.239.64
+   33   6.847456  10.7.23.136 → 10.7.1.136   TCP 78 49362 → 443 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=754885183 TSecr=0 SACK_PERM
+   34   6.967065   10.7.1.136 → 10.7.23.136  TCP 54 443 → 49362 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+   35   7.037573  10.7.23.136 → 8.8.8.8      DNS 88 Standard query 0x230f A app.insightful.io OPT
+   36   7.038634  10.7.23.136 → 8.8.8.8      DNS 88 Standard query 0x06d3 HTTPS app.insightful.io OPT
+   37   7.168490      8.8.8.8 → 10.7.23.136  DNS 181 Standard query response 0x06d3 HTTPS app.insightful.io SOA ns-cloud-a1.googledomains.com OPT
+   38   7.168493      8.8.8.8 → 10.7.23.136  DNS 104 Standard query response 0x230f A app.insightful.io A 34.96.85.57 OPT
+   39   7.270092  10.7.23.136 → 8.8.8.8      DNS 86 Standard query 0xa802 A docs.google.com OPT
+   40   7.304884      8.8.8.8 → 10.7.23.136  DNS 182 Standard query response 0xa802 A docs.google.com A 142.250.122.100 A 142.250.122.101 A 142.250.122.113 A 142.250.122.139 A 142.250.122.102 A 142.250.122.138 OPT
+   41   7.848483  10.7.23.136 → 10.7.1.136   TCP 78 [TCP Port numbers reused] 49362 → 443 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=754886184 TSecr=0 SACK_PERM
+   42   7.864042   10.7.1.136 → 10.7.23.136  TCP 54 443 → 49362 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+   43   7.918489  10.7.23.136 → 8.8.8.8      DNS 89 Standard query 0xb399 HTTPS suconfig.apple.com OPT
+   44   7.918651  10.7.23.136 → 8.8.8.8      DNS 89 Standard query 0xc509 A suconfig.apple.com OPT
+   45   7.960899      8.8.8.8 → 10.7.23.136  DNS 180 Standard query response 0xc509 A suconfig.apple.com CNAME suconfig.apple.com.edgesuite.net CNAME a803.g4.akamai.net A 49.44.50.82 OPT
+   46   7.964835      8.8.8.8 → 10.7.23.136  DNS 223 Standard query response 0xb399 HTTPS suconfig.apple.com CNAME suconfig.apple.com.edgesuite.net CNAME a803.g4.akamai.net SOA n0g4.akamai.net OPT
+   47   8.252256  10.7.23.136 → 8.8.8.8      DNS 89 Standard query 0x783c HTTPS a803.g4.akamai.net OPT
+   48   8.308741      8.8.8.8 → 10.7.23.136  DNS 151 Standard query response 0x783c HTTPS a803.g4.akamai.net SOA n0g4.akamai.net OPT
+
+### DNS answer for app.subspace-67.test (the A record now points to mac_abhay 10.7.1.136)
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F2_dns_record_wrong_ip/F2_wrong_record.pcapng -n -Y 'dns.qry.name == "app.subspace-67.test"' -T fields -E header=y -E separator=/t -e frame.number -e ip.src -e ip.dst -e dns.flags.response -e dns.flags.rcode -e dns.qry.type -e dns.a -e dns.resp.ttl
+frame.number	ip.src	ip.dst	dns.flags.response	dns.flags.rcode	dns.qry.type	dns.a	dns.resp.ttl
+
+### TCP to 10.7.1.136:443: SYN answered by RST (nothing listens there)
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F2_dns_record_wrong_ip/F2_wrong_record.pcapng -n -Y 'tcp.port == 443' -T fields -E header=y -E separator=/t -e frame.number -e frame.time_relative -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.flags.str -e tcp.seq_raw -e tcp.ack_raw
+frame.number	frame.time_relative	ip.src	tcp.srcport	ip.dst	tcp.dstport	tcp.flags.str	tcp.seq_raw	tcp.ack_raw
+20	4.549818000	10.7.23.136	49346	10.7.1.136	443	····CE····S·	3251640353	0
+26	4.692193000	10.7.1.136	443	10.7.23.136	49346	·······A·R··	0	3251640354
+27	5.551273000	10.7.23.136	49346	10.7.1.136	443	··········S·	3251640353	0
+28	5.668625000	10.7.1.136	443	10.7.23.136	49346	·······A·R··	0	3251640354
+33	6.847456000	10.7.23.136	49362	10.7.1.136	443	····CE····S·	3035119061	0
+34	6.967065000	10.7.1.136	443	10.7.23.136	49362	·······A·R··	0	3035119062
+41	7.848483000	10.7.23.136	49362	10.7.1.136	443	··········S·	3035119061	0
+42	7.864042000	10.7.1.136	443	10.7.23.136	49362	·······A·R··	0	3035119062
+

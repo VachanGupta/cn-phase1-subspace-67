@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" role="img" aria-label="subspace_67 phase 1 topology">
+<style>
+  .bg{fill:#ffffff} .ink{fill:#1d2330} .muted{fill:#5b6475} .line{stroke:#8a93a6}
+  .box{fill:#f6f8fb;stroke:#c9d1de} .bus{fill:#e8eef8;stroke:#9fb3d6}
+  .dns{fill:#7a4bd1} .edge{fill:#0f7b6c} .be{fill:#c25e00} .cli{fill:#2f6fd6} .net{fill:#6b7385}
+  .s-dns{stroke:#7a4bd1} .s-edge{stroke:#0f7b6c} .s-be{stroke:#c25e00} .s-cli{stroke:#2f6fd6}
+  .chip{fill:#eef1f6} .lbl{fill:#ffffff}
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#14171d} .ink{fill:#e6e9ef} .muted{fill:#9aa3b5} .line{stroke:#5d6679}
+    .box{fill:#1c2029;stroke:#343b4a} .bus{fill:#1b2536;stroke:#34507e}
+    .dns{fill:#a57cf0} .edge{fill:#3fbfa8} .be{fill:#f0913a} .cli{fill:#6aa0f5} .net{fill:#8d95a8}
+    .s-dns{stroke:#a57cf0} .s-edge{stroke:#3fbfa8} .s-be{stroke:#f0913a} .s-cli{stroke:#6aa0f5}
+    .chip{fill:#252b37} .lbl{fill:#14171d}
+  }
+</style>
+<rect class="bg" width="1100" height="640"/>
+<text x="40" y="40" class="ink" font-size="22" text-anchor="start" font-weight="700">subspace_67 · Phase 1 topology</text>
+<text x="40" y="64" class="muted" font-size="13" text-anchor="start" font-weight="normal">Three Macs on one Wi-Fi LAN (10.7.0.0/19). Real IPs as captured on the evidence day.</text>
+<rect class="box" x="430" y="84" width="240" height="46" rx="10"/>
+<text x="550" y="104" class="ink" font-size="14" text-anchor="middle" font-weight="600">Internet</text>
+<text x="550" y="121" class="muted" font-size="12" text-anchor="middle" font-weight="normal">upstream DNS 8.8.8.8 · 1.1.1.1</text>
+<line class="line" x1="550" y1="130" x2="550" y2="156" stroke-width="2"/>
+<rect class="box" x="455" y="156" width="190" height="36" rx="8"/>
+<text x="550" y="179" class="ink mono" font-size="13" text-anchor="middle" font-weight="normal">gateway 10.7.0.1</text>
+<line class="line" x1="550" y1="192" x2="550" y2="214" stroke-width="2"/>
+<rect class="bus" x="40" y="214" width="1020" height="34" rx="8"/>
+<text x="550" y="236" class="ink" font-size="13" text-anchor="middle" font-weight="600">Wi-Fi LAN 10.7.0.0/19 · mask 255.255.224.0 · every Mac one hop from the others (ping TTL 64)</text>
+<line class="line" x1="200" y1="248" x2="200" y2="286" stroke-width="2"/>
+<text x="208" y="272" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">10.7.1.136</text>
+<rect class="box" x="40" y="286" width="320" height="300" rx="12"/>
+<rect class="cli" x="40" y="286" width="320" height="6" rx="3"/>
+<text x="58" y="318" class="ink" font-size="18" text-anchor="start" font-weight="700">mac_abhay</text>
+<text x="342" y="318" class="muted" font-size="12" text-anchor="end" font-weight="normal">Mac 3</text>
+<text x="58" y="342" class="ink mono" font-size="12" text-anchor="start" font-weight="normal">10.7.1.136/19  ·  en0 (Wi-Fi)</text>
+<text x="58" y="360" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">MAC 8e:f6:fb:7b:0a:59</text>
+<rect class="chip" x="54" y="386" width="292" height="44" rx="8"/>
+<circle class="be" cx="70" cy="408" r="6"/>
+<text x="84" y="404" class="ink" font-size="13" text-anchor="start" font-weight="600">Backend A</text>
+<text x="84" y="421" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:3001/tcp HTTP</text>
+<rect class="chip" x="54" y="436" width="292" height="44" rx="8"/>
+<circle class="cli" cx="70" cy="458" r="6"/>
+<text x="84" y="454" class="ink" font-size="13" text-anchor="start" font-weight="600">Main test client</text>
+<text x="84" y="471" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">captures (tcpdump/Wireshark)</text>
+<line class="line" x1="550" y1="248" x2="550" y2="286" stroke-width="2"/>
+<text x="558" y="272" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">10.7.19.193</text>
+<rect class="box" x="390" y="286" width="320" height="300" rx="12"/>
+<rect class="edge" x="390" y="286" width="320" height="6" rx="3"/>
+<text x="408" y="318" class="ink" font-size="18" text-anchor="start" font-weight="700">mac_aanya</text>
+<text x="692" y="318" class="muted" font-size="12" text-anchor="end" font-weight="normal">Mac 2</text>
+<text x="408" y="342" class="ink mono" font-size="12" text-anchor="start" font-weight="normal">10.7.19.193/19  ·  en0 (Wi-Fi)</text>
+<text x="408" y="360" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">MAC d6:d2:39:70:e5:9a</text>
+<rect class="chip" x="404" y="386" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="408" r="6"/>
+<text x="434" y="404" class="ink" font-size="13" text-anchor="start" font-weight="600">nginx edge</text>
+<text x="434" y="421" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:443/tcp TLS 1.2+1.3, HTTP/2</text>
+<rect class="chip" x="404" y="436" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="458" r="6"/>
+<text x="434" y="454" class="ink" font-size="13" text-anchor="start" font-weight="600">Load balancer</text>
+<text x="434" y="471" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">round robin -&gt; A, B</text>
+<rect class="chip" x="404" y="486" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="508" r="6"/>
+<text x="434" y="504" class="ink" font-size="13" text-anchor="start" font-weight="600">HTTP redirect</text>
+<text x="434" y="521" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:80 -&gt; 301 https</text>
+<rect class="chip" x="404" y="536" width="292" height="44" rx="8"/>
+<circle class="edge" cx="420" cy="558" r="6"/>
+<text x="434" y="554" class="ink" font-size="13" text-anchor="start" font-weight="600">Local CA</text>
+<text x="434" y="571" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">subspace_67 Local Root CA</text>
+<line class="line" x1="900" y1="248" x2="900" y2="286" stroke-width="2"/>
+<text x="908" y="272" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">10.7.23.136</text>
+<rect class="box" x="740" y="286" width="320" height="300" rx="12"/>
+<rect class="dns" x="740" y="286" width="320" height="6" rx="3"/>
+<text x="758" y="318" class="ink" font-size="18" text-anchor="start" font-weight="700">mac_vachan</text>
+<text x="1042" y="318" class="muted" font-size="12" text-anchor="end" font-weight="normal">Mac 1</text>
+<text x="758" y="342" class="ink mono" font-size="12" text-anchor="start" font-weight="normal">10.7.23.136/19  ·  en0 (Wi-Fi)</text>
+<text x="758" y="360" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">MAC 6a:e1:56:86:a2:23</text>
+<rect class="chip" x="754" y="386" width="292" height="44" rx="8"/>
+<circle class="dns" cx="770" cy="408" r="6"/>
+<text x="784" y="404" class="ink" font-size="13" text-anchor="start" font-weight="600">DNS server</text>
+<text x="784" y="421" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">dnsmasq :53/udp+tcp</text>
+<rect class="chip" x="754" y="436" width="292" height="44" rx="8"/>
+<circle class="be" cx="770" cy="458" r="6"/>
+<text x="784" y="454" class="ink" font-size="13" text-anchor="start" font-weight="600">Backend B</text>
+<text x="784" y="471" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:3002/tcp HTTP</text>
+<rect class="chip" x="754" y="486" width="292" height="44" rx="8"/>
+<circle class="cli" cx="770" cy="508" r="6"/>
+<text x="784" y="504" class="ink" font-size="13" text-anchor="start" font-weight="600">Client + integrator</text>
+<text x="784" y="521" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">failure demos, deliverables</text>
+<rect class="chip" x="754" y="536" width="292" height="44" rx="8"/>
+<circle class="net" cx="770" cy="558" r="6"/>
+<text x="784" y="554" class="ink" font-size="13" text-anchor="start" font-weight="600">Team bus</text>
+<text x="784" y="571" class="muted mono" font-size="12" text-anchor="start" font-weight="normal">:8099/tcp (HTTP)</text>
+<text x="40" y="610" class="ink" font-size="12.5" text-anchor="start" font-weight="normal">Request path: client -&gt; mac_vachan:53 (DNS over UDP) -&gt; mac_aanya:443 (TCP + TLS + HTTP/2) -&gt; mac_abhay:3001 or mac_vachan:3002 (plain HTTP on the LAN).</text>
+<text x="40" y="630" class="muted" font-size="12" text-anchor="start" font-weight="normal">Clients only ever use the name app.subspace-67.test; backend IPs are known to the edge alone.</text>
+</svg>

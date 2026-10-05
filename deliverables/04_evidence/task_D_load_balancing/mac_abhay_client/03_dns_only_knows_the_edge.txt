@@ -1,0 +1,6 @@
+### 2026-09-30 13:51:57 IST on mac_abhay (10.7.1.136)
+$ dig +noall +answer app.subspace-67.test api.subspace-67.test
+app.subspace-67.test.	60	IN	A	10.7.19.193
+api.subspace-67.test.	60	IN	A	10.7.19.193
+[exit code: 0]
+

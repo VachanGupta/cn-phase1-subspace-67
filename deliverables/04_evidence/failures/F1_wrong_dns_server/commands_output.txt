@@ -1,0 +1,63 @@
+# F1 - wrong DNS server on a client (2026-09-30 14:07:27 IST)
+# Break: this Mac's resolver -> 192.0.2.53 (TEST-NET-1: a documentation address where no DNS server exists).
+$ sudo networksetup -setdnsservers Wi-Fi 192.0.2.53
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ networksetup -getdnsservers Wi-Fi
+192.0.2.53
+
+$ scutil --dns | sed -n '1,8p'
+DNS configuration
+
+resolver #1
+  nameserver[0] : 192.0.2.53
+  flags    : Request A records
+  reach    : 0x00000002 (Reachable)
+
+resolver #2
+
+$ dig app.subspace-67.test +time=2 +tries=2
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test +time=2 +tries=2
+;; global options: +cmd
+;; connection timed out; no servers could be reached
+
+$ curl -sS -v --max-time 10 https://app.subspace-67.test/api/status
+* Resolving timed out after 10002 milliseconds
+* Closing connection
+curl: (28) Resolving timed out after 10002 milliseconds
+
+# IP connectivity to the edge is fine - only the name lookup is broken:
+$ ping -c 3 10.7.19.193
+PING 10.7.19.193 (10.7.19.193): 56 data bytes
+64 bytes from 10.7.19.193: icmp_seq=0 ttl=64 time=244.570 ms
+64 bytes from 10.7.19.193: icmp_seq=1 ttl=64 time=314.024 ms
+64 bytes from 10.7.19.193: icmp_seq=2 ttl=64 time=276.771 ms
+
+--- 10.7.19.193 ping statistics ---
+3 packets transmitted, 3 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 244.570/278.455/314.024/28.379 ms
+
+$ nc -vz -G 3 10.7.19.193 443
+Connection to 10.7.19.193 port 443 [tcp/https] succeeded!
+
+# Same HTTPS request with the edge IP supplied by hand (DNS bypassed; certificate still verified, no -k):
+$ curl -sS --max-time 5 --resolve app.subspace-67.test:443:10.7.19.193 https://app.subspace-67.test/api/status
+{"backend": "B", "status": "ok", "port": 3002, "host": "Vachans-MacBook-Pro.local", "time": "2026-09-30T14:07:47.216+05:30"}
+
+# --- restore: DNS server back to mac_vachan (10.7.23.136)
+$ sudo networksetup -setdnsservers Wi-Fi 10.7.23.136
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ networksetup -getdnsservers Wi-Fi
+10.7.23.136
+
+$ dig app.subspace-67.test +short
+10.7.19.193
+
+$ curl -sS https://app.subspace-67.test/api/status
+{"backend": "A", "status": "ok", "port": 3001, "host": "Abhays-MacBook-Pro-4.local", "time": "2026-09-30T14:07:49.477+05:30"}
+
+HEALTHY (2026-09-30 14:07:56 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 

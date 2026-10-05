@@ -1,0 +1,39 @@
+# Task B - macOS resolver configuration (scutil --dns, first resolvers) - captured on mac_vachan (10.7.23.136) 2026-09-30 14:13:58 IST
+# mac_aanya (edge) = 10.7.19.193, mac_abhay = 10.7.1.136, mac_vachan (DNS server + Backend B) = 10.7.23.136
+
+$ scutil --dns | sed -n '1,25p'
+DNS configuration
+
+resolver #1
+  nameserver[0] : 10.7.23.136
+  flags    : Request A records
+  reach    : 0x00030002 (Reachable,Local Address,Directly Reachable Address)
+
+resolver #2
+  domain   : local
+  options  : mdns
+  timeout  : 5
+  flags    : Request A records
+  reach    : 0x00000000 (Not Reachable)
+  order    : 300000
+
+resolver #3
+  domain   : 254.169.in-addr.arpa
+  options  : mdns
+  timeout  : 5
+  flags    : Request A records
+  reach    : 0x00000000 (Not Reachable)
+  order    : 300200
+
+resolver #4
+  domain   : 8.e.f.ip6.arpa
+
+$ scutil --dns | grep -A6 'for scoped queries' | head -12
+DNS configuration (for scoped queries)
+
+resolver #1
+  nameserver[0] : 10.7.23.136
+  if_index : 11 (en0)
+  flags    : Scoped, Request A records
+  reach    : 0x00030002 (Reachable,Local Address,Directly Reachable Address)
+

@@ -1,0 +1,70 @@
+### 2026-09-30 13:59:40 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/capinfos' '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng'
+File name:           /Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng
+File type:           Wireshark/... - pcapng
+File encapsulation:  Ethernet
+File timestamp precision:  microseconds (6)
+Packet size limit:   file hdr: (not set)
+Number of packets:   36
+File size:           8724 bytes
+Data size:           6486 bytes
+Capture duration:    1.893460 second
+Earliest packet time: 2026-09-30 13:58:02.974576
+Latest packet time:   2026-09-30 13:58:04.868036
+Data byte rate:      3425 bytes/s
+Data bit rate:       27 kbps
+Average packet size: 180.17 bytes
+Average packet rate: 19 packets/s
+SHA256:              0708814d014d03281cc175fd1abd304e0235023e254c13c7c18ddca453e437f7
+SHA1:                726de1597a76c69e097cd57676fececa2d9e57d2
+Strict time order:   True
+Capture hardware:    arm64
+Capture oper-sys:    Darwin Kernel Version 25.6.0: Fri Jul 31 19:18:29 PDT 2026; root:xnu-12377.161.14~5/RELEASE_ARM64_T8122
+Capture application: tcpdump (libpcap version 1.10.1)
+Packet 1 Comment:    svc BE, out
+Packet 2 Comment:    svc BE, in
+Packet 3 Comment:    svc BE, out
+Packet 4 Comment:    svc BE, in
+Packet 5 Comment:    svc BE, out
+Packet 6 Comment:    svc BE, in
+Packet 7 Comment:    svc BE, out, cmpgc 0x3
+Packet 8 Comment:    svc BE, out
+Packet 9 Comment:    svc BE, in
+Packet 10 Comment:    svc BE, in
+Packet 11 Comment:    svc BE, in
+Packet 12 Comment:    svc BE, in
+Packet 13 Comment:    svc BE, out, cmpgc 0x4
+Packet 14 Comment:    svc BE, out
+Packet 15 Comment:    svc BE, in
+Packet 16 Comment:    svc BE, in
+Packet 17 Comment:    svc BE, in
+Packet 18 Comment:    svc BE, out, cmpgc 0x5
+Packet 19 Comment:    svc BE, out
+Packet 20 Comment:    svc BE, out
+Packet 21 Comment:    svc BE, re, out
+Packet 22 Comment:    svc BE, in
+Packet 23 Comment:    svc BE, in
+Packet 24 Comment:    svc BE, out, cmpgc 0x6
+Packet 25 Comment:    svc BE, in
+Packet 26 Comment:    svc BE, in
+Packet 27 Comment:    svc BE, out, cmpgc 0x7
+Packet 28 Comment:    svc BE, out
+Packet 29 Comment:    svc BE, out
+Packet 30 Comment:    svc BE, out
+Packet 31 Comment:    svc BE, in
+Packet 32 Comment:    svc BE, in
+Packet 33 Comment:    svc BE, in
+Packet 34 Comment:    svc BE, lp, out
+Packet 35 Comment:    svc BE, lp, out, cmpgc 0x8
+Packet 36 Comment:    svc BE, in
+Number of interfaces in file: 1
+Interface #0 info:
+                     Name = en0
+                     Encapsulation = Ethernet (1 - ether)
+                     Capture length = 524288
+                     Time precision = microseconds (6)
+                     Time ticks per second = 1000000
+                     Number of stat entries = 0
+                     Number of packets = 36
+[exit code: 0]
+

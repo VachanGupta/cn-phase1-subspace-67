@@ -1,0 +1,55 @@
+### All packets
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F5_wrong_port/F5_syn_rst.pcapng -n
+    1   0.000000  10.7.23.136 → 10.7.19.193  TCP 78 49761 → 8444 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3605956634 TSecr=0 SACK_PERM
+    2   0.007118  10.7.19.193 → 10.7.23.136  TCP 54 8444 → 49761 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+    3   1.000028  10.7.23.136 → 10.7.19.193  TCP 78 [TCP Port numbers reused] 49761 → 8444 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3605957634 TSecr=0 SACK_PERM
+    4   1.008203  10.7.19.193 → 10.7.23.136  TCP 54 8444 → 49761 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+    5   1.061741  10.7.23.136 → 10.7.19.193  ICMP 98 Echo (ping) request  id=0xb5f3, seq=0/0, ttl=64
+    6   1.073023  10.7.19.193 → 10.7.23.136  ICMP 98 Echo (ping) reply    id=0xb5f3, seq=0/0, ttl=64 (request in 5)
+    7   2.067216  10.7.23.136 → 10.7.19.193  ICMP 98 Echo (ping) request  id=0xb5f3, seq=1/256, ttl=64
+    8   2.087960  10.7.19.193 → 10.7.23.136  ICMP 98 Echo (ping) reply    id=0xb5f3, seq=1/256, ttl=64 (request in 7)
+    9   3.070986  10.7.23.136 → 10.7.19.193  ICMP 98 Echo (ping) request  id=0xb5f3, seq=2/512, ttl=64
+   10   3.187113  10.7.19.193 → 10.7.23.136  ICMP 98 Echo (ping) reply    id=0xb5f3, seq=2/512, ttl=64 (request in 9)
+   11   3.235806  10.7.23.136 → 10.7.19.193  TCP 78 49769 → 443 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3053484346 TSecr=0 SACK_PERM
+   12   3.392841  10.7.19.193 → 10.7.23.136  TCP 78 443 → 49769 [SYN, ACK, ECE] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460 WS=64 TSval=3465713473 TSecr=3053484346 SACK_PERM
+   13   3.393101  10.7.23.136 → 10.7.19.193  TCP 66 49769 → 443 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=3053484503 TSecr=3465713473
+   14   3.395965  10.7.23.136 → 10.7.19.193  TCP 66 49769 → 443 [FIN, ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=3053484506 TSecr=3465713473
+   15   3.401725  10.7.19.193 → 10.7.23.136  TCP 66 [TCP Window Update] 443 → 49769 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=3465713631 TSecr=3053484503
+   16   3.404625  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49769 [ACK] Seq=1 Ack=2 Win=131776 Len=0 TSval=3465713634 TSecr=3053484506
+   17   3.404628  10.7.19.193 → 10.7.23.136  TCP 66 443 → 49769 [FIN, ACK] Seq=1 Ack=2 Win=131776 Len=0 TSval=3465713634 TSecr=3053484506
+   18   3.404972  10.7.23.136 → 10.7.19.193  TCP 66 49769 → 443 [ACK] Seq=2 Ack=2 Win=131776 Len=0 TSval=3053484515 TSecr=3465713634
+   19   3.437291  10.7.23.136 → 10.7.19.193  TCP 78 49770 → 8444 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3571784000 TSecr=0 SACK_PERM
+   20   3.446494  10.7.19.193 → 10.7.23.136  TCP 54 8444 → 49770 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+   21   4.437736  10.7.23.136 → 10.7.19.193  TCP 78 [TCP Port numbers reused] 49770 → 8444 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3571785001 TSecr=0 SACK_PERM
+   22   4.449363  10.7.19.193 → 10.7.23.136  TCP 54 8444 → 49770 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+
+### Port 8444: SYN -> RST,ACK (the host is up, no process owns that port). Port 443: SYN -> SYN,ACK -> ACK
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F5_wrong_port/F5_syn_rst.pcapng -n -Y 'tcp' -T fields -E header=y -E separator=/t -e frame.number -e frame.time_relative -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.flags.str -e tcp.seq_raw -e tcp.ack_raw
+frame.number	frame.time_relative	ip.src	tcp.srcport	ip.dst	tcp.dstport	tcp.flags.str	tcp.seq_raw	tcp.ack_raw
+1	0.000000000	10.7.23.136	49761	10.7.19.193	8444	····CE····S·	1861762739	0
+2	0.007118000	10.7.19.193	8444	10.7.23.136	49761	·······A·R··	0	1861762740
+3	1.000028000	10.7.23.136	49761	10.7.19.193	8444	··········S·	1861762739	0
+4	1.008203000	10.7.19.193	8444	10.7.23.136	49761	·······A·R··	0	1861762740
+11	3.235806000	10.7.23.136	49769	10.7.19.193	443	····CE····S·	3485228336	0
+12	3.392841000	10.7.19.193	443	10.7.23.136	49769	·····E·A··S·	2474109449	3485228337
+13	3.393101000	10.7.23.136	49769	10.7.19.193	443	·······A····	3485228337	2474109450
+14	3.395965000	10.7.23.136	49769	10.7.19.193	443	·······A···F	3485228337	2474109450
+15	3.401725000	10.7.19.193	443	10.7.23.136	49769	·······A····	2474109450	3485228337
+16	3.404625000	10.7.19.193	443	10.7.23.136	49769	·······A····	2474109450	3485228338
+17	3.404628000	10.7.19.193	443	10.7.23.136	49769	·······A···F	2474109450	3485228338
+18	3.404972000	10.7.23.136	49769	10.7.19.193	443	·······A····	3485228338	2474109451
+19	3.437291000	10.7.23.136	49770	10.7.19.193	8444	····CE····S·	4130977627	0
+20	3.446494000	10.7.19.193	8444	10.7.23.136	49770	·······A·R··	0	4130977628
+21	4.437736000	10.7.23.136	49770	10.7.19.193	8444	··········S·	4130977627	0
+22	4.449363000	10.7.19.193	8444	10.7.23.136	49770	·······A·R··	0	4130977628
+
+### ICMP echo (ping) to the same host
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_vachan/failures/F5_wrong_port/F5_syn_rst.pcapng -n -Y 'icmp' -T fields -E header=y -E separator=/t -e frame.number -e ip.src -e ip.dst -e icmp.type -e icmp.seq
+frame.number	ip.src	ip.dst	icmp.type	icmp.seq
+5	10.7.23.136	10.7.19.193	8	0
+6	10.7.19.193	10.7.23.136	0	0
+7	10.7.23.136	10.7.19.193	8	1
+8	10.7.19.193	10.7.23.136	0	1
+9	10.7.23.136	10.7.19.193	8	2
+10	10.7.19.193	10.7.23.136	0	2
+

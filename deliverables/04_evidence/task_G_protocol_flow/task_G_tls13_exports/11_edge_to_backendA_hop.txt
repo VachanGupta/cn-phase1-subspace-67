@@ -1,0 +1,18 @@
+### 2026-09-30 13:59:43 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls13.pcapng' -n -Y 'tcp.port == 3001' -T fields -E header=y -E separator='|' -e frame.number -e frame.time_relative -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.flags.str -e tcp.len -e _ws.col.info | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py
+frame.number  frame.time_relative  ip.src       tcp.srcport  ip.dst       tcp.dstport  tcp.flags.str  tcp.len  _ws.col.info
+25            1.456495000          10.7.19.193  52365        10.7.1.136   3001         ····CE····S·   0        52365 → 3001 [SYN, ECE, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3821668148 TSecr=0 SACK_PERM
+29            1.457212000          10.7.1.136   3001         10.7.19.193  52365        ·····E·A··S·   0        3001 → 52365 [SYN, ACK, ECE] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460 WS=64 TSval=1834410103 TSecr=3821668148 SACK_PERM
+31            1.652258000          10.7.1.136   3001         10.7.19.193  52365        ·······A··S·   0        [TCP Retransmission] 3001 → 52365 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460 WS=64 TSval=1834410298 TSecr=3821668148 SACK_PERM
+33            1.716875000          10.7.19.193  52365        10.7.1.136   3001         ·······A····   0        52365 → 3001 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=3821668166 TSecr=1834410103
+34            1.716877000          10.7.19.193  52365        10.7.1.136   3001         ·······AP···   172      GET /api/status HTTP/1.1
+35            1.717296000          10.7.1.136   3001         10.7.19.193  52365        ·······A····   0        [TCP Window Update] 3001 → 52365 [ACK] Seq=1 Ack=1 Win=131776 Len=0 TSval=1834410363 TSecr=3821668166
+36            1.717362000          10.7.1.136   3001         10.7.19.193  52365        ·······A····   0        3001 → 52365 [ACK] Seq=1 Ack=173 Win=131648 Len=0 TSval=1834410363 TSecr=3821668166
+37            1.720781000          10.7.1.136   3001         10.7.19.193  52365        ·······AP···   195      HTTP/1.1 200 OK
+38            1.732562000          10.7.19.193  52365        10.7.1.136   3001         ·······AP···   172      [TCP Spurious Retransmission] 52365 → 3001 [PSH, ACK] Seq=1 Ack=1 Win=131776 Len=172 TSval=3821668303 TSecr=1834410103
+40            1.732571000          10.7.19.193  52365        10.7.1.136   3001         ·······A····   0        [TCP Dup ACK 33#1] 52365 → 3001 [ACK] Seq=173 Ack=1 Win=131776 Len=0 TSval=3821668418 TSecr=1834410103
+41            1.732926000          10.7.1.136   3001         10.7.19.193  52365        ·······AP···   126      HTTP/1.1 200 OK , JSON (application/json)
+42            1.733813000          10.7.19.193  52365        10.7.1.136   3001         ·······A····   0        52365 → 3001 [ACK] Seq=173 Ack=196 Win=131584 Len=0 TSval=3821668429 TSecr=1834410367
+43            1.740836000          10.7.19.193  52365        10.7.1.136   3001         ·······A····   0        52365 → 3001 [ACK] Seq=173 Ack=322 Win=131520 Len=0 TSval=3821668435 TSecr=1834410379
+[exit code: 0]
+

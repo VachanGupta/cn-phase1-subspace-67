@@ -1,0 +1,86 @@
+# F3 - one backend stopped (2026-09-30 14:08:14 IST)
+# Break: control.json B -> down (the supervisor on mac_vachan really stops Backend B; port 3002 closes).
+$ cat share/control.json
+{"A": "up", "B": "down"}
+
+$ nc -vz -G 2 10.7.23.136 3002
+nc: connectx to 10.7.23.136 port 3002 (tcp) failed: Connection refused
+
+$ grep '\[supervisor\]' logs/backend_B.log | tail -3
+2026-09-30T14:08:14.958+05:30 [supervisor] control.json says B=down
+2026-09-30T14:08:14.963+05:30 [supervisor] stopping backend B (pid 50908): control.json says down
+2026-09-30T14:08:15.005+05:30 [supervisor] backend B is DOWN: pid 50908 gone, port 3002 closed (connection refused)
+
+# Clients still get 200 - every answer now comes from Backend A (nginx fails over):
+$ bin/lb_probe.sh 8
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+
+# --- restore: B -> up
+$ cat share/control.json
+{"A": "up", "B": "up"}
+
+$ nc -vz -G 2 10.7.23.136 3002
+Connection to 10.7.23.136 port 3002 [tcp/exlm-agent] succeeded!
+
+# waiting 11 s: nginx marked B as failed (max_fails=1 fail_timeout=10s) and only retries it after that
+$ bin/lb_probe.sh 8
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+
+HEALTHY (2026-09-30 14:08:40 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+# --- the brief's demo step 8 variant: stop Mac 3 (Backend A) -> the service continues through Backend B only
+$ cat share/control.json
+{"A": "down", "B": "up"}
+
+$ nc -vz -G 2 10.7.1.136 3001
+nc: connectx to 10.7.1.136 port 3001 (tcp) failed: Connection refused
+
+$ bin/lb_probe.sh 8
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+
+# --- restore: A -> up
+$ nc -vz -G 2 10.7.1.136 3001
+Connection to 10.7.1.136 port 3001 [tcp/redwood-broker] succeeded!
+
+$ bin/lb_probe.sh 8
+request  1: HTTP=000 edge=10.7.19.193:443 verify=0 X-Backend: -
+request  2: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  3: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  4: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  5: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  6: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  7: HTTP=000 edge=:0 verify=0 X-Backend: -
+request  8: HTTP=000 edge=:0 verify=0 X-Backend: -
+
+HEALTHY (2026-09-30 14:09:21 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 
+
+# NOTE (added after the run): the 8x HTTP=000 after restoring Backend A (~14:09:03-14:09:19) was a brief Wi-Fi drop on this Mac (the team monitor lost all 3 Macs at the same moment; mac_abhay saw the same window) - not an nginx issue; the healthy check at 14:09:21 passed. Re-run of that probe:
+$ bin/lb_probe.sh 8      # re-run 2026-09-30 14:11:29 IST, control.json = {"A": "up", "B": "up"}
+request  1: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  2: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  3: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  4: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  5: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  6: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A
+request  7: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: B
+request  8: HTTP=200 edge=10.7.19.193:443 verify=0 X-Backend: A

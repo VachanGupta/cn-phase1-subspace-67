@@ -1,0 +1,20 @@
+# subspace_67 Local Root CA - OpenSSL config (used by scripts/make_certs.sh)
+[ req ]
+distinguished_name = dn
+prompt             = no
+x509_extensions    = v3_ca
+
+[ dn ]
+O  = subspace_67
+OU = Computer Networks course project
+CN = subspace_67 Local Root CA
+
+[ v3_ca ]
+# This certificate IS a CA; pathlen:0 = it may sign server certs but no further sub-CAs.
+basicConstraints     = critical, CA:TRUE, pathlen:0
+# A CA key is only for signing certificates (keyCertSign) and revocation lists (cRLSign).
+keyUsage             = critical, keyCertSign, cRLSign
+subjectKeyIdentifier = hash
+# Hardening: even though this CA is trusted system-wide, it can only vouch for names under
+# subspace-67.test. If ca.key ever leaked it could NOT be used to impersonate e.g. google.com.
+nameConstraints      = critical, permitted;DNS:subspace-67.test

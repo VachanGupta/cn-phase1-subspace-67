@@ -1,0 +1,20 @@
+# Server (leaf) certificate for the edge - OpenSSL config (used by scripts/make_certs.sh)
+[ req ]
+distinguished_name = dn
+prompt             = no
+
+[ dn ]
+O  = subspace_67
+CN = app.subspace-67.test
+
+[ v3_server ]
+# A leaf certificate: it must never be usable as a CA.
+basicConstraints       = critical, CA:FALSE
+# digitalSignature: signs the (EC)DHE key exchange; keyEncipherment: legacy RSA key transport.
+keyUsage               = critical, digitalSignature, keyEncipherment
+# serverAuth: this cert may only be used by a TLS *server* (macOS/Chrome require this EKU).
+extendedKeyUsage       = serverAuth
+# Clients match the hostname against the SAN list only (the CN is ignored by modern clients).
+subjectAltName         = DNS:app.subspace-67.test, DNS:api.subspace-67.test
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid, issuer

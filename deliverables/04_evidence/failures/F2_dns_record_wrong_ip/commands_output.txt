@@ -1,0 +1,96 @@
+# F2 - the DNS record points to the wrong IP (2026-09-30 14:07:56 IST)
+# Break: app.subspace-67.test -> 10.7.1.136 (mac_abhay is up, but nothing listens on 443 there).
+$ python3 bin/gen_dnsmasq.py --app-ip 10.7.1.136
+CHANGED /Users/vachanP/Desktop/work/CN/configs/dnsmasq.conf (app->10.7.1.136, api->10.7.19.193, listen 10.7.23.136, upstream 8.8.8.8,1.1.1.1); installed copy /opt/homebrew/etc/dnsmasq.conf updated
+
+$ grep '^host-record' configs/dnsmasq.conf
+host-record=app.subspace-67.test,10.7.1.136
+host-record=api.subspace-67.test,10.7.19.193
+
+$ sudo /opt/homebrew/bin/brew services restart dnsmasq
+Stopping `dnsmasq`... (might take a while)
+Warning: Taking root:admin ownership of some dnsmasq paths:
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin/dnsmasq
+  /opt/homebrew/opt/dnsmasq
+  /opt/homebrew/opt/dnsmasq/sbin
+  /opt/homebrew/var/homebrew/linked/dnsmasq
+This will require manual removal of these paths using `sudo rm` on
+brew upgrade/reinstall/uninstall.
+==> Successfully stopped `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+==> Successfully started `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ dig app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 63278
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.1.136
+
+;; Query time: 1 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 14:08:02 IST 2026
+;; MSG SIZE  rcvd: 65
+
+
+$ curl -sS -v --max-time 8 https://app.subspace-67.test/api/status
+* Host app.subspace-67.test:443 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.1.136
+*   Trying 10.7.1.136:443...
+* connect to 10.7.1.136 port 443 from 10.7.23.136 port 49346 failed: Connection refused
+* Failed to connect to app.subspace-67.test port 443 after 1124 ms: Couldn't connect to server
+* Closing connection
+curl: (7) Failed to connect to app.subspace-67.test port 443 after 1124 ms: Couldn't connect to server
+
+# The wrong host is alive; it just has no service on 443:
+$ ping -c 2 10.7.1.136
+PING 10.7.1.136 (10.7.1.136): 56 data bytes
+64 bytes from 10.7.1.136: icmp_seq=0 ttl=64 time=48.741 ms
+64 bytes from 10.7.1.136: icmp_seq=1 ttl=64 time=76.661 ms
+
+--- 10.7.1.136 ping statistics ---
+2 packets transmitted, 2 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 48.741/62.701/76.661/13.960 ms
+
+$ nc -vz -G 3 10.7.1.136 443
+nc: connectx to 10.7.1.136 port 443 (tcp) failed: Connection refused
+
+# --- restore: record back to the edge (10.7.19.193)
+$ python3 bin/gen_dnsmasq.py
+CHANGED /Users/vachanP/Desktop/work/CN/configs/dnsmasq.conf (app->10.7.19.193, api->10.7.19.193, listen 10.7.23.136, upstream 8.8.8.8,1.1.1.1); installed copy /opt/homebrew/etc/dnsmasq.conf updated
+
+$ grep '^host-record' configs/dnsmasq.conf
+host-record=app.subspace-67.test,10.7.19.193
+host-record=api.subspace-67.test,10.7.19.193
+
+$ sudo /opt/homebrew/bin/brew services restart dnsmasq
+Stopping `dnsmasq`... (might take a while)
+Warning: Taking root:admin ownership of some dnsmasq paths:
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin
+  /opt/homebrew/Cellar/dnsmasq/2.93/sbin/dnsmasq
+  /opt/homebrew/opt/dnsmasq
+  /opt/homebrew/opt/dnsmasq/sbin
+  /opt/homebrew/var/homebrew/linked/dnsmasq
+This will require manual removal of these paths using `sudo rm` on
+brew upgrade/reinstall/uninstall.
+==> Successfully stopped `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+==> Successfully started `dnsmasq` (label: homebrew.mxcl.dnsmasq)
+
+$ sudo dscacheutil -flushcache; killall -HUP mDNSResponder
+
+$ dig app.subspace-67.test +short
+10.7.19.193
+
+HEALTHY (2026-09-30 14:08:14 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 

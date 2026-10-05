@@ -1,0 +1,27 @@
+### 2026-09-30 13:51:45 IST on mac_abhay (10.7.1.136)
+$ for p in / /api/status /api/cache-demo /api/status /no-such-path /api/status; do echo "--- GET https://app.subspace-67.test$p"; /usr/bin/curl -sS  -D - -o /dev/null https://app.subspace-67.test$p | tr -d '\r' | grep -iE '^HTTP/|^x-backend|^cache-control|^etag'; done
+--- GET https://app.subspace-67.test/
+HTTP/2 200 
+x-backend: A
+--- GET https://app.subspace-67.test/api/status
+HTTP/2 200 
+x-backend: A
+cache-control: no-store
+--- GET https://app.subspace-67.test/api/cache-demo
+HTTP/2 200 
+x-backend: B
+cache-control: public, max-age=60
+etag: "6adb0ec0cb57508d"
+--- GET https://app.subspace-67.test/api/status
+HTTP/2 200 
+x-backend: B
+cache-control: no-store
+--- GET https://app.subspace-67.test/no-such-path
+HTTP/2 404 
+x-backend: B
+--- GET https://app.subspace-67.test/api/status
+HTTP/2 200 
+x-backend: A
+cache-control: no-store
+[exit code: 0]
+

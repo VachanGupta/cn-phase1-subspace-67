@@ -1,0 +1,15 @@
+### 2026-09-30 13:59:42 IST on mac_abhay (10.7.1.136)
+$ echo 'Relative seq/ack (Wireshark default):'; '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls13.pcapng' -n -Y 'tcp.stream == 0' -T fields -E header=y -E separator='|' -e frame.number -e frame.time_relative -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.flags.str -e tcp.seq -e tcp.ack -e tcp.len -e tcp.window_size_value -e tcp.options.mss_val -e tcp.options.wscale.shift | head -4 | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py; echo; echo 'Raw (absolute, as on the wire) seq/ack of the same packets:'; '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls13.pcapng' -n -Y 'tcp.stream == 0' -T fields -E header=y -E separator='|' -e frame.number -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.flags.str -e tcp.seq_raw -e tcp.ack_raw | head -4 | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py
+Relative seq/ack (Wireshark default):
+frame.number  frame.time_relative  ip.src       tcp.srcport  ip.dst       tcp.dstport  tcp.flags.str  tcp.seq  tcp.ack  tcp.len  tcp.window_size_value  tcp.options.mss_val  tcp.options.wscale.shift
+5             1.363866000          10.7.1.136   54103        10.7.19.193  443          ····CE····S·   0        0        0        65535                  1460                 6
+6             1.377649000          10.7.19.193  443          10.7.1.136   54103        ·····E·A··S·   0        1        0        65535                  1460                 6
+7             1.377775000          10.7.1.136   54103        10.7.19.193  443          ·······A····   1        1        0        2059                   -                    -
+
+Raw (absolute, as on the wire) seq/ack of the same packets:
+frame.number  ip.src       tcp.srcport  ip.dst       tcp.dstport  tcp.flags.str  tcp.seq_raw  tcp.ack_raw
+5             10.7.1.136   54103        10.7.19.193  443          ····CE····S·   1086592526   0
+6             10.7.19.193  443          10.7.1.136   54103        ·····E·A··S·   3561489220   1086592527
+7             10.7.1.136   54103        10.7.19.193  443          ·······A····   1086592527   3561489221
+[exit code: 0]
+

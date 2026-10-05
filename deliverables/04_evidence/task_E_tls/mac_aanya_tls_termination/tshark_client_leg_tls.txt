@@ -1,0 +1,96 @@
+# mac_aanya, 2026-09-30 13:51:43 IST, LEG 1 client->edge (lo0, port 443): TLS only, application data unreadable
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y 'tcp.port==443 && tls'
+   11   0.108147  10.7.19.193 → 10.7.19.193  TLSv1.2 290 Client Hello (SNI=app.subspace-67.test)
+   15   0.111279  10.7.19.193 → 10.7.19.193  TLSv1.2 2826 Server Hello, Certificate, Server Key Exchange, Server Hello Done
+   19   0.114856  10.7.19.193 → 10.7.19.193  TLSv1.2 141 Client Key Exchange, Change Cipher Spec, Encrypted Handshake Message
+   23   0.115070  10.7.19.193 → 10.7.19.193  TLSv1.2 99 Change Cipher Spec, Encrypted Handshake Message
+   27   0.115160  10.7.19.193 → 10.7.19.193  TLSv1.2 170 Application Data
+   37   1.001692  10.7.19.193 → 10.7.19.193  TLSv1.2 404 Application Data
+   41   1.002539  10.7.19.193 → 10.7.19.193  TLSv1.2 79 Encrypted Alert
+   77   1.051262  10.7.19.193 → 10.7.19.193  TLSv1 386 Client Hello (SNI=app.subspace-67.test)
+   81   1.053972  10.7.19.193 → 10.7.19.193  TLSv1.3 2969 Server Hello, Change Cipher Spec, Application Data, Application Data, Application Data, Application Data
+   85   1.057177  10.7.19.193 → 10.7.19.193  TLSv1.3 62 Change Cipher Spec
+   86   1.057189  10.7.19.193 → 10.7.19.193  TLSv1.3 114 Application Data
+   92   1.057241  10.7.19.193 → 10.7.19.193  TLSv1.3 142 Application Data
+   97   1.057277  10.7.19.193 → 10.7.19.193  TLSv1.3 133 Application Data
+  101   1.057333  10.7.19.193 → 10.7.19.193  TLSv1.3 343 Application Data
+  105   1.057363  10.7.19.193 → 10.7.19.193  TLSv1.3 343 Application Data
+  110   1.057457  10.7.19.193 → 10.7.19.193  TLSv1.3 127 Application Data
+  114   1.057501  10.7.19.193 → 10.7.19.193  TLSv1.3 87 Application Data
+  123   1.146463  10.7.19.193 → 10.7.19.193  TLSv1.3 472 Application Data
+  127   1.147012  10.7.19.193 → 10.7.19.193  TLSv1.3 80 Application Data
+  147   1.167055  10.7.19.193 → 10.7.19.193  TLSv1 383 Client Hello (SNI=app.subspace-67.test)
+  151   1.169963  10.7.19.193 → 10.7.19.193  TLSv1.3 2975 Server Hello, Change Cipher Spec, Application Data, Application Data, Application Data, Application Data
+  155   1.173044  10.7.19.193 → 10.7.19.193  TLSv1.3 62 Change Cipher Spec
+  156   1.173057  10.7.19.193 → 10.7.19.193  TLSv1.3 114 Application Data
+  159   1.173101  10.7.19.193 → 10.7.19.193  TLSv1.3 161 Application Data
+  167   1.173188  10.7.19.193 → 10.7.19.193  TLSv1.3 343 Application Data
+  171   1.173216  10.7.19.193 → 10.7.19.193  TLSv1.3 343 Application Data
+  181   2.700231  10.7.19.193 → 10.7.19.193  TLSv1.3 405 Application Data
+  185   2.701931  10.7.19.193 → 10.7.19.193  TLSv1.3 80 Application Data
+(exit 0)
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y 'tcp.port==443 && tls.handshake.type' -T fields -e frame.number -e tls.record.version -e tls.handshake.type -e tls.handshake.extensions_server_name -e tls.handshake.extensions_alpn_str -e tls.handshake.ciphersuite -e x509sat.uTF8String -e x509ce.dNSName
+11	0x0303	1	app.subspace-67.test	http/1.1	0xcca9,0xcca8,0xccaa,0xc030,0xc02c,0xc028,0xc024,0xc014,0xc00a,0x009f,0x006b,0x0039,0xff85,0x00c4,0x0088,0x0081,0x009d,0x003d,0x0035,0x00c0,0x0084,0xc02f,0xc02b,0xc027,0xc023,0xc013,0xc009,0x009e,0x0067,0x0033,0x00be,0x0045,0x009c,0x003c,0x002f,0x00ba,0x0041,0xc011,0xc007,0x0005,0x0004,0xc012,0xc008,0x0016,0x000a,0x00ff		
+15	0x0303,0x0303,0x0303,0x0303	2,11,12,14		http/1.1	0xcca8	subspace_67,Computer Networks course project,subspace_67 Local Root CA,subspace_67,app.subspace-67.test,subspace_67,Computer Networks course project,subspace_67 Local Root CA,subspace_67,Computer Networks course project,subspace_67 Local Root CA	app.subspace-67.test,api.subspace-67.test,subspace-67.test
+19	0x0303,0x0303,0x0303	16					
+77	0x0301	1	app.subspace-67.test	h2,http/1.1	0x1303,0x1302,0x1301,0xcca9,0xcca8,0xccaa,0xc030,0xc02c,0xc028,0xc024,0xc014,0xc00a,0x009f,0x006b,0x0039,0xff85,0x00c4,0x0088,0x0081,0x009d,0x003d,0x0035,0x00c0,0x0084,0xc02f,0xc02b,0xc027,0xc023,0xc013,0xc009,0x009e,0x0067,0x0033,0x00be,0x0045,0x009c,0x003c,0x002f,0x00ba,0x0041,0xc011,0xc007,0x0005,0x0004,0xc012,0xc008,0x0016,0x000a,0x00ff		
+81	0x0303,0x0303,0x0303,0x0303,0x0303,0x0303	2			0x1303		
+147	0x0301	1	app.subspace-67.test	http/1.1	0x1303,0x1302,0x1301,0xcca9,0xcca8,0xccaa,0xc030,0xc02c,0xc028,0xc024,0xc014,0xc00a,0x009f,0x006b,0x0039,0xff85,0x00c4,0x0088,0x0081,0x009d,0x003d,0x0035,0x00c0,0x0084,0xc02f,0xc02b,0xc027,0xc023,0xc013,0xc009,0x009e,0x0067,0x0033,0x00be,0x0045,0x009c,0x003c,0x002f,0x00ba,0x0041,0xc011,0xc007,0x0005,0x0004,0xc012,0xc008,0x0016,0x000a,0x00ff		
+151	0x0303,0x0303,0x0303,0x0303,0x0303,0x0303	2			0x1303		
+(exit 0)
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y 'tcp.port==443 && tls.handshake.type==11' -O tls -V | grep -E 'Handshake Type|Certificates Length|Certificate:|subject|issuer|rdnSequence|dNSName|validity|notBefore|notAfter' | head -40   # TLS 1.2 Certificate message, readable because 1.2 sends it in the clear
+            Handshake Type: Server Hello (2)
+            Handshake Type: Certificate (11)
+            Certificates Length: 2333
+                        issuer: rdnSequence (0)
+                            rdnSequence: 3 items (id-at-commonName=subspace_67 Local Root CA,id-at-organizationalUnitName=Computer Networks course project,id-at-organizationName=subspace_67)
+                        validity
+                            notBefore: utcTime (0)
+                            notAfter: utcTime (0)
+                        subject: rdnSequence (0)
+                            rdnSequence: 2 items (id-at-commonName=app.subspace-67.test,id-at-organizationName=subspace_67)
+                        subjectPublicKeyInfo
+                            subjectPublicKey […]: 3082010a0282010100e8a4582f0402748c6acd60b4eef49e91aac2aa24efb9616b635d58f8d303ff8fcd7de90da1848f3548789769bdf889c40d400f4aae776753b24dcdd472085273d4908a4818254b93ca8d35cefe4266427c22d915d320048ae8022361df60ebda4ff67
+                            Extension (id-ce-subjectAltName)
+                                Extension Id: 2.5.29.17 (id-ce-subjectAltName)
+                                    GeneralName: dNSName (2)
+                                        dNSName: app.subspace-67.test
+                                    GeneralName: dNSName (2)
+                                        dNSName: api.subspace-67.test
+                            Extension (id-ce-subjectKeyIdentifier)
+                                Extension Id: 2.5.29.14 (id-ce-subjectKeyIdentifier)
+                        issuer: rdnSequence (0)
+                            rdnSequence: 3 items (id-at-commonName=subspace_67 Local Root CA,id-at-organizationalUnitName=Computer Networks course project,id-at-organizationName=subspace_67)
+                        validity
+                            notBefore: utcTime (0)
+                            notAfter: utcTime (0)
+                        subject: rdnSequence (0)
+                            rdnSequence: 3 items (id-at-commonName=subspace_67 Local Root CA,id-at-organizationalUnitName=Computer Networks course project,id-at-organizationName=subspace_67)
+                        subjectPublicKeyInfo
+                            subjectPublicKey […]: 3082018a0282018100a6a3e4b089f17d8295212fbc66ef3ca0398d46ea65b5a8313ff4125a32a7490df159f9e37c50ac36716dc67700f299923de694eae9ecd63d650cb0fef49a9f81f2bfc17d413ec0d373df6a18c46163ea7a2c2748a4e951f0ea23e86a53e1a61586a0c
+                            Extension (id-ce-subjectKeyIdentifier)
+                                Extension Id: 2.5.29.14 (id-ce-subjectKeyIdentifier)
+                                            base: dNSName (2)
+                                                dNSName: subspace-67.test
+            Handshake Type: Server Key Exchange (12)
+            Handshake Type: Server Hello Done (14)
+(exit 0)
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y 'tcp.port==443 && tls.app_data' -T fields -e frame.number -e tls.record.version -e tls.app_data | head -8   # encrypted HTTP: random-looking bytes
+27	0x0303	4143c71004cdf810f464ebd125ad5b69e2fb5726c1cb1cfdd615651700c29067414535d8014cb664dc1bd4e15062653bc9754d96535a2347469abbb7b40da156ea517043d6ebbf149d2de73b23d6668899b3196c6ffc7d6896768b79ad4ebde085015a032b2a313414a47a2627
+37	0x0303	658060570f147f31ba8d1db67c0bb19bda07439d67fdfe9613750839a6d3cf7b98337e97e3317900dee7ab2a6c980950ab23a8a2cc7644b7760ca47a8be97ad408572a145da35985d096d368037460f9c4c71518b367634654f0f8dc3b0513a45bb9cfc92374b64ad2b8f9b79d309a1fd9afef415d491ef8735e2fa73368d4ea3404ac725029a7828222dea053a11be9687c6b96ff3fdb15350c6506b4f593f6e4c81186d17296c70cc4b63376db3ca2d21a8945a42f39794dc751336b4977fd60c9d69002e54742c15ca3a3e68483b71221b409f286d8494914e609ca167843c57b4cb72140c9c91db1108f702171e20eb5f81ceaa793994649de206242353eb1bdab72bf20fa706681513d83e9f721da7f912fc289828dfc5e51037dd25ace296979cb9382b299f18b3a9923e98fc3b5c54152886fffa48134ffe882a9b541d42cf605ebc52fd049178b511845bfb68a22b755027c56
+81	0x0303,0x0303,0x0303,0x0303,0x0303,0x0303	e3b17f6cacaa22d621ce263227acd6e722187610a1cfd728d96cb0396df19b5ef973268bd044d393ab9b85bbc376860446e63306cea417d144c497db8198f0a4,aa25bca5284ec8143f2c1e7144009e84f135b00f85e22264b254887d30fd4a33ec20bea7e68c133b90f1bbad6a5e7dda786bf9a6c8df7310e13bef8ba914be75040d7fb9b706a62c50a4a493a87bd537a46710e2313c9cae6be6aad0139e9f58e54d17f9a0e13599b4f91b7f642333c914f976c10f3b643da9bd556a6fe69d38bbb7a138e879b95e13aa49e22901e99472fb96e8b038d195d1d3174a682446fcadef3a57060c0d7f727bd9e28445d12733391bba6f08082322d6ca7598fa8f97a53d6b7c86fecbcd25f3156851fe6a042990abe6a4a7a6d4d30526ec80ab4610789a18dfb39010144f8522a217ae8d0591b50ce8ab8c764347b94f27d3717aecad2e0abfde5abe3dafb74e98d525f600bf5b7cc44b9afc8a9625e345d1fd663a692491a62969f791fd7e23b435f4bd4aad6c8624e181a695527a1fc25ff248440568fe2b0c5f0e4bb547cbeee9e79f6992b16188d5aab9ca1aaa7bc81967066ae7804255e38001076596295fd043d3eba306085547d6ee8b7c628107840a373260dd71e33ac23766745ee0955d427a2a810809e4c4b2f63a29f7718df262c6dcb802a01268a1d534879c4ca42097264171d38c7ec5220b7a0d3cddf90face00369f400e8e4f431596d6af73438bd8752c3edf90405394c3958e575044782d83d5704c87aa80637856022834f8ce0590ddbc2316e6169506c7b923bd5d832d1f4654edfa6c45d7a2bd1ad5cee936e6e76c318f0563c7eda7dbaf575175a849509fe4124219d492a7ecc135e246f8a385d666f4f67b2dff22eeed76fa16188ca33914f6634baa8d869e6f4a51a6ef65da079d6fea643b2a1a5704c3503fb288f8332902c79fe2db35cfe0a1f63615a9b42799e53fe2b2881c60d5dbc15ee77ecc7efefca5aa28a76a22a11478199ca317f4f728857d1b49393c6bd52c82e6ee0e0dfda6dfe4779c2996c8e598f3e1ef52a4deba56908b197cf3f4dd74b9fa9eb10bfff110763c47b52ddced5d1b9c6a7f9c1e80a29c950d73f2a5aa22e903f2d1737c995bcc3b94a31b788a7491f33c7357d22f71a4e60e1fcbd185a366f423971306ca81886189eb8289fb2adbc9e3949ba296b10ca37bf27ba78ebef49a0f0bf395789281770d206567e29cbc06a462ff877643b9ff97fc42355c7cd3e4cd5ee47ee071376af00193f96046c5f12cbc98935024c16ccd4e7ebf14401bb4695630a5854904237c05f8485c5602504a4b8167b2b297b1eb878c280db1e7f56bfae407bec3273b2333d84b7281bcee2c5219b018421d682bfb099123ac19f9bb48db3a91c68635be6598e8ecebd845a7cdac573fe7fe6aca19ec3775fc4af0cbba290a1fafa231a63882f38ac1cafbbb8e7dc0e5b2095f9726cfc792686465504b48774fc9b12adf0591cee44db4a38c3bd678fcdc556aff518fac2a9f148069a7ef43007c01b59d3b5519871e386b0fa121eac9e52190e35300eb35755330f3478e4dbc306bc2e90b2ee42ec15b4ab8e3742bf2477a9e3b1791340224a61ad9fc27a6c87f3935aa548cf94833e040b005520cad8a7f589b4a2dacf8def19ef0aa8cbd62768476a3deccf74c4a7b854d5c9fc01df704a0adb4ae747445445ca64c2c0ee0efaabb6230bca752c19a1ed5d5234769227eb5cf4f74a163d8062c749d8d93ddd55dffa95fd9940a8f7b28af1c0dd525f99bed2318d8ffc1f9e3b2884cb5fb842f905ae03836fce6ab7848bc5664040bc1859463dae00923be7d53626ef62ed50da2077889ed1d292a945f6cd8dd8248e07f944200a9ea5695f1fb92a52b7a8275a0e98becfda992133093e85bcbac47fe26a8b36bbec5a808a2506924d0e4553de6218fa8deede21df9cd41c625f2088f9580497b99efe6d22f279b09f26ee23dd26b2b558cd6dcb531d86008bdd7eca5984cd5cb5fb2eb29b1550af1fd16a806d84bdf04abe89ff6772c1d11570205b988c12e0e820863581fe2b7c81cd65b1ba9c49b2ed40aa7c2308e38bf5a5071bde3c4695a5da1570d4b94f3d00104233f9b3576978a2683356578a4dd35720acafe504c106f53c78c5e0ae872d8db7c8120d917aa9dbf00dd839b0292fb95dbe855526a177e7751a51c9cd5b532dbe7c1dc2f95e95495003fd6843088f843da867ac3a6d56c0d3a7cf104894884b1cee72ebbe99ab7f42a27ce130f73ba64c0d0d8d3c79dc8b1e5e7592ce7b32ba2fc920e8d597b1ed0ac93b1055897a8aa2df765624368bb1aeabd63c62f2695a0327c11799e7bc724be67ec7ace10f97bcf6f3b6cd46a47580d7d5fd21458396071ea1a0cf35f30bcd4d945b974bc641a766dfa9cd3c6b5550af26339ca7e3c3ba1f02b6a5b7c026dec653cae307257206b38bc067f5368f96a3881d65138a76ad60b486fb9646db1409c0f91b5e28b226366a451cc55becdce9f68c5dcadffe6be56d8aa496c2134be2964bb7c2e1c69b195fb45f2ab3952498fcc3b75ad7a4b14049864df97ff6f4510790f258eb9e2ea6d5b4d99bec3a2a7702c35e4c4bdc92f82ef131f8cc327a644d5b26ee29a28fede077f2ea3d5ee2fd308353621afb3c7afa5707c8147fb5f6af9ec36de4b89a21a97e4fbd0924eccb2fd8d3d0d673b4e5f5cd619952ddbf6725c27340b7a7b3cf6eded65833c1718a029879ebd082ae545fe742c2079e9c6b125aaa8fca78211280cd41e4f3fe28ab7cdff263bf2974a417b94b26a4694236c71e41778db86a50f4c4ae121e2bba4c13792782f53f90b3e0c5e2b8768d23d377ff6a8afc71c65c1d2f5b3c90d7f595ccd50cdf0ca3d8cea51156138694cc602ecd185773ba287fd254cb2a54723b08ad7542d61a437cb377465fc8ef3c3df7374ac69f6d5e975530dc983b32de1345fb0a02ab1b21b67adbe97461a3885eaf0a09bfda01f7b6cdc6a541d319381b14b33e490964d1220ac73a6a52f1e592b1bc210a824ff4c54092495eaa34b79543a83f6605033b955993665b1e07098d297dc15ab820e993adf947b8f7db70527b2676f4c7f2fabbc3e2b2dbc5c2ec7e9f73e2c1b71dd981a1f67ec144ff0ef2237cad9097490669c5e7e1322f756557c32fd39a44436f355f7740980e79d5f8e6741b0c8cd40644c90dcb9c7070b98df5b1ce3c25c9b193e9bd04b29e590109fed3895103eeee61137e895b2e6192b6e1b301ec883dcba2837b8e2522e288fc4ddbd8d816af7d65423e1b8f88fe4e24b6dd6fb69de68dab56dd84ec7bdd0e34957473a6f64ffb3b15ccbdda2d86f72681cb3ee4b03f818f8d3b216cf7738d703c4207d7471b71ae0782a8d1dfea9f1619c7af8be7c481a74990e5325401789c,4a15f07d132dd4ca2dd348eb280595b83fe37c586148a4027f6f8e56c40c25abfccc0221d00b79d144d03b24c2765e42ca0f94ebf992305e5fbe093f5209a6f8252a01a9441b72d209fc4bb0fa7f0446943ac4c64d5bb438b5561defb298c8fd4581c7ef369bf187f98b2d7881ec1d6a1b331361c2bc1639fbf46f7fe9780394423dd2bae18a247d120a15f45ab598b469dc9d49b5d435bbf890e1f0b80a9daaf908a474c5196e346ed4bf435ed6997db2ccb54ea17b35b73e8d5127b27faa6cd681bfb5990082019f34d797e538095962792e6110e333d944489dae1fb5eddb496d7d60133e73356a317355bf92a4b33a25d1dd0207267b442bec407d483cbf0bd0fc644c89e71f97e15369d553c8a6d3100bda709b6b4f04,b559cb2df7f82d0167e3a4bf4822c4ff4f54cdaa7fa119927fc8f6b1dda1b02f382cfc02a5fa9b3546455a5fa23bbc618422bcbec5
+86	0x0303	94799645dadfa637a373222814aee31a6bddb6564078a53d19d9c021e7e941f55a6ff2bf892b4bfb990453d9a3f5cabc5f81475d12
+92	0x0303	1a8394cad89b08d84a8f938080b3b70da0fd454bcb6951218a321948d767de95ee787b8147d21a4c497b24a95965275558a4097c8ee45a7009719909a3d752d1a9de750acff02552be0e0fd308babf1b89
+97	0x0303	dff5c4e7629d3d2e40eab6f754516647ecc5a58def9a667d0d3f18e7b3fdad8c2572f540b672e8e321137c2d8b0079cf74b8748dae9fbef311ee8cc5790cd408b321020f311b926c
+101	0x0303	651132055b2f51cce0eafbfdec4031fce3c81d71623a9f13784fa65218fbc081850b20d9e4be93ef109839d29d66ebec19de23597428d941846f4b2616e283d39e34489efa7feed34a3c42f83ee86a0acfb4c941d5cdf1ee25699ebca41927b67bb8ad7d4795dca30a6fd7115f751b244ef7d50b9ab03d44476f1afd6eec296305842d55255aaec67e06ebe3ad32e712178747dcd6ca9856e0c6f9d0cf7f5d104d5ae98991201b5cdd82c2f0d4432254990c556d74094684eca81605e8c80546419f405c257eeceb3d405e45c99700c95095006d1fb099ece3f121520cc2ccdd1cba87dfb9a2467191d4baa9d94624f2bded343380602c931553cb38387d821492b522d1f6d8276de2744724674d10ed4cf8dfd82715180a0538
+105	0x0303	13bf7f86b7e4a3599cd5cdb5d516411ec5d3e7585d93a3a28a462559e473ef53b376607d11c0fc92d192c9f66cd6aa945dce241db3cc3f39f6351da337a221dee3811dfbc23dac4a886db7770747c3f8f91f1d47ced58971073615e7e1d66b7ef2a211e79903a798550d9720d2b6c2efa94cd495b166ab3e17b1a131de964b191b29e9205b0969a609606ae3dc85effd5a3b0e837a6d8a6034456a5664fb3735fb35f70e67da65c2fd33f511e63a399edaf1d017304e08b78668397df18e2edfabae13361a3f32ff95d1e9e3dd10201d3bb37331513450f28114fa7a37845b4e5c937333a16bbbb3aca2d9a1892aedff5732fcd164555006e2204691cebcf09d008e21efadd663e24eaf9254d48e2f4025b570261c49a7914e3b
+(exit 0)
+
+$ /opt/homebrew/bin/tshark -r share/evidence/mac_aanya/tls_termination/edge_tls_termination.pcapng -Y 'tcp.port==443' -T fields -e frame.number -e tcp.payload | grep -ci 'x-backend' || true   # 0 = the text 'X-Backend' never appears in the clear on this leg
+0
+(exit 0)
+

@@ -1,0 +1,8 @@
+### 2026-09-30 13:26:30 IST on mac_abhay (10.7.1.136)
+$ cd /Users/abhaymalik/Desktop/CN_subspace_67/backend && cat SHA256SUMS && shasum -a 256 -c SHA256SUMS
+1ad4753e2cad9ae59f9de5d6aae1b792174a66f7c2de92cd3ace97dfb81fcdd2  backend.py
+eb57bcf4b013fc269e81316887eaed1e09cb583f50437596b6111d4e958d491c  supervisor.py
+backend.py: OK
+supervisor.py: OK
+[exit code: 0]
+

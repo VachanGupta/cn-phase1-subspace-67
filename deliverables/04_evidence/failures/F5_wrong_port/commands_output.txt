@@ -1,0 +1,29 @@
+# F5 - wrong destination port (2026-09-30 14:09:46 IST)
+# Nothing is broken on the servers: the client asks for port 8444, where nothing listens on the edge.
+$ curl -sS -v --max-time 5 https://app.subspace-67.test:8444/api/status
+* Host app.subspace-67.test:8444 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.19.193
+*   Trying 10.7.19.193:8444...
+* connect to 10.7.19.193 port 8444 from 10.7.23.136 port 49761 failed: Connection refused
+* Failed to connect to app.subspace-67.test port 8444 after 1012 ms: Couldn't connect to server
+* Closing connection
+curl: (7) Failed to connect to app.subspace-67.test port 8444 after 1012 ms: Couldn't connect to server
+
+$ ping -c 3 10.7.19.193
+PING 10.7.19.193 (10.7.19.193): 56 data bytes
+64 bytes from 10.7.19.193: icmp_seq=0 ttl=64 time=11.502 ms
+64 bytes from 10.7.19.193: icmp_seq=1 ttl=64 time=21.228 ms
+64 bytes from 10.7.19.193: icmp_seq=2 ttl=64 time=116.556 ms
+
+--- 10.7.19.193 ping statistics ---
+3 packets transmitted, 3 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 11.502/49.762/116.556/47.397 ms
+
+$ nc -vz -G 3 10.7.19.193 443
+Connection to 10.7.19.193 port 443 [tcp/https] succeeded!
+
+$ nc -vz -G 3 10.7.19.193 8444
+nc: connectx to 10.7.19.193 port 8444 (tcp) failed: Connection refused
+
+HEALTHY (2026-09-30 14:09:55 IST): dig app.subspace-67.test -> 10.7.19.193; 6 x HTTPS 200, X-Backend: B A B A B A 

@@ -1,0 +1,15 @@
+# Task C - Backend B process and socket - captured on mac_vachan (10.7.23.136) 2026-09-30 14:13:58 IST
+# mac_aanya (edge) = 10.7.19.193, mac_abhay = 10.7.1.136, mac_vachan (DNS server + Backend B) = 10.7.23.136
+
+$ lsof -nP -iTCP:3002 -sTCP:LISTEN
+COMMAND   PID    USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Python  62173 vachanP    3u  IPv4 0x9f7909cbb7e01b18      0t0  TCP *:3002 (LISTEN)
+
+$ ps -o pid,ppid,etime,command -p $(pgrep -f 'supervisor.py --id B' | head -1),$(pgrep -f 'backend/backend.py' | head -1)
+  PID  PPID ELAPSED COMMAND
+50904     1   49:26 /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python /Users/vachanP/Desktop/work/CN/backend/supervisor.py --id B --port 3002 --control-url http://10.7.23.136:8099/control.json
+62173 50904   04:27 /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python /Users/vachanP/Desktop/work/CN/backend/backend.py
+
+$ cat run/supervisor_B.url
+http://10.7.23.136:8099/control.json
+

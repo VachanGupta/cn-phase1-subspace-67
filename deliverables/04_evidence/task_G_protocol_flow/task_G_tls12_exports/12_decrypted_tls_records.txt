@@ -1,0 +1,17 @@
+### 2026-09-30 13:59:41 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng' -n -o tls.keylog_file:/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12_sslkeylog.txt -Y 'tcp.stream == 0 && tls' -T fields -E header=y -E separator='|' -e frame.number -e ip.src -e ip.dst -e tls.record.opaque_type -e tls.record.content_type -e tls.handshake.type -e _ws.col.info | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py
+frame.number  ip.src       ip.dst       tls.record.opaque_type  tls.record.content_type  tls.handshake.type  _ws.col.info
+8             10.7.1.136   10.7.19.193  -                       22                       1                   Client Hello (SNI=app.subspace-67.test)
+11            10.7.19.193  10.7.1.136   -                       22                       2                   Server Hello
+12            10.7.19.193  10.7.1.136   -                       22,22,22                 11,12,14            Certificate, Server Key Exchange, Server Hello Done
+14            10.7.1.136   10.7.19.193  -                       22,20,22                 16,20               Client Key Exchange, Change Cipher Spec, Finished
+16            10.7.19.193  10.7.1.136   -                       20,22                    20                  Change Cipher Spec, Finished
+17            10.7.19.193  10.7.1.136   -                       23                       -                   SETTINGS[0], WINDOW_UPDATE[0]
+19            10.7.1.136   10.7.19.193  -                       23                       -                   Magic, SETTINGS[0], WINDOW_UPDATE[0], HEADERS[1]: GET /api/status
+20            10.7.1.136   10.7.19.193  -                       23                       -                   SETTINGS[0]
+23            10.7.19.193  10.7.1.136   -                       23                       -                   SETTINGS[0]
+26            10.7.19.193  10.7.1.136   -                       23                       -                   HEADERS[1]: 200 OK, DATA[1], JSON (application/json)
+28            10.7.1.136   10.7.19.193  -                       23                       -                   GOAWAY[0]
+29            10.7.1.136   10.7.19.193  -                       21                       -                   Alert (Level: Warning, Description: Close Notify)
+[exit code: 0]
+

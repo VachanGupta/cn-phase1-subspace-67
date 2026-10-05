@@ -1,0 +1,20 @@
+$ openssl verify -CAfile tls/ca.crt -purpose sslserver -verify_hostname app.subspace-67.test tls/server.crt
+tls/server.crt: OK
+
+$ security verify-cert -c tls/server.crt -r tls/ca.crt -p ssl -s app.subspace-67.test -L -n   # Apple's trust engine, CA as anchor
+...certificate verification successful.
+---
+No extended validation result found
+Certificate Transparency (CT) status: [31mnot verified[0m
+Unable to find at least 2 signed certificate timestamps (SCTs) from approved logs
+
+$ security verify-cert -c tls/server.crt -r tls/ca.crt -p ssl -s wrong.subspace-67.test -L -n   # negative test
+Cert Verify Result: Host name mismatch
+---
+No extended validation result found
+Certificate Transparency (CT) status: [31mnot verified[0m
+Unable to find at least 2 signed certificate timestamps (SCTs) from approved logs
+
+# nameConstraints negative test (throwaway leaf for evil.example.com signed by our CA, then deleted):
+#   openssl verify           -> error 47 at 0 depth lookup: permitted subtree violation
+#   security verify-cert     -> Cert Verify Result: CSSMERR_TP_INVALID_CERTIFICATE

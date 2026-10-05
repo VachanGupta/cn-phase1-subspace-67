@@ -1,0 +1,47 @@
+### 2026-09-30 13:54:20 IST mac_abhay - Task G capture: dig + curl --tls-max 1.2 (TLS 1.2, Certificate visible)
+# interface en0; mac_vachan (DNS) = 10.7.23.136; mac_aanya (edge) = 10.7.19.193:443
+
+$ sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+$ sudo tcpdump -i en0 -P -n -s 0 -U -w task_G_tls12.pcapng 'port 53 or host 10.7.19.193' &
+$ sudo tcpdump -i pktap,en0 -P -n -s 0 -U -w task_G_tls12_pktap_process.pcapng 'port 53 or host 10.7.19.193' &   (bonus: per-packet process name/PID)
+tcpdump: listening on en0, link-type EN10MB (Ethernet), snapshot length 524288 bytes
+
+$ dig app.subspace-67.test
+
+; <<>> DiG 9.10.6 <<>> app.subspace-67.test
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 40643
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	60	IN	A	10.7.19.193
+
+;; Query time: 44 msec
+;; SERVER: 10.7.23.136#53(10.7.23.136)
+;; WHEN: Wed Sep 30 13:54:23 IST 2026
+;; MSG SIZE  rcvd: 65
+
+
+$ /usr/bin/curl -v --tls-max 1.2 --cacert /Users/abhaymalik/Desktop/CN_subspace_67/certs/ca.crt https://app.subspace-67.test/api/status
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host app.subspace-67.test:443 was resolved.
+* IPv6: (none)
+* IPv4: 10.7.19.193
+*   Trying 10.7.19.193:443...
+* Immediate connect fail for 10.7.19.193: No route to host
+* Failed to connect to app.subspace-67.test port 443 after 17 ms: Couldn't connect to server
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* Closing connection
+curl: (7) Failed to connect to app.subspace-67.test port 443 after 17 ms: Couldn't connect to server
+[exit code: 7]
+42 packets captured
+1078 packets received by filter
+0 packets dropped by kernel
+$ (tcpdump stopped)

@@ -1,0 +1,9 @@
+### 2026-09-30 13:59:40 IST on mac_abhay (10.7.1.136)
+$ '/opt/homebrew/bin/tshark' -r '/Users/abhaymalik/Desktop/CN_subspace_67/share/evidence/mac_abhay/task_G/task_G_tls12.pcapng' -n -Y 'dns.qry.name == "app.subspace-67.test"' -T fields -E header=y -E separator='|' -e frame.number -e frame.time_relative -e ip.src -e udp.srcport -e ip.dst -e udp.dstport -e dns.id -e dns.flags.response -e dns.qry.name -e dns.qry.type -e dns.flags.rcode -e dns.a -e dns.resp.ttl | python3 /Users/abhaymalik/Desktop/CN_subspace_67/tools/fmt_table.py
+frame.number  frame.time_relative  ip.src       udp.srcport  ip.dst       udp.dstport  dns.id  dns.flags.response  dns.qry.name          dns.qry.type  dns.flags.rcode  dns.a        dns.resp.ttl
+1             0.000000000          10.7.1.136   54633        10.7.23.136  53           0x8773  False               app.subspace-67.test  1             -                -            -
+2             0.255532000          10.7.23.136  53           10.7.1.136   54633        0x8773  True                app.subspace-67.test  1             0                10.7.19.193  60
+3             1.399805000          10.7.1.136   52172        10.7.23.136  53           0x0d0e  False               app.subspace-67.test  1             -                -            -
+4             1.465124000          10.7.23.136  53           10.7.1.136   52172        0x0d0e  True                app.subspace-67.test  1             0                10.7.19.193  60
+[exit code: 0]
+
