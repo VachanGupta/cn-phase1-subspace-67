@@ -1,0 +1,178 @@
+Transcript started, output file is evidence/phase1.txt
+
+LAN clients, source client-a, peers 10.67.10.102 10.67.10.53 10.67.10.10
+
+LAN clients, source client-b, peers 10.67.10.101 10.67.10.53 10.67.10.10
+
+LAN clients, source dns-primary, peers 10.67.10.101 10.67.10.102 10.67.10.10
+
+LAN clients, source edge, peers 10.67.10.101 10.67.10.102 10.67.10.53
+
+LAN backends, source backend-a, peers 10.67.20.12 10.67.20.10
+
+LAN backends, source backend-b, peers 10.67.20.11 10.67.20.10
+
+LAN backends, source edge, peers 10.67.20.11 10.67.20.12
+
+
+
+
+10.67.10.10
+10.67.10.10
+
+
+10.67.10.10
+10.67.10.10
+
+
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:07 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:07.079+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:07 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:44:07.526+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:07 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:07.941+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:08 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:44:08.352+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:08 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:08.771+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:09 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:44:09.189+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:09 GMT
+content-type: application/json; charset=utf-8
+content-length: 225
+x-backend: B
+cache-control: public, max-age=60
+etag: "6adb0ec0cb57508d"
+last-modified: Tue, 29 Sep 2026 00:00:00 GMT
+x-edge: 10.67.10.10
+
+Conditional cache validation returned HTTP 304.
+
+
+
+
+
+
+F1 - Wrong client DNS address with the edge still reachable.
+
+F2 - DNS responds with the wrong IP.
+
+10.67.10.99
+
+
+F3 - Backend A stopped.
+
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:25 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:25.464+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:26 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:26.870+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:27 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:27.292+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:27 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:27.718+00:00"}
+F4 - Both backends stopped.
+
+HTTP/2 502
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:29 GMT
+content-type: text/html
+content-length: 157
+x-edge: 10.67.10.10
+
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.30.8</center>
+</body>
+</html>
+
+F5 - Wrong destination TCP port with the edge still reachable.
+
+
+**********************
+Windows PowerShell transcript end
+End time: 20261124181431
+**********************

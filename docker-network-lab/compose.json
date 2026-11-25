@@ -1,0 +1,207 @@
+{
+  "name": "subspace67",
+  "services": {
+    "backend-a": {
+      "image": "python:3.13-slim",
+      "command": [
+        "python",
+        "-u",
+        "/app/backend.py"
+      ],
+      "environment": {
+        "BACKEND_ID": "A",
+        "PORT": "3001"
+      },
+      "volumes": [
+        "./backend.py:/app/backend.py:ro"
+      ],
+      "networks": {
+        "backends": {
+          "ipv4_address": "10.67.20.11"
+        }
+      },
+      "restart": "unless-stopped"
+    },
+    "backend-b": {
+      "image": "python:3.13-slim",
+      "command": [
+        "python",
+        "-u",
+        "/app/backend.py"
+      ],
+      "environment": {
+        "BACKEND_ID": "B",
+        "PORT": "3002"
+      },
+      "volumes": [
+        "./backend.py:/app/backend.py:ro"
+      ],
+      "networks": {
+        "backends": {
+          "ipv4_address": "10.67.20.12"
+        }
+      },
+      "restart": "unless-stopped"
+    },
+    "dns-primary": {
+      "image": "subspace67-tools:local",
+      "build": {
+        "context": ".",
+        "dockerfile": "Dockerfile.tools"
+      },
+      "command": [
+        "dnsmasq",
+        "--keep-in-foreground",
+        "--log-facility=-",
+        "--user=root",
+        "--no-resolv",
+        "--local=/subspace-67.test/",
+        "--local-ttl=30",
+        "--log-queries",
+        "--addn-hosts=/zone/hosts"
+      ],
+      "volumes": [
+        "./runtime/dns-primary:/zone:ro"
+      ],
+      "networks": {
+        "clients": {
+          "ipv4_address": "10.67.10.53"
+        }
+      },
+      "restart": "unless-stopped"
+    },
+    "dns-backup": {
+      "image": "subspace67-tools:local",
+      "build": {
+        "context": ".",
+        "dockerfile": "Dockerfile.tools"
+      },
+      "command": [
+        "dnsmasq",
+        "--keep-in-foreground",
+        "--log-facility=-",
+        "--user=root",
+        "--no-resolv",
+        "--local=/subspace-67.test/",
+        "--local-ttl=30",
+        "--log-queries",
+        "--addn-hosts=/zone/hosts"
+      ],
+      "volumes": [
+        "./runtime/dns-backup:/zone:ro"
+      ],
+      "networks": {
+        "clients": {
+          "ipv4_address": "10.67.10.54"
+        }
+      },
+      "restart": "unless-stopped",
+      "profiles": [
+        "phase2"
+      ]
+    },
+    "edge": {
+      "image": "nginx:stable-alpine",
+      "volumes": [
+        "./nginx.conf:/etc/nginx/conf.d/default.conf:ro",
+        "./runtime/tls/server.crt:/tls/server.crt:ro",
+        "./runtime/tls/server.key:/tls/server.key:ro"
+      ],
+      "networks": {
+        "clients": {
+          "ipv4_address": "10.67.10.10"
+        },
+        "backends": {
+          "ipv4_address": "10.67.20.10"
+        }
+      },
+      "restart": "unless-stopped"
+    },
+    "standby": {
+      "image": "nginx:stable-alpine",
+      "volumes": [
+        "./nginx.conf:/etc/nginx/conf.d/default.conf:ro",
+        "./runtime/tls/server.crt:/tls/server.crt:ro",
+        "./runtime/tls/server.key:/tls/server.key:ro"
+      ],
+      "networks": {
+        "clients": {
+          "ipv4_address": "10.67.10.20"
+        },
+        "backends": {
+          "ipv4_address": "10.67.20.20"
+        }
+      },
+      "restart": "unless-stopped",
+      "profiles": [
+        "phase2"
+      ]
+    },
+    "client-a": {
+      "image": "subspace67-tools:local",
+      "build": {
+        "context": ".",
+        "dockerfile": "Dockerfile.tools"
+      },
+      "command": [
+        "sh",
+        "-ec",
+        "update-ca-certificates; printf 'nameserver 127.0.0.1\\noptions timeout:2 attempts:2\\n' > /etc/resolv.conf; exec dnsmasq --keep-in-foreground --user=root --log-facility=- --no-resolv --no-hosts --listen-address=127.0.0.1 --bind-interfaces --strict-order --server=10.67.10.53 --server=10.67.10.54"
+      ],
+      "volumes": [
+        "./runtime/ca/ca.crt:/usr/local/share/ca-certificates/subspace67.crt:ro",
+        "./evidence:/evidence"
+      ],
+      "networks": {
+        "clients": {
+          "ipv4_address": "10.67.10.101"
+        }
+      },
+      "restart": "unless-stopped"
+    },
+    "client-b": {
+      "image": "subspace67-tools:local",
+      "build": {
+        "context": ".",
+        "dockerfile": "Dockerfile.tools"
+      },
+      "command": [
+        "sh",
+        "-ec",
+        "update-ca-certificates; printf 'nameserver 127.0.0.1\\noptions timeout:2 attempts:2\\n' > /etc/resolv.conf; exec dnsmasq --keep-in-foreground --user=root --log-facility=- --no-resolv --no-hosts --listen-address=127.0.0.1 --bind-interfaces --strict-order --server=10.67.10.53 --server=10.67.10.54"
+      ],
+      "volumes": [
+        "./runtime/ca/ca.crt:/usr/local/share/ca-certificates/subspace67.crt:ro",
+        "./evidence:/evidence"
+      ],
+      "networks": {
+        "clients": {
+          "ipv4_address": "10.67.10.102"
+        }
+      },
+      "restart": "unless-stopped"
+    }
+  },
+  "networks": {
+    "clients": {
+      "internal": true,
+      "ipam": {
+        "config": [
+          {
+            "subnet": "10.67.10.0/24"
+          }
+        ]
+      }
+    },
+    "backends": {
+      "internal": true,
+      "ipam": {
+        "config": [
+          {
+            "subnet": "10.67.20.0/24"
+          }
+        ]
+      }
+    }
+  }
+}

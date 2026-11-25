@@ -1,0 +1,2 @@
+FROM ubuntu:24.04
+RUN apt-get update && apt-get install -y --no-install-recommends dnsmasq-base dnsutils curl ca-certificates tcpdump iproute2 iputils-ping openssl && rm -rf /var/lib/apt/lists/*

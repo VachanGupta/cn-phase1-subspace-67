@@ -1,0 +1,1 @@
+The phase transcripts and packet capture are from the 18:13 IST live demo on 24 November 2026. verification.txt contains the full console output from the earlier successful run that afternoon. The live demo added peer reachability checks on both Docker networks.

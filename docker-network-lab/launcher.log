@@ -1,0 +1,714 @@
+linux
+ Image subspace67-tools:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 706B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.tools
+#2 transferring dockerfile: 240B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 60B done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/ubuntu:24.04@sha256:562111b88caa79c71391c0c4d3c2114a7d5c35915c20561fd893cb1e07929e6b
+#5 resolve docker.io/library/ubuntu:24.04@sha256:562111b88caa79c71391c0c4d3c2114a7d5c35915c20561fd893cb1e07929e6b 0.0s done
+#5 DONE 0.0s
+
+#6 [2/2] RUN apt-get update && apt-get install -y --no-install-recommends dnsmasq-base dnsutils curl ca-certificates tcpdump iproute2 iputils-ping openssl && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:7b62eba44f084fd8da9b52fb8cbf9b7dc414a91612bac2bd1d32e77f496e0bcc done
+#7 exporting config sha256:154cffd34ce0b7cead561c5c3e0e339bac6e6d871cac24ab369fa353c14bb388 done
+#7 exporting attestation manifest sha256:0cd26e2e3568d92a920ca4f82c333fd10b6ec42ea3b0e7891aa911e4077226bb 0.0s done
+#7 exporting manifest list sha256:0b111b4ca29f605178d852bf93f898adba7f57e56da5071fb1b334c3f67c321c
+#7 exporting manifest list sha256:0b111b4ca29f605178d852bf93f898adba7f57e56da5071fb1b334c3f67c321c 0.0s done
+#7 naming to docker.io/library/subspace67-tools:local done
+#7 unpacking to docker.io/library/subspace67-tools:local done
+#7 DONE 0.1s
+
+#8 resolving provenance for metadata file
+#8 DONE 0.0s
+ Image subspace67-tools:local Built 
+ Container subspace67-client-b-1 Running 
+ Container subspace67-backend-a-1 Running 
+ Container subspace67-backend-b-1 Running 
+ Container subspace67-dns-primary-1 Running 
+ Container subspace67-edge-1 Running 
+ Container subspace67-client-a-1 Running 
+NAME                       IMAGE                                                                     COMMAND                  SERVICE       CREATED         STATUS         PORTS
+subspace67-backend-a-1     python:3.13-slim                                                          "python -u /app/back…"   backend-a     3 minutes ago   Up 3 minutes   
+subspace67-backend-b-1     python:3.13-slim                                                          "python -u /app/back…"   backend-b     3 minutes ago   Up 3 minutes   
+subspace67-client-a-1      sha256:6d831334467e35bd71cdd10e02102ee377ba306c403a1f8728b60080caa2c3a6   "sh -ec 'update-ca-c…"   client-a      3 minutes ago   Up 3 minutes   
+subspace67-client-b-1      sha256:6d831334467e35bd71cdd10e02102ee377ba306c403a1f8728b60080caa2c3a6   "sh -ec 'update-ca-c…"   client-b      3 minutes ago   Up 3 minutes   
+subspace67-dns-primary-1   sha256:6d831334467e35bd71cdd10e02102ee377ba306c403a1f8728b60080caa2c3a6   "dnsmasq --keep-in-f…"   dns-primary   3 minutes ago   Up 3 minutes   
+subspace67-edge-1          nginx:stable-alpine                                                       "/docker-entrypoint.…"   edge          3 minutes ago   Up 3 minutes   80/tcp
+Transcript started, output file is evidence/phase1.txt
+NAME                       IMAGE                                                                     COMMAND                  SERVICE       CREATED         STATUS         PORTS
+subspace67-backend-a-1     python:3.13-slim                                                          "python -u /app/back…"   backend-a     3 minutes ago   Up 3 minutes   
+subspace67-backend-b-1     python:3.13-slim                                                          "python -u /app/back…"   backend-b     3 minutes ago   Up 3 minutes   
+subspace67-client-a-1      sha256:6d831334467e35bd71cdd10e02102ee377ba306c403a1f8728b60080caa2c3a6   "sh -ec 'update-ca-c…"   client-a      3 minutes ago   Up 3 minutes   
+subspace67-client-b-1      sha256:6d831334467e35bd71cdd10e02102ee377ba306c403a1f8728b60080caa2c3a6   "sh -ec 'update-ca-c…"   client-b      3 minutes ago   Up 3 minutes   
+subspace67-dns-primary-1   sha256:6d831334467e35bd71cdd10e02102ee377ba306c403a1f8728b60080caa2c3a6   "dnsmasq --keep-in-f…"   dns-primary   3 minutes ago   Up 3 minutes   
+subspace67-edge-1          nginx:stable-alpine                                                       "/docker-entrypoint.…"   edge          3 minutes ago   Up 3 minutes   80/tcp
+[
+    {
+        "Name": "subspace67_clients",
+        "Id": "bf81f890a7badc16e891f78e026551d6f294b40f35496dec1c6b09664664267e",
+        "Created": "2026-11-24T12:18:48.099255192Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "10.67.10.0/24",
+                    "Gateway": "10.67.10.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "ec7ae94571ef2e97fd4c319f281c8a8c26e42000a09df90e46d7d1cc939c436b",
+            "com.docker.compose.network": "clients",
+            "com.docker.compose.project": "subspace67",
+            "com.docker.compose.version": "5.7.1"
+        },
+        "Containers": {
+            "22fa7d3dcfbaf612f9d6709e7f5be2a861b5b2c00ae182d695fd9ddf35b403c3": {
+                "Name": "subspace67-client-b-1",
+                "EndpointID": "ed860fda4821779986b49f907047ce7b0b7943471796f179eb53074a35a1ebef",
+                "MacAddress": "aa:4d:d8:04:fa:d2",
+                "IPv4Address": "10.67.10.102/24",
+                "IPv6Address": ""
+            },
+            "66cf03caf4afa94c1e797850ebe8cea7606cd05cffa0d9379bbb57d6ffbb30e5": {
+                "Name": "subspace67-edge-1",
+                "EndpointID": "0efde6e2b345b214be1d17288c3f38b7f1817ee6095ae5690b075c830d5cf9e9",
+                "MacAddress": "4a:e2:0d:1c:7d:d2",
+                "IPv4Address": "10.67.10.10/24",
+                "IPv6Address": ""
+            },
+            "78e704fae3f8aa90b355378002abdf3ea6c56c9dc5045241c1cf3d5c7c4ffa0d": {
+                "Name": "subspace67-client-a-1",
+                "EndpointID": "c57b7c09d8b3eb465845f06f82c8323b67360b1e196cadd8275db0a3b603da87",
+                "MacAddress": "4a:6b:b7:b3:c7:8d",
+                "IPv4Address": "10.67.10.101/24",
+                "IPv6Address": ""
+            },
+            "8a41633caf7115cf836927b44d7249975df4c3b70fb80e6b4db883bdd87c24fa": {
+                "Name": "subspace67-dns-primary-1",
+                "EndpointID": "f9ce5c5dd0dc1b799aa1f39a4bf53bce4a8f2d87c7369e7e6e4e87b477867194",
+                "MacAddress": "d2:40:9e:0a:c1:1c",
+                "IPv4Address": "10.67.10.53/24",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "10.67.10.0/24": {
+                        "IPsInUse": 7,
+                        "DynamicIPsAvailable": 249
+                    }
+                }
+            }
+        }
+    },
+    {
+        "Name": "subspace67_backends",
+        "Id": "99fc7f4b68b4bcc03930e6a19bbb47ef50e0f8f2bcb19b7229db4dca942ec8c8",
+        "Created": "2026-11-24T12:18:48.099587416Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "10.67.20.0/24",
+                    "Gateway": "10.67.20.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "cdc5b6e3d9ae31c682227bb16a3c2e8a4dd1824881b019f67c9dac9ed6cff110",
+            "com.docker.compose.network": "backends",
+            "com.docker.compose.project": "subspace67",
+            "com.docker.compose.version": "5.7.1"
+        },
+        "Containers": {
+            "1cdf7355ed8bbbd09e6b9e005570a911dd93b9db730e83553a16080b86ace84d": {
+                "Name": "subspace67-backend-a-1",
+                "EndpointID": "ba66c79564e0833b0b44add3ca033e49eff5e165018847fb8720b1c8d7f7304a",
+                "MacAddress": "02:b7:52:89:50:bf",
+                "IPv4Address": "10.67.20.11/24",
+                "IPv6Address": ""
+            },
+            "66cf03caf4afa94c1e797850ebe8cea7606cd05cffa0d9379bbb57d6ffbb30e5": {
+                "Name": "subspace67-edge-1",
+                "EndpointID": "ca86ca40d3650dbae182969f26cd890e6643f54650a02b2529da7927b99e53f9",
+                "MacAddress": "4e:99:bd:c8:cf:b2",
+                "IPv4Address": "10.67.20.10/24",
+                "IPv6Address": ""
+            },
+            "99829c59bbac8bc7dec259de18097e9ecd2bb8b0279b63e018112bb332192db6": {
+                "Name": "subspace67-backend-b-1",
+                "EndpointID": "8b2d212e7f1148fea77bfaae8263d40b6ebffca0cc87f61412cc16f8b0e2aee6",
+                "MacAddress": "4a:5a:32:cd:66:99",
+                "IPv4Address": "10.67.20.12/24",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "10.67.20.0/24": {
+                        "IPsInUse": 6,
+                        "DynamicIPsAvailable": 250
+                    }
+                }
+            }
+        }
+    }
+]
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if12        UP             10.67.10.101/24 
+PING 10.67.10.10 (10.67.10.10) 56(84) bytes of data.
+64 bytes from 10.67.10.10: icmp_seq=1 ttl=64 time=0.127 ms
+
+--- 10.67.10.10 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.127/0.127/0.127/0.000 ms
+10.67.10.10
+10.67.10.10
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0@if15        UP             10.67.10.102/24 
+PING 10.67.10.10 (10.67.10.10) 56(84) bytes of data.
+64 bytes from 10.67.10.10: icmp_seq=1 ttl=64 time=0.115 ms
+
+--- 10.67.10.10 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.115/0.115/0.115/0.000 ms
+10.67.10.10
+10.67.10.10
+{'Server': 'subspace67-backend/1.0', 'Date': 'Tue, 24 Nov 2026 12:22:23 GMT', 'X-Backend': 'A', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '112', 'Cache-Control': 'no-store'}
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:22:23.361+00:00"}
+
+{'Server': 'subspace67-backend/1.0', 'Date': 'Tue, 24 Nov 2026 12:22:23 GMT', 'X-Backend': 'B', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '112', 'Cache-Control': 'no-store'}
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:23.949+00:00"}
+
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:24 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:24.417+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:24 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:22:24.856+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:25 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:25.283+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:25 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:22:25.701+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:26 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:26.118+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:26 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:22:26.523+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:26 GMT
+content-type: application/json; charset=utf-8
+content-length: 225
+x-backend: B
+cache-control: public, max-age=60
+etag: "6adb0ec0cb57508d"
+last-modified: Tue, 29 Sep 2026 00:00:00 GMT
+x-edge: 10.67.10.10
+
+Conditional cache validation returned HTTP 304.
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.9-Ubuntu <<>> +time=2 +tries=1 @10.67.10.53 app.subspace-67.test
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 15976
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;app.subspace-67.test.		IN	A
+
+;; ANSWER SECTION:
+app.subspace-67.test.	30	IN	A	10.67.10.10
+
+;; Query time: 0 msec
+;; SERVER: 10.67.10.53#53(10.67.10.53) (UDP)
+;; WHEN: Tue Nov 24 12:22:30 UTC 2026
+;; MSG SIZE  rcvd: 65
+
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:30 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:30.824+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:31 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:22:31.264+00:00"}
+reading from file /evidence/phase1.pcap, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
+Warning: interface names might be incorrect
+12:22:30.346278 eth0  Out IP 10.67.10.101.33884 > 10.67.10.53.53: 15976+ [1au] A? app.subspace-67.test. (61)
+12:22:30.346506 eth0  In  IP 10.67.10.53.53 > 10.67.10.101.33884: 15976* 1/0/1 A 10.67.10.10 (65)
+12:22:30.787389 lo    In  IP 127.0.0.1.58916 > 127.0.0.1.53: 30742+ A? app.subspace-67.test. (38)
+12:22:30.787450 lo    In  IP 127.0.0.1.58916 > 127.0.0.1.53: 60949+ AAAA? app.subspace-67.test. (38)
+12:22:30.787522 lo    In  IP 127.0.0.1.53 > 127.0.0.1.58916: 30742 1/0/0 A 10.67.10.10 (54)
+12:22:30.787617 eth0  Out IP 10.67.10.101.58903 > 10.67.10.53.53: 10871+ [1au] AAAA? app.subspace-67.test. (49)
+12:22:30.787908 eth0  In  IP 10.67.10.53.53 > 10.67.10.101.58903: 10871 0/0/1 (49)
+12:22:30.788021 lo    In  IP 127.0.0.1.53 > 127.0.0.1.58916: 60949 0/0/0 (38)
+F1 - Wrong client DNS address with the edge still reachable.
+;; communications error to 10.67.10.253#53: timed out
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.9-Ubuntu <<>> +time=2 +tries=1 app.subspace-67.test
+;; global options: +cmd
+;; no servers could be reached
+PING 10.67.10.10 (10.67.10.10) 56(84) bytes of data.
+64 bytes from 10.67.10.10: icmp_seq=1 ttl=64 time=0.093 ms
+
+--- 10.67.10.10 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.093/0.093/0.093/0.000 ms
+F2 - DNS responds with the wrong IP.
+ Container subspace67-client-a-1 Killing 
+ Container subspace67-dns-primary-1 Killing 
+ Container subspace67-client-a-1 Killed 
+ Container subspace67-dns-primary-1 Killed 
+10.67.10.99
+curl: (28) Failed to connect to app.subspace-67.test port 443 after 2002 ms: Timeout was reached
+ Container subspace67-client-a-1 Killing 
+ Container subspace67-dns-primary-1 Killing 
+ Container subspace67-dns-primary-1 Killed 
+ Container subspace67-client-a-1 Killed 
+F3 - Backend A stopped.
+ Container subspace67-backend-a-1 Stopping 
+ Container subspace67-backend-a-1 Stopped 
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:39 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:39.374+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:40 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:40.827+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:41 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:41.223+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:41 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:41.620+00:00"}
+F4 - Both backends stopped.
+ Container subspace67-backend-b-1 Stopping 
+ Container subspace67-backend-b-1 Stopped 
+HTTP/2 502 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:43 GMT
+content-type: text/html
+content-length: 157
+x-edge: 10.67.10.10
+
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.30.8</center>
+</body>
+</html>
+ Container subspace67-backend-b-1 Starting 
+ Container subspace67-backend-a-1 Starting 
+ Container subspace67-backend-b-1 Started 
+ Container subspace67-backend-a-1 Started 
+F5 - Wrong destination TCP port with the edge still reachable.
+PING 10.67.10.10 (10.67.10.10) 56(84) bytes of data.
+64 bytes from 10.67.10.10: icmp_seq=1 ttl=64 time=0.150 ms
+
+--- 10.67.10.10 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.150/0.150/0.150/0.000 ms
+curl: (7) Failed to connect to app.subspace-67.test port 9443 after 2 ms: Couldn't connect to server
+Transcript stopped, output file is C:\Users\Aanya\Documents\Codex\2026-11-24\https-github-com-vachangupta-cn-phase1\outputs\docker-network-lab\evidence\phase1.txt
+Transcript started, output file is evidence/phase2.txt
+ Container subspace67-dns-primary-1 Running 
+ Container subspace67-edge-1 Running 
+ Container subspace67-client-a-1 Running 
+ Container subspace67-client-b-1 Running 
+ Container subspace67-backend-a-1 Running 
+ Container subspace67-backend-b-1 Running 
+ Container subspace67-standby-1 Creating 
+ Container subspace67-dns-backup-1 Creating 
+ Container subspace67-dns-backup-1 Created 
+ Container subspace67-standby-1 Created 
+ Container subspace67-standby-1 Starting 
+ Container subspace67-dns-backup-1 Starting 
+ Container subspace67-standby-1 Started 
+ Container subspace67-dns-backup-1 Started 
+ Container subspace67-dns-primary-1 Killing 
+ Container subspace67-dns-backup-1 Killing 
+ Container subspace67-dns-primary-1 Killed 
+ Container subspace67-dns-backup-1 Killed 
+A - Primary DNS stopped, clients query through backup.
+ Container subspace67-dns-primary-1 Stopping 
+ Container subspace67-dns-primary-1 Stopped 
+ Container subspace67-client-a-1 Killing 
+ Container subspace67-client-b-1 Killing 
+ Container subspace67-client-a-1 Killed 
+ Container subspace67-client-b-1 Killed 
+;; communications error to 127.0.0.1#53: timed out
+10.67.10.10
+;; communications error to 127.0.0.1#53: timed out
+10.67.10.10
+dns-backup-1  | dnsmasq[1]: started, version 2.91 cachesize 150
+dns-backup-1  | dnsmasq[1]: compile time options: IPv6 GNU-getopt DBus no-UBus i18n IDN2 DHCP DHCPv6 no-Lua TFTP conntrack ipset nftset auth DNSSEC loop-detect inotify dumpfile
+dns-backup-1  | dnsmasq[1]: warning: no upstream servers configured
+dns-backup-1  | dnsmasq[1]: using only locally-known addresses for subspace-67.test
+dns-backup-1  | dnsmasq[1]: read /etc/hosts - 9 names
+dns-backup-1  | dnsmasq[1]: read /zone/hosts - 2 names
+dns-backup-1  | dnsmasq[1]: read /etc/hosts - 9 names
+dns-backup-1  | dnsmasq[1]: read /zone/hosts - 2 names
+dns-backup-1  | dnsmasq[1]: query[A] app.subspace-67.test from 10.67.10.101
+dns-backup-1  | dnsmasq[1]: /zone/hosts app.subspace-67.test is 10.67.10.10
+dns-backup-1  | dnsmasq[1]: query[A] app.subspace-67.test from 10.67.10.102
+dns-backup-1  | dnsmasq[1]: /zone/hosts app.subspace-67.test is 10.67.10.10
+ Container subspace67-dns-primary-1 Starting 
+ Container subspace67-dns-primary-1 Started 
+C - Direct client access fails while the edge can reach both backends.
+10.67.10.0/24 dev eth0 proto kernel scope link src 10.67.10.101 
+curl: (7) Failed to connect to 10.67.20.11 port 3001 after 0 ms: Couldn't connect to server
+curl: (7) Failed to connect to 10.67.20.12 port 3002 after 0 ms: Couldn't connect to server
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:22:56.654+00:00"}
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:57.029+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:57 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:57.467+00:00"}
+D - Service continues on B and resumes balancing after A returns.
+ Container subspace67-backend-a-1 Stopping 
+ Container subspace67-backend-a-1 Stopped 
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:58 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:58.505+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:22:59 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:22:59.923+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:00 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:00.349+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:00 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:00.783+00:00"}
+ Container subspace67-backend-a-1 Starting 
+ Container subspace67-backend-a-1 Started 
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:07 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:07.879+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:08 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:08.304+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:08 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:23:08.728+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:09 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:09.138+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:09 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:23:09.611+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:10 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:10.063+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:10 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:23:10.483+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:10 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:10.900+00:00"}
+B/E - Cached and fresh lookups reach different edges during a 30-second cutover.
+ Container subspace67-client-a-1 Killing 
+ Container subspace67-client-b-1 Killing 
+ Container subspace67-client-b-1 Killed 
+ Container subspace67-client-a-1 Killed 
+app.subspace-67.test.	30	IN	A	10.67.10.10
+ Container subspace67-dns-primary-1 Killing 
+ Container subspace67-dns-backup-1 Killing 
+ Container subspace67-dns-backup-1 Killed 
+ Container subspace67-dns-primary-1 Killed 
+app.subspace-67.test.	29	IN	A	10.67.10.10
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:12 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:23:12.810+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:13 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.20
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:23:13.249+00:00"}
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:44 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.20
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:44.677+00:00"}
+B - Flush client cache to observe a record change immediately.
+ Container subspace67-dns-backup-1 Killing 
+ Container subspace67-dns-primary-1 Killing 
+ Container subspace67-dns-primary-1 Killed 
+ Container subspace67-dns-backup-1 Killed 
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:45 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.20
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:23:45.429+00:00"}
+ Container subspace67-client-a-1 Killing 
+ Container subspace67-client-a-1 Killed 
+HTTP/2 200 
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:23:46 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:23:46.130+00:00"}
+ Container subspace67-dns-primary-1 Killing 
+ Container subspace67-dns-backup-1 Killing 
+ Container subspace67-dns-primary-1 Killed 
+ Container subspace67-dns-backup-1 Killed 
+ Container subspace67-client-a-1 Killing 
+ Container subspace67-client-b-1 Killing 
+ Container subspace67-client-b-1 Killed 
+ Container subspace67-client-a-1 Killed 
+Transcript stopped, output file is C:\Users\Aanya\Documents\Codex\2026-11-24\https-github-com-vachangupta-cn-phase1\outputs\docker-network-lab\evidence\phase2.txt
+Automated checks finished. Evidence: C:\Users\Aanya\Documents\Codex\2026-11-24\https-github-com-vachangupta-cn-phase1\outputs\docker-network-lab\evidence

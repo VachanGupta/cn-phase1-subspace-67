@@ -1,0 +1,229 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261124181431
+Username: DooMxMystic\Aanya
+RunAs User: DooMxMystic\Aanya
+Configuration Name: 
+Machine: DOOMXMYSTIC (Microsoft Windows NT 10.0.26200.0)
+Host Application: powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File C:\Users\Aanya\Documents\Codex\2026-11-24\https-github-com-vachangupta-cn-phase1\outputs\docker-network-lab\Run-Lab.ps1
+Process ID: 21888
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is evidence/phase2.txt
+
+A - Primary DNS stopped, clients query through backup.
+
+
+;; communications error to 127.0.0.1#53: timed out
+10.67.10.10
+;; communications error to 127.0.0.1#53: timed out
+10.67.10.10
+
+
+C - Direct client access fails while the edge can reach both backends.
+
+
+
+
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:44 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:44.341+00:00"}
+D - Service continues on B and resumes balancing after A returns.
+
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:45 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:45.471+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:46 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:46.885+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:47 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:47.288+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:47 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:47.698+00:00"}
+
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:54 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:54.830+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:55 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:55.236+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:55 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:44:55.642+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:56 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:56.049+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:56 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:44:56.454+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:56 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:56.868+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:57 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:44:57.277+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:57 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:44:57.688+00:00"}
+B/E - Cached and fresh lookups reach different edges during a 30-second cutover.
+
+
+
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:44:59 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:44:59.939+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:45:00 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.20
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:45:00.411+00:00"}
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:45:31 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: A
+cache-control: no-store
+x-edge: 10.67.10.20
+
+{"backend": "A", "status": "ok", "port": 3001, "host": "1cdf7355ed8b", "time": "2026-11-24T12:45:31.835+00:00"}
+B - Flush client cache to observe a record change immediately.
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:45:32 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.20
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:45:32.603+00:00"}
+
+HTTP/2 200
+server: nginx/1.30.8
+date: Tue, 24 Nov 2026 12:45:33 GMT
+content-type: application/json; charset=utf-8
+content-length: 112
+x-backend: B
+cache-control: no-store
+x-edge: 10.67.10.10
+
+{"backend": "B", "status": "ok", "port": 3002, "host": "99829c59bbac", "time": "2026-11-24T12:45:33.448+00:00"}
+
+
+**********************
+Windows PowerShell transcript end
+End time: 20261124181534
+**********************
